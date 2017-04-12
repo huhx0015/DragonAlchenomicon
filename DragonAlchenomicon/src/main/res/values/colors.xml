@@ -1,0 +1,10 @@
+<resources>
+
+    <!--APPLICATION COLORS-->
+    <color name="colorPrimary">#e10a05</color>
+    <color name="colorPrimaryDark">#420408</color>
+    <color name="colorAccent">#f58d26</color>
+
+    <color name="black_overlay">#66000000</color>
+
+</resources>
