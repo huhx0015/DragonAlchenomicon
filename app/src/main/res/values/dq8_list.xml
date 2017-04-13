@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="dq8_recipes">
+        <item>Agility Ring</item>
+        <item>Amor Seco Essence</item>
+        <item>Angel Cheese</item>
+        <item>Angel Robe</item>
+        <item>Assassin\'s Dagger</item>
+        <item>Bandit Axe</item>
+        <item>Bandit Mail</item>
+        <item>Blizzard Blade</item>
+        <item>Boxer Shorts</item>
+        <item>Bronze Armor</item>
+        <item>Bronze Helmet</item>
+        <item>Bronze Shield</item>
+        <item>Bunny Ears</item>
+        <item>Bunny Suit</item>
+        <item>C-C-Cold Cheese</item>
+        <item>Catholicon Ring</item>
+        <item>Cheiron\'s Bow</item>
+        <item>Chilly Cheese</item>
+        <item>Chimera Wing</item>
+        <item>Chunky Cheese</item>
+        <item>Cold Cheese</item>
+        <item>Cool Cheese</item>
+        <item>Copper Sword</item>
+        <item>Crimson Robe</item>
+        <item>Cured Cheese</item>
+        <item>Dancer\'s Mail</item>
+        <item>Dark Robe</item>
+        <item>Demon Spear</item>
+        <item>Demon Whip</item>
+        <item>Divine Bustier</item>
+        <item>Double-Edge Sword</item>
+        <item>Dragon Mail</item>
+        <item>Dragon Shield</item>
+        <item>Dragon Slayer</item>
+        <item>Dragon Tail Whip</item>
+        <item>Dragovian King Sword</item>
+        <item>Elevating Shoes</item>
+        <item>Elfin Elixer</item>
+        <item>Eros\' Bow</item>
+        <item>Falcon Knife</item>
+        <item>Fallen Angel Rapier</item>
+        <item>Feathered Cap</item>
+        <item>Flame Shield</item>
+        <item>Full Moon Ring</item>
+        <item>Fur Hood</item>
+        <item>Fur Poncho</item>
+        <item>Gigant Armor</item>
+        <item>Goddess Ring</item>
+        <item>Goddess Shield</item>
+        <item>Golden Axe</item>
+        <item>Golden Tiara</item>
+        <item>Greater Panacea</item>
+        <item>Greater Panacea</item>
+        <item>Hade\'s Helm</item>
+        <item>Happy Hat</item>
+        <item>Hard Cheese</item>
+        <item>Hell Scythe</item>
+        <item>Hermes\' Hat</item>
+        <item>Highly-Strung Cheese</item>
+        <item>Holy Lance</item>
+        <item>Holy Silver Rapier</item>
+        <item>Holy Talisman</item>
+        <item>Holy Water</item>
+        <item>Hunter\'s Bow</item>
+        <item>Hunter\'s Bow</item>
+        <item>Ice Shield</item>
+        <item>Imp Knife</item>
+        <item>Iron Aze</item>
+        <item>Iron Cuirass</item>
+        <item>Iron Lance</item>
+        <item>Leather Armor</item>
+        <item>Leather Dress</item>
+        <item>Leather Kilt</item>
+        <item>Leather Kilt</item>
+        <item>Leather Shield</item>
+        <item>Leather Whip</item>
+        <item>Lesser Panacea</item>
+        <item>Life Bracer</item>
+        <item>Liquid Metal Sword</item>
+        <item>Long Spear</item>
+        <item>Magic Armor</item>
+        <item>Magic Shield</item>
+        <item>Magic Water</item>
+        <item>Magical Skirt</item>
+        <item>Magma Staff</item>
+        <item>Megaton Hammer</item>
+        <item>Mercury\'s Bandana</item>
+        <item>Mercury\'s Raiper</item>
+        <item>Metal King Armor</item>
+        <item>Metal King Shield</item>
+        <item>Metal Wing Boomerang</item>
+        <item>Meteorite Bracer</item>
+        <item>Mighty Armlet</item>
+        <item>Mild Cheese</item>
+        <item>Mirror Armor</item>
+        <item>Mithril Helm</item>
+        <item>Moon Axe</item>
+        <item>Moon\'s Mercy</item>
+        <item>Mystifying Mixture</item>
+        <item>Mystifying Mixture</item>
+        <item>Odin\'s Bow</item>
+        <item>Phantom Mask</item>
+        <item>Plain Cheese</item>
+        <item>Platinum Mail</item>
+        <item>Pointy Hat</item>
+        <item>Power Shield</item>
+        <item>Prayer Ring</item>
+        <item>Premium Mold</item>
+        <item>Princess Robe</item>
+        <item>Raging Bull Helmet</item>
+        <item>Razor Wing Boomerang</item>
+        <item>Recovery Ring</item>
+        <item>Reinforced Boomerang</item>
+        <item>Ring of Awakening</item>
+        <item>Ring of Clarity</item>
+        <item>Ring of Immunity</item>
+        <item>Robe of Serenity</item>
+        <item>Rose Root</item>
+        <item>Rose Root</item>
+        <item>Rose-Wort</item>
+        <item>Rose-Wort</item>
+        <item>Ruby of Protection</item>
+        <item>Ruinous Shield</item>
+        <item>Rusty Old Sword</item>
+        <item>Sage\'s Robe</item>
+        <item>Sage\'s Stone</item>
+        <item>Saintless Shield</item>
+        <item>Sandstorm Spear</item>
+        <item>Scale Armor</item>
+        <item>Scale Shield</item>
+        <item>Scholar\'s Cap</item>
+        <item>Scholar\'s Specs</item>
+        <item>Scorching Cheese</item>
+        <item>Scourge Whip</item>
+        <item>Shamshir of Light</item>
+        <item>Shimmering Dress</item>
+        <item>Silver Cuirass</item>
+        <item>Silver Shield</item>
+        <item>Silver Tiara</item>
+        <item>Skull Helmet</item>
+        <item>Skull Ring</item>
+        <item>Sledgehammer</item>
+        <item>Snakeskin Whip</item>
+        <item>Soft Cheese</item>
+        <item>Sorceror\'s Ring</item>
+        <item>Special Antidote</item>
+        <item>Special Antidote</item>
+        <item>Special Medicine</item>
+        <item>Spicy Cheese</item>
+        <item>Spiked Armor</item>
+        <item>Staff of Anti-Magic</item>
+        <item>Staff of Resurrection</item>
+        <item>Stone Axe</item>
+        <item>Stone Hard Hat</item>
+        <item>Strength Ring</item>
+        <item>Strong Antidote</item>
+        <item>Strong Medicine</item>
+        <item>Sun Crown</item>
+        <item>Super Spicy Cheese</item>
+        <item>Super Spicy Cheese</item>
+        <item>Templar\'s Shield</item>
+        <item>Templar\'s Uniform</item>
+        <item>Thantos\' Shield</item>
+        <item>Thief\'s Key</item>
+        <item>Thinking Cap</item>
+        <item>Timbrel of Tension</item>
+        <item>Titan Belt</item>
+        <item>Turban</item>
+        <item>Uber Double-Edge</item>
+        <item>Uber Falcon Blade</item>
+        <item>Uber Miracle Sword</item>
+        <item>Uber War Hammer</item>
+        <item>Wayferer\'s Clothes</item>
+        <item>White Shield</item>
+        <item>White Shield</item>
+        <item>Yggdrasil Dew</item>
+        <item>Zombie Mail</item>
+        <item>Zombie Mail</item>
+        <item>Zombie Slayer</item>
+    </string-array>
+
+</resources>

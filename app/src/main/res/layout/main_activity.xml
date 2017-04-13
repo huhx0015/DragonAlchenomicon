@@ -1,0 +1,101 @@
+<FrameLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffff"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/da_main_activity_layout">
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/da_main_logo"
+            android:background="@drawable/title_logo"
+            android:layout_gravity="top|center_horizontal"
+            />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/da_background_image" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/da_main_activity_container"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/da_main_recipe_spinner_row_1">
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recipeItemSpinner1"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:entries="@array/dq8_recipes"
+                android:prompt="@string/recipe_1_prompt"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/da_main_recipe_spinner_row_2">
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recipeItemSpinner2"
+                android:layout_below="@+id/recipeItemSpinner1"
+                android:layout_alignParentLeft="true"
+                android:entries="@array/recipe_2"
+                android:prompt="@string/recipe_2_prompt"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/da_main_recipe_spinner_row_3">
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recipeItemSpinner3"
+                android:layout_below="@+id/recipeItemSpinner2"
+                android:layout_alignParentLeft="true"
+                android:entries="@array/recipe_3"
+                android:prompt="@string/recipe_3_prompt"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/da_alchemize_row">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alchemize"
+                android:id="@+id/alchemize"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

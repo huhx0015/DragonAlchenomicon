@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:mContext="com.huhx0015.gw2at.activities.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/white"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/title_logo"
+                android:layout_gravity="center"/>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/da_background_image" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="false"
+            android:layout_marginTop="64dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                app:srcCompat="@color/colorAccent" />
+
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                app:srcCompat="@color/colorAccent" />
+
+
+            <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                app:srcCompat="@color/colorAccent" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <Spinner
+                android:id="@+id/recipeItemSpinner1"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dq_button_background"
+                android:entries="@array/dq8_recipes"
+                android:prompt="@string/recipe_1_prompt"
+                android:textColor="@android:color/white" />
+
+            <Spinner
+                android:id="@+id/recipeItemSpinner2"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dq_button_background"
+                android:entries="@array/recipe_2"
+                android:prompt="@string/recipe_2_prompt"
+                android:textColor="@android:color/white" />
+
+            <Spinner
+                android:id="@+id/recipeItemSpinner3"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dq_button_background"
+                android:entries="@array/recipe_3"
+                android:prompt="@string/recipe_3_prompt"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/alchemize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dq_button_background"
+                android:text="Alchemize"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/navigation" />
+
+</android.support.design.widget.CoordinatorLayout>
