@@ -2,13 +2,10 @@ package com.huhx0015.dragonalchenomicon;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.view.View;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +43,8 @@ public class DQ8DB extends SQLiteOpenHelper {
     public static final String KEY_REC1 = "KEY_REC1";
     public static final String KEY_REC2 = "KEY_REC2";
     public static final String KEY_REC3 = "KEY_REC3";
+
+    // UNUSED ENTRIES
     public static final String KEY_DESC = "KEY_DESC";
     public static final String KEY_ATT1 = "KEY_ATT1";
     public static final String KEY_ATT2 = "KEY_ATT2";

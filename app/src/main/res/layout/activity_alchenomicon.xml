@@ -3,9 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/alchenomicon_activity_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:mContext="com.huhx0015.gw2at.activities.MainActivity">
+    tools:mContext="com.huhx0015.gw2at.activities.AlchenomiconActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -13,13 +14,14 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/main_toolbar"
+            android:id="@+id/alchenomicon_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/white"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
 
             <ImageView
+                android:id="@+id/alchenomicon_toolbar_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/title_logo"
@@ -30,48 +32,65 @@
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
-        android:orientation="vertical"
+        android:id="@+id/alchenomicon_main_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/da_background_image" />
+            android:id="@+id/alchenomicon_background_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <LinearLayout
+            android:id="@+id/alchenomicon_sub_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="false"
-            android:layout_marginTop="64dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                app:srcCompat="@color/colorAccent" />
+            <LinearLayout
+                android:id="@+id/alchenomicon_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="false"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
 
-            <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                app:srcCompat="@color/colorAccent" />
+                <ImageButton
+                    android:id="@+id/alchenomicon_item_1"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    app:srcCompat="@color/colorAccent" />
 
 
-            <ImageButton
-                android:id="@+id/imageButton3"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                app:srcCompat="@color/colorAccent" />
+                <ImageButton
+                    android:id="@+id/alchenomicon_item_2"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    app:srcCompat="@color/colorAccent" />
+
+
+                <ImageButton
+                    android:id="@+id/alchenomicon_item_3"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    app:srcCompat="@color/colorAccent" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/alchenomicon_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp" />
 
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -105,10 +105,10 @@ class MainActivity : Activity() {
 
     private fun setUpLayout() {
 
-        setContentView(R.layout.activity_alchenomicon) // Sets the XML layout file.
+        setContentView(R.layout.main_activity) // Sets the XML layout file.
 
         // Sets up the activity background image attributes.
-        val da_background = findViewById(R.id.da_background_image) as ImageView // Used for displaying the background image.
+        val da_background = findViewById(R.id.`@+id/alchenomicon_background_image`) as ImageView // Used for displaying the background image.
         val da_background_img = R.drawable.da_background
         Picasso.with(this).load(da_background_img).into(da_background)
 
