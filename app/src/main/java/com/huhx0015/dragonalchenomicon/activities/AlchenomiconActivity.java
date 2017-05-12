@@ -17,10 +17,13 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
-    private AlchenomiconPresenter mAlchenomiconPresenter;
-
+    // LOGGING VARIABLES:
     private static final String LOG_TAG = AlchenomiconActivity.class.getSimpleName();
 
+    // PRESENTER VARIABLES:
+    private AlchenomiconPresenter mAlchenomiconPresenter;
+
+    // VIEW INJECTION VARIABLES:
     @BindView(R.id.navigation) BottomNavigationView mBottomNavigationView;
 
     /** ACTIVITY LIFECYCLE METHODS _____________________________________________________________ **/
@@ -37,7 +40,38 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
         initView();
     }
 
-    // mOnNavigationSelectedListener: Listener for the bottom navigation view.
+    /** ACTIVITY EXTENSION METHODS _____________________________________________________________ **/
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    /** LAYOUT METHODS _________________________________________________________________________ **/
+
+    private void initView() {
+
+        // BOTTOM NAVIGATION VIEW:
+        mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    /** LISTENERS ______________________________________________________________________________ **/
+
+    @OnClick(R.id.alchenomicon_item_1)
+    public void firstIngredientButton() {
+        mAlchenomiconPresenter.onIngredientButtonClicked(1);
+    }
+
+    @OnClick(R.id.alchenomicon_item_2)
+    public void secondIngredientButton() {
+        mAlchenomiconPresenter.onIngredientButtonClicked(2);
+    }
+
+    @OnClick(R.id.alchenomicon_item_3)
+    public void thirdIngredientButton() {
+        mAlchenomiconPresenter.onIngredientButtonClicked(3);
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -55,30 +89,6 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
         }
 
     };
-
-    /** LAYOUT METHODS _________________________________________________________________________ **/
-
-    private void initView() {
-
-        // BOTTOM NAVIGATION VIEW:
-        mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-    }
-
-    @OnClick(R.id.alchenomicon_item_1)
-    public void firstIngredientButton() {
-        mAlchenomiconPresenter.onIngredientButtonClicked(1);
-    }
-
-    @OnClick(R.id.alchenomicon_item_2)
-    public void secondIngredientButton() {
-        mAlchenomiconPresenter.onIngredientButtonClicked(2);
-    }
-
-    @OnClick(R.id.alchenomicon_item_3)
-    public void thirdIngredientButton() {
-        mAlchenomiconPresenter.onIngredientButtonClicked(3);
-    }
-
 
     /** VIEW METHODS ____________________________________________________________________________ **/
 

@@ -1,15 +1,10 @@
 package com.huhx0015.dragonalchenomicon.presenters;
 
 import android.util.Log;
-
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.contracts.AlchenomiconContract;
 import com.huhx0015.dragonalchenomicon.data.AlchenomiconDatabaseHelper;
-
 import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import javax.inject.Inject;
 
 /**

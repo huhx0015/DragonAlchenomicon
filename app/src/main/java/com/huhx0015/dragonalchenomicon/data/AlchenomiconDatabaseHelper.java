@@ -59,32 +59,12 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
 
     private static final String LOG_TAG = AlchenomiconDatabaseHelper.class.getSimpleName();
 
-
-
     /** CONSTRUCTOR METHODS ____________________________________________________________________ **/
-
-//    private static AlchenomiconDatabaseHelper dbInstance;
-
-    // Opens the existing database "dq8_alchenomicon_table.db" using methods from SQLiteAssetHelper.
-//    public AlchenomiconDatabaseHelper(Context context) {
-//        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-//    }
 
     @Inject
     public AlchenomiconDatabaseHelper(@ApplicationContext Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
-//    public static synchronized AlchenomiconDatabaseHelper getInstance(Context context) {
-//
-//        // Use the application context, which will ensure that you
-//        // don't accidentally leak an Activity's context.
-//        // See this article for more information: http://bit.ly/6LRzfx
-//        if (dbInstance == null) {
-//            dbInstance = new AlchenomiconDatabaseHelper(context.getApplicationContext());
-//        }
-//        return dbInstance;
-//    }
 
     /** DATABASE ACCESS METHODS ________________________________________________________________ **/
 
