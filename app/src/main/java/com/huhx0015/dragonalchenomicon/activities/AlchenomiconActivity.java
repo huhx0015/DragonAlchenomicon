@@ -85,7 +85,6 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
             }
             return false;
         }
-
     };
 
     /** VIEW METHODS ____________________________________________________________________________ **/

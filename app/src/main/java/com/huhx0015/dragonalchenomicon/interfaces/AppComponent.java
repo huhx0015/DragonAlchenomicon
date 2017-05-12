@@ -1,10 +1,11 @@
 package com.huhx0015.dragonalchenomicon.interfaces;
 
-import android.support.v7.app.AppCompatActivity;
+import com.huhx0015.dragonalchenomicon.fragments.RecipeListFragment;
 import com.huhx0015.dragonalchenomicon.modules.DataModule;
 import com.huhx0015.dragonalchenomicon.presenters.AlchemyPresenter;
 import com.huhx0015.dragonalchenomicon.presenters.AlchenomiconPresenter;
 import com.huhx0015.dragonalchenomicon.modules.AppModule;
+import com.huhx0015.dragonalchenomicon.presenters.RecipeListPresenter;
 import javax.inject.Singleton;
 import dagger.Component;
 
@@ -22,4 +23,6 @@ import dagger.Component;
 public interface AppComponent {
     void inject(AlchenomiconPresenter presenter);
     void inject(AlchemyPresenter presenter);
+    void inject(RecipeListPresenter presenter);
+    void inject(RecipeListFragment fragment);
 }

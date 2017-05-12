@@ -1,5 +1,7 @@
 package com.huhx0015.dragonalchenomicon.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import java.util.List;
 
 /**
@@ -9,7 +11,7 @@ import java.util.List;
  * Reference: https://developer.android.com/training/articles/perf-tips.html#GettersSetters
  */
 
-public class AlchenomiconRecipe {
+public class AlchenomiconRecipe implements Parcelable {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
@@ -20,4 +22,46 @@ public class AlchenomiconRecipe {
     public List<String> recipeAttributeList;
     public String recipeName;
     public String recipeDescription;
+
+    /** CONSTRUCTOR METHODS ____________________________________________________________________ **/
+
+    public AlchenomiconRecipe() {}
+
+    /** PARCELABLE METHODS _____________________________________________________________________ **/
+
+    protected AlchenomiconRecipe(Parcel in) {
+        recipeId = in.readInt();
+        recipeCategoryId = in.readInt();
+        recipeIngredientList = in.createStringArrayList();
+        recipeAttributeList = in.createStringArrayList();
+        recipeName = in.readString();
+        recipeDescription = in.readString();
+    }
+
+    public static final Creator<AlchenomiconRecipe> CREATOR = new Creator<AlchenomiconRecipe>() {
+        @Override
+        public AlchenomiconRecipe createFromParcel(Parcel in) {
+            return new AlchenomiconRecipe(in);
+        }
+
+        @Override
+        public AlchenomiconRecipe[] newArray(int size) {
+            return new AlchenomiconRecipe[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(recipeId);
+        dest.writeInt(recipeCategoryId);
+        dest.writeStringList(recipeIngredientList);
+        dest.writeStringList(recipeAttributeList);
+        dest.writeString(recipeName);
+        dest.writeString(recipeDescription);
+    }
 }

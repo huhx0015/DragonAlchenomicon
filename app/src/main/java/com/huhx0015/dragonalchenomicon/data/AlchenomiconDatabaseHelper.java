@@ -27,10 +27,6 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
     private static final String DATABASE_NAME = "dq8_alchenomicon_table.db";
     private static final int DATABASE_VERSION = 1;
 
-    private SQLiteDatabase alchenomiconDatabase;
-
-    private static String DATABASE_PATH; // "/data/data/com.huhx0015.dragonalchenomicon/databases/";
-
     // Post Table Columns
     public static final String TABLE_DQ8_RECIPE = "DQ8_ALCHEMY_TABLE";
     public static final String KEY_ROWID = "KEY_ROWID";
@@ -84,7 +80,6 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
         try {
             if (cursor.moveToFirst()) {
                 do {
-
                     ingredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC1)));
                     ingredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC2)));
                     ingredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC3)));
@@ -134,9 +129,9 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
 
                     // ATTRIBUTE LIST:
                     List<String> recipeAttributeList = new ArrayList<>();
-                    recipeAttributeList.add(cursor.getString(cursor.getColumnIndex(KEY_REC1)));
-                    recipeAttributeList.add(cursor.getString(cursor.getColumnIndex(KEY_REC2)));
-                    recipeAttributeList.add(cursor.getString(cursor.getColumnIndex(KEY_REC3)));
+                    recipeAttributeList.add(cursor.getString(cursor.getColumnIndex(KEY_ATT1)));
+                    recipeAttributeList.add(cursor.getString(cursor.getColumnIndex(KEY_ATT2)));
+                    recipeAttributeList.add(cursor.getString(cursor.getColumnIndex(KEY_ATT3)));
                     recipe.recipeAttributeList = recipeAttributeList;
 
                     recipeList.add(recipe);

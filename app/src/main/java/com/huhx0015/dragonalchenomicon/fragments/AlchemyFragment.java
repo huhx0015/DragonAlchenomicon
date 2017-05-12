@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.huhx0015.dragonalchenomicon.R;
 import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
 import com.huhx0015.dragonalchenomicon.presenters.AlchemyPresenter;
-import com.huhx0015.dragonalchenomicon.presenters.AlchenomiconPresenter;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -43,6 +42,14 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View {
 
         return alchemyView;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mUnbinder.unbind();
+    }
+
+    /** LAYOUT METHODS _________________________________________________________________________ **/
 
     private void initView() {
 

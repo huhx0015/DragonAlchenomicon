@@ -17,8 +17,7 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
 
     private static final String LOG_TAG = AlchemyPresenter.class.getSimpleName();
 
-    @Inject
-    AlchenomiconDatabaseHelper mDatabase;
+    @Inject AlchenomiconDatabaseHelper mDatabase;
 
     public AlchemyPresenter(AlchemyContract.View view) {
         this.mAlchemyView = view;
