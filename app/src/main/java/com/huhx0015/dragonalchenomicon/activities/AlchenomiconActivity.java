@@ -3,15 +3,16 @@ package com.huhx0015.dragonalchenomicon.activities;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import com.huhx0015.dragonalchenomicon.adapters.AlchenomiconPagerAdapter;
 import com.huhx0015.dragonalchenomicon.contracts.AlchenomiconContract;
 import com.huhx0015.dragonalchenomicon.presenters.AlchenomiconPresenter;
 import com.huhx0015.dragonalchenomicon.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class AlchenomiconActivity extends AppCompatActivity implements AlchenomiconContract.View {
 
@@ -24,7 +25,8 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
     private AlchenomiconPresenter mAlchenomiconPresenter;
 
     // VIEW INJECTION VARIABLES:
-    @BindView(R.id.navigation) BottomNavigationView mBottomNavigationView;
+    @BindView(R.id.alchenomicon_navigation) BottomNavigationView mBottomNavigationView;
+    @BindView(R.id.alchenomicon_view_pager) ViewPager mViewPager;
 
     /** ACTIVITY LIFECYCLE METHODS _____________________________________________________________ **/
 
@@ -51,26 +53,22 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
 
     private void initView() {
 
+        // VIEWPAGER:
+        AlchenomiconPagerAdapter pagerAdapter = new AlchenomiconPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(pagerAdapter);
+        ViewPager.SimpleOnPageChangeListener pageListener = new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+        };
+        mViewPager.addOnPageChangeListener(pageListener);
+
         // BOTTOM NAVIGATION VIEW:
         mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     /** LISTENERS ______________________________________________________________________________ **/
-
-    @OnClick(R.id.alchenomicon_item_1)
-    public void firstIngredientButton() {
-        mAlchenomiconPresenter.onIngredientButtonClicked(1);
-    }
-
-    @OnClick(R.id.alchenomicon_item_2)
-    public void secondIngredientButton() {
-        mAlchenomiconPresenter.onIngredientButtonClicked(2);
-    }
-
-    @OnClick(R.id.alchenomicon_item_3)
-    public void thirdIngredientButton() {
-        mAlchenomiconPresenter.onIngredientButtonClicked(3);
-    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -78,11 +76,11 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_alchemy_pot:
+                    mViewPager.setCurrentItem(0);
                     return true;
-                case R.id.navigation_dashboard:
-                    return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_recipe_list:
+                    mViewPager.setCurrentItem(1);
                     return true;
             }
             return false;

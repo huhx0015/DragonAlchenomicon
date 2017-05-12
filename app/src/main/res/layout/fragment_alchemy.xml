@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageButton
+            android:id="@+id/alchenomicon_item_1"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/dq8_item_332" />
+
+        <ImageButton
+            android:id="@+id/alchenomicon_item_2"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/dq8_item_332" />
+
+        <ImageButton
+            android:id="@+id/alchenomicon_item_3"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:background="@drawable/dq8_item_332" />
+
+    </LinearLayout>
+
+</RelativeLayout>

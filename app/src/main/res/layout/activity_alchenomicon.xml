@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/alchenomicon_activity_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:mContext="com.huhx0015.gw2at.activities.AlchenomiconActivity">
@@ -14,14 +13,12 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/alchenomicon_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/white"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
 
             <ImageView
-                android:id="@+id/alchenomicon_toolbar_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/title_logo"
@@ -31,122 +28,38 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
-        android:id="@+id/alchenomicon_main_container"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <ImageView
-            android:id="@+id/alchenomicon_background_image"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/alchenomicon_view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/alchenomicon_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/windowBackground"
+            app:menu="@menu/navigation" />
 
         <LinearLayout
             android:id="@+id/alchenomicon_sub_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-            <LinearLayout
-                android:id="@+id/alchenomicon_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="false"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-
-                <ImageButton
-                    android:id="@+id/alchenomicon_item_1"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/dq8_item_332" />
-
-
-                <ImageButton
-                    android:id="@+id/alchenomicon_item_2"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:background="@drawable/dq8_item_332" />
-
-
-                <ImageButton
-                    android:id="@+id/alchenomicon_item_3"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:background="@drawable/dq8_item_332" />
-
-            </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/alchenomicon_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:orientation="vertical"
             android:visibility="gone">
 
-            <Spinner
-                android:id="@+id/recipeItemSpinner1"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/dq_button_background"
-                android:entries="@array/dq8_recipes"
-                android:prompt="@string/recipe_1_prompt"
-                android:textColor="@android:color/white" />
 
-            <Spinner
-                android:id="@+id/recipeItemSpinner2"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/dq_button_background"
-                android:entries="@array/recipe_2"
-                android:prompt="@string/recipe_2_prompt"
-                android:textColor="@android:color/white" />
-
-            <Spinner
-                android:id="@+id/recipeItemSpinner3"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/dq_button_background"
-                android:entries="@array/recipe_3"
-                android:prompt="@string/recipe_3_prompt"
-                android:textColor="@android:color/white" />
-
-            <Button
-                android:id="@+id/alchemize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/dq_button_background"
-                android:text="Alchemize"
-                android:textColor="@android:color/white" />
 
         </LinearLayout>
 
-    </RelativeLayout>
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/navigation" />
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
