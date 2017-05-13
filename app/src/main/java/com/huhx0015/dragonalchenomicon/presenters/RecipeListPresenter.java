@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.contracts.RecipeListContract;
-import com.huhx0015.dragonalchenomicon.data.AlchenomiconDatabaseHelper;
+import com.huhx0015.dragonalchenomicon.data.repositories.RecipeListRepository;
 import com.huhx0015.dragonalchenomicon.interfaces.AlchenomiconDatabaseListener;
 import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
 import java.util.List;
@@ -20,14 +20,16 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
     // DATABASE VARIABLES:
-    @Inject AlchenomiconDatabaseHelper mDatabase;
+    //@Inject AlchenomiconDatabaseHelper mDatabase;
 
     // LOGGING VARIABLES:
     private static final String LOG_TAG = RecipeListPresenter.class.getSimpleName();
 
+    // REPOSITORY VARIABLES:
+    @Inject RecipeListRepository mRepository;
+
     // RX VARIABLES:
-    @NonNull
-    private CompositeDisposable mDisposables;
+    @NonNull private CompositeDisposable mDisposables;
 
     // VIEW VARIABLES:
     private RecipeListContract.View mRecipeListView;
@@ -41,13 +43,17 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
         AlchenomiconApplication.getInstance().getAppComponent().inject(this);
     }
 
+    /** PRESENTER METHODS ______________________________________________________________________ **/
+
     @Override
     public void subscribe() {
+        Log.d(LOG_TAG, "subscribe(): Presenter subscribed.");
         mDisposables.clear();
     }
 
     @Override
     public void unsubscribe() {
+        Log.d(LOG_TAG, "unsubscribe(): Presenter unsubscribed.");
         mDisposables.clear();
     }
 
@@ -58,7 +64,7 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
         mRecipeListView.showProgressBar(true); // Displays the progress bar.
 
         // Queries the database to retrieve all available recipes.
-        mDatabase.getAllRecipes(new AlchenomiconDatabaseListener.RecipeQueryListener() {
+        mRepository.getAllRecipes(new AlchenomiconDatabaseListener.RecipeQueryListener() {
             @Override
             public void onQueryFinished(List<AlchenomiconRecipe> recipeList) {
                 Log.d(LOG_TAG, "onQueryFinished(): Query for recipe list has finished.");

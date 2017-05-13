@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 import com.huhx0015.dragonalchenomicon.R;
 import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
 import com.huhx0015.dragonalchenomicon.presenters.AlchemyPresenter;
-
 import java.util.HashSet;
-
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;

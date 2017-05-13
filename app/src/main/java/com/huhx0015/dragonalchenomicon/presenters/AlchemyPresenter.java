@@ -1,13 +1,9 @@
 package com.huhx0015.dragonalchenomicon.presenters;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
-import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
-import com.huhx0015.dragonalchenomicon.data.AlchenomiconDatabaseHelper;
-import com.huhx0015.dragonalchenomicon.interfaces.AlchenomiconDatabaseListener;
-
-import java.util.HashSet;
-import javax.inject.Inject;
+import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Created by Michael Yoon Huh on 5/11/2017.
@@ -19,38 +15,30 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
 
     private static final String LOG_TAG = AlchemyPresenter.class.getSimpleName();
 
-    @Inject AlchenomiconDatabaseHelper mDatabase;
+    // RX VARIABLES:
+    @NonNull
+    private CompositeDisposable mDisposables;
 
     public AlchemyPresenter(AlchemyContract.View view) {
         this.mAlchemyView = view;
         this.mAlchemyView.setPresenter(this);
-        AlchenomiconApplication.getInstance().getAppComponent().inject(this);
     }
 
     @Override
     public void subscribe() {
-
+        Log.d(LOG_TAG, "subscribe(): Presenter subscribed.");
+        mDisposables.clear();
     }
 
     @Override
     public void unsubscribe() {
-
+        Log.d(LOG_TAG, "unsubscribe(): Presenter unsubscribed.");
+        mDisposables.clear();
     }
 
     @Override
     public void onIngredientButtonClicked(int buttonId) {
 
-        mDatabase.getAllIngredients(new AlchenomiconDatabaseListener.IngredientQueryListener() {
-            @Override
-            public void onQueryFinished(HashSet<String> ingredientList) {
-                mAlchemyView.showIngredientDialog(ingredientList);
-
-                for (String ingredient : ingredientList) {
-                    Log.d(LOG_TAG, "onIngredientButtonClicked(): Ingredient: " + ingredient);
-                }
-
-            }
-        });
     }
 
     @Override

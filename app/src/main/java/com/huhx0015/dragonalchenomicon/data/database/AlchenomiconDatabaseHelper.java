@@ -1,4 +1,4 @@
-package com.huhx0015.dragonalchenomicon.data;
+package com.huhx0015.dragonalchenomicon.data.database;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -23,6 +23,8 @@ import javax.inject.Singleton;
 
 @Singleton
 public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
+
+    private static AlchenomiconDatabaseHelper mDatabase;
 
     // Database Info
     private static final String DATABASE_NAME = "dq8_alchenomicon_table.db";
@@ -62,6 +64,14 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
     public AlchenomiconDatabaseHelper(@ApplicationContext Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
+    /** INSTANCE METHODS _______________________________________________________________________ **/
+
+//    public static AlchenomiconDatabaseHelper getInstance() {
+//        if (mDatabase == null) {
+//            mDatabase = new AlchenomiconDatabaseHelper()
+//        }
+//    }
 
     /** DATABASE ACCESS METHODS ________________________________________________________________ **/
 

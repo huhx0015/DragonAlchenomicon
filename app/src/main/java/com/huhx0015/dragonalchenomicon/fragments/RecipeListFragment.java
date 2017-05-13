@@ -53,6 +53,8 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
         return new RecipeListFragment();
     }
 
+    /** FRAGMENT LIFECYCLE METHODS _____________________________________________________________ **/
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,

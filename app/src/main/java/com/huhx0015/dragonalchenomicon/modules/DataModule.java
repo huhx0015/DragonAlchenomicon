@@ -1,7 +1,7 @@
 package com.huhx0015.dragonalchenomicon.modules;
 
 import android.content.Context;
-import com.huhx0015.dragonalchenomicon.data.AlchenomiconDatabaseHelper;
+import com.huhx0015.dragonalchenomicon.data.database.AlchenomiconDatabaseHelper;
 import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;

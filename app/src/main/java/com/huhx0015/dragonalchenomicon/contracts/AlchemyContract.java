@@ -5,6 +5,16 @@ import com.huhx0015.dragonalchenomicon.interfaces.BaseView;
 import java.util.HashSet;
 import java.util.List;
 
+/** -----------------------------------------------------------------------------------------------
+ *  [AlchemyContract] CLASS
+ *  DESCRIPTION: AlchemyContract is an interface that is the contract between the view and
+ *  presenter for AlchemyFragment. It defines the responsibility of the Model, View, and the
+ *  Presenter.
+ *
+ *  REFERENCE: https://www.codeproject.com/Articles/1098822/Learn-Android-MVP-Pattern-By-Example
+ *  -----------------------------------------------------------------------------------------------
+ */
+
 public interface AlchemyContract {
 
     // this defines the methods that the concrete View aka Fragment will implement. This way you can
