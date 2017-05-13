@@ -2,6 +2,7 @@ package com.huhx0015.dragonalchenomicon.contracts;
 
 import com.huhx0015.dragonalchenomicon.interfaces.BasePresenter;
 import com.huhx0015.dragonalchenomicon.interfaces.BaseView;
+import java.util.HashSet;
 import java.util.List;
 
 public interface AlchemyContract {
@@ -11,7 +12,7 @@ public interface AlchemyContract {
     // such as Context.
     interface View extends BaseView<Presenter> {
 
-        void showIngredientDialog();
+        void showIngredientDialog(HashSet<String> ingredientList);
 
         void showRecipeResults();
 

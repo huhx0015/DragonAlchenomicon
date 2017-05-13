@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import com.huhx0015.dragonalchenomicon.annotations.ApplicationContext;
+import com.huhx0015.dragonalchenomicon.interfaces.AlchenomiconDatabaseListener;
 import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 import java.util.ArrayList;
@@ -64,9 +65,9 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
 
     /** DATABASE ACCESS METHODS ________________________________________________________________ **/
 
-    public HashSet<String> getAllIngredients() {
+    public synchronized void getAllIngredients(AlchenomiconDatabaseListener.IngredientQueryListener listener) {
 
-        HashSet<String> ingredientList = new HashSet<>();
+        HashSet<String> ingredientList = null;
 
         // "getReadableDatabase()" and "getWriteableDatabase()" return the same object (except under
         // low disk space scenarios)
@@ -80,6 +81,11 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
         try {
             if (cursor.moveToFirst()) {
                 do {
+
+                    if (ingredientList == null) {
+                        ingredientList = new HashSet<>();
+                    }
+
                     ingredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC1)));
                     ingredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC2)));
                     ingredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC3)));
@@ -87,19 +93,23 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
                 } while(cursor.moveToNext());
             }
         } catch (Exception e) {
-            Log.d(LOG_TAG, "getAllIngredients(): Error while trying to get ingredients from database.");
+            Log.e(LOG_TAG, "getAllIngredients(): An error occurred while attempting to query the database for ingredients: " + e.getLocalizedMessage());
         } finally {
             if (cursor != null && !cursor.isClosed()) {
                 cursor.close();
             }
-        }
-        return ingredientList;
 
+            if (ingredientList != null) {
+                listener.onQueryFinished(ingredientList);
+            } else {
+                Log.e(LOG_TAG, "getAllIngredients(): Failed to retrieve any ingredients from the database.");
+            }
+        }
     }
 
-    public List<AlchenomiconRecipe> getAllRecipes() {
+    public synchronized void getAllRecipes(AlchenomiconDatabaseListener.RecipeQueryListener listener) {
 
-        List<AlchenomiconRecipe> recipeList = new ArrayList<>();
+        List<AlchenomiconRecipe> recipeList = null;
 
         // "getReadableDatabase()" and "getWriteableDatabase()" return the same object (except under
         // low disk space scenarios)
@@ -113,6 +123,10 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
         try {
             if (cursor.moveToFirst()) {
                 do {
+
+                    if (recipeList == null) {
+                        recipeList = new ArrayList<>();
+                    }
 
                     AlchenomiconRecipe recipe = new AlchenomiconRecipe();
                     recipe.recipeId = cursor.getInt(cursor.getColumnIndex(KEY_ROWID)); // ROW_ID
@@ -139,163 +153,16 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
                 } while(cursor.moveToNext());
             }
         } catch (Exception e) {
-            Log.d(LOG_TAG, "getAllRecipes(): Error while trying to get recipes from database.");
+            Log.e(LOG_TAG, "getAllRecipes(): An error occurred while trying to get recipes from database: " + e.getLocalizedMessage());
         } finally {
             if (cursor != null && !cursor.isClosed()) {
                 cursor.close();
             }
+            if (recipeList != null) {
+                listener.onQueryFinished(recipeList);
+            } else {
+                Log.e(LOG_TAG, "getAllRecipes(): Failed to retrieve any recipes from the database.");
+            }
         }
-        return recipeList;
     }
-
-
-
-
-
-
-    // Called when the database needs to be upgraded.
-    // This method will only be called if a database already exists on disk with the same DATABASE_NAME,
-    // but the DATABASE_VERSION is different than the version of the database that exists on disk.
-//    @Override
-//    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//
-//        if (oldVersion != newVersion) {
-//
-//            // Simplest implementation is to drop all old tables and recreate them
-//            db.execSQL("DROP TABLE IF EXISTS " + TABLE_POSTS);
-//            db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
-//            onCreate(db);
-//        }
-//    }
-
-
-
-//
-//
-//    /**
-//     * Creates a empty database on the system and rewrites it with your own database.
-//     * */
-//    public void initDatabase(Context context) throws IOException {
-//
-//        boolean databaseExists = checkDatabase(context); // Checks if the database already exists.
-//
-//        if (!databaseExists){
-//
-//            //By calling this method and empty database will be created into the default system path
-//            //of your application so we are gonna be able to overwrite that database with our database.
-//            this.getReadableDatabase();
-//
-//            try {
-//
-//                copyDatabase();
-//
-//            } catch (IOException e) {
-//
-//                throw new Error("Error copying database");
-//
-//            }
-//        }
-//    }
-//
-//    /**
-//     * Check if the database already exist to avoid re-copying the file each time you open the application.
-//     * @return true if it exists, false if it doesn't
-//     */
-//    private boolean checkDatabase(Context context){
-//
-//        File databasePath = context.getDatabasePath(DATABASE_NAME);
-//        return databasePath != null;
-
-//        SQLiteDatabase alchenomiconDatabase = null;
-//
-//        try {
-//            if (databasePath != null) {
-//
-//
-//                databasePath.getPath();
-//            }
-//
-//
-//            String myPath = DATABASE_NAME;
-//            alchenomiconDatabase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-//
-//        } catch(SQLiteException e){
-//
-//            //database does't exist yet.
-//
-//        }
-//
-//        if(alchenomiconDatabase != null){
-//
-//            alchenomiconDatabase.close();
-//
-//        }
-//
-//        return alchenomiconDatabase != null ? true : false;
-//    }
-//
-//    /**
-//     * Copies your database from your local assets-folder to the just created empty database in the
-//     * system folder, from where it can be accessed and handled.
-//     * This is done by transfering bytestream.
-//     * */
-//    private void copyDatabase(Context context) throws IOException{
-//
-//        //Open your local db as the input stream
-//        InputStream myInput = context.getAssets().open(DATABASE_NAME);
-//
-//        // Gets the database path.
-//        File databasePath = context.getDatabasePath(DATABASE_NAME);
-//        if (databasePath != null) {
-//
-//        }
-//
-//
-//        // Path to the just created empty db
-//        String outFileName = DB_PATH + DB_NAME;
-//
-//        //Open the empty db as the output stream
-//        OutputStream myOutput = new FileOutputStream(outFileName);
-//
-//        //transfer bytes from the inputfile to the outputfile
-//        byte[] buffer = new byte[1024];
-//        int length;
-//        while ((length = myInput.read(buffer))>0){
-//            myOutput.write(buffer, 0, length);
-//        }
-//
-//        //Close the streams
-//        myOutput.flush();
-//        myOutput.close();
-//        myInput.close();
-//
-//    }
-
-//    public void openDataBase() throws SQLException{
-//
-//        //Open the database
-//        String myPath = DB_PATH + DB_NAME;
-//        myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-//
-//    }
-//
-//
-//
-//    // open() sets up the SQL database file for reading & writing.
-//    public void openDatabase(Context context) throws SQLException {
-//
-//        context.getApplicationContext().getDatabasePath()
-//
-//
-//        // Path location to the DB file.
-//        String TOTAL_PATH = DATABASE_PATH;
-//
-//        // Attempts to open the SQL file.
-//        try {
-//            dq8Database = SQLiteDatabase.openDatabase(TOTAL_PATH, null, SQLiteDatabase.OPEN_READONLY);
-//        }
-//        catch (SQLiteException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

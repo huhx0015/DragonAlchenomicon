@@ -4,6 +4,8 @@ import android.util.Log;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
 import com.huhx0015.dragonalchenomicon.data.AlchenomiconDatabaseHelper;
+import com.huhx0015.dragonalchenomicon.interfaces.AlchenomiconDatabaseListener;
+
 import java.util.HashSet;
 import javax.inject.Inject;
 
@@ -38,15 +40,17 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
     @Override
     public void onIngredientButtonClicked(int buttonId) {
 
-        HashSet<String> ingredientList = mDatabase.getAllIngredients();
+        mDatabase.getAllIngredients(new AlchenomiconDatabaseListener.IngredientQueryListener() {
+            @Override
+            public void onQueryFinished(HashSet<String> ingredientList) {
+                mAlchemyView.showIngredientDialog(ingredientList);
 
-        for (String ingredient : ingredientList) {
-            Log.d(LOG_TAG, "onIngredientButtonClicked(): Ingredient: " + ingredient);
-        }
+                for (String ingredient : ingredientList) {
+                    Log.d(LOG_TAG, "onIngredientButtonClicked(): Ingredient: " + ingredient);
+                }
 
-        mAlchemyView.showIngredientDialog();
-
-        // SHOW DIALOG WITH ITEM LIST.
+            }
+        });
     }
 
     @Override

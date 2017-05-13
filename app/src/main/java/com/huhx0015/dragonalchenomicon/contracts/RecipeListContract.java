@@ -2,6 +2,8 @@ package com.huhx0015.dragonalchenomicon.contracts;
 
 import com.huhx0015.dragonalchenomicon.interfaces.BasePresenter;
 import com.huhx0015.dragonalchenomicon.interfaces.BaseView;
+import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
+
 import java.util.List;
 
 /**
@@ -14,13 +16,21 @@ public interface RecipeListContract {
     // proceed to create and test the Presenter without worrying about Android-specific components
     // such as Context.
     interface View extends BaseView<RecipeListContract.Presenter> {
-        void showRecipeList();
+
+        void showProgressBar(boolean isDisplay);
+
+        void showRecipeList(List<AlchenomiconRecipe> recipeList);
+
     }
 
     // this defines the methods that the concrete Presenter class will implement. Also known as user
     // actions, this is where the business logic for the app is defined.
     interface Presenter extends BasePresenter {
-        void onRecipeListLoad();
+
+        void onLoadRecipeList();
+
+        void onRecipeListLoaded(List<AlchenomiconRecipe> recipeList);
+
     }
 
     // this defines the methods that the concrete persistence class will implement. This way the

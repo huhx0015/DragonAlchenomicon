@@ -8,16 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import com.huhx0015.dragonalchenomicon.R;
 import com.huhx0015.dragonalchenomicon.adapters.RecipeListAdapter;
-import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.contracts.RecipeListContract;
-import com.huhx0015.dragonalchenomicon.data.AlchenomiconDatabaseHelper;
 import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
 import com.huhx0015.dragonalchenomicon.presenters.RecipeListPresenter;
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -35,19 +34,17 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
     private static final String INSTANCE_RECIPE_LIST = RecipeListFragment.class.getSimpleName() + "_RECIPE_LIST";
     private static final String LOG_TAG = RecipeListFragment.class.getSimpleName();
 
-    // DATABASE VARIABLES:
-    @Inject AlchenomiconDatabaseHelper mDatabase;
-
-    // PRESENTER VARIABLES:
-    private RecipeListPresenter mRecipeListPresenter;
-
-    // RECIPE DATA VARIABLES:
+    // DATA VARIABLES:
     private List<AlchenomiconRecipe> mRecipeList;
 
-    // VIEW VARAIBLES:
+    // PRESENTER VARIABLES:
+    private RecipeListContract.Presenter mPresenter;
+
+    // VIEW VARIABLES:
     private Unbinder mUnbinder;
 
     // VIEW INJECTION VARIABLES:
+    @BindView(R.id.recipe_list_progressbar) ProgressBar mProgressBar;
     @BindView(R.id.recipe_list_recyclerview) RecyclerView mRecyclerView;
 
     /** CONSTRUCTOR METHODS ____________________________________________________________________ **/
@@ -62,19 +59,32 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
                              @Nullable Bundle savedInstanceState) {
         View recipeListView = inflater.inflate(R.layout.fragment_recipe_list, container, false);
         mUnbinder = ButterKnife.bind(this, recipeListView);
-        mRecipeListPresenter = new RecipeListPresenter(this);
-        AlchenomiconApplication.getInstance().getAppComponent().inject(this);
 
-        if (savedInstanceState != null) {
-            mRecipeList = savedInstanceState.getParcelableArrayList(INSTANCE_RECIPE_LIST);
-        } else {
-            mRecipeList = mDatabase.getAllRecipes();
-        }
-
-        mRecipeListPresenter.onRecipeListLoad();
+        setPresenter(new RecipeListPresenter(this)); // Sets the presenter for this fragment.
+        initRecipeList(savedInstanceState); // Initializes the recipe list.
 
         return recipeListView;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.subscribe();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPresenter.unsubscribe();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mUnbinder.unbind();
+    }
+
+    /** FRAGMENT EXTENSION METHODS _____________________________________________________________ **/
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -85,14 +95,19 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
         }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mUnbinder.unbind();
-    }
+    /** INIT METHODS ___________________________________________________________________________ **/
 
-    private void initView() {
-        initRecyclerView();
+    private void initRecipeList(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            List<AlchenomiconRecipe> recipeList = savedInstanceState.getParcelableArrayList(INSTANCE_RECIPE_LIST);
+
+            if (recipeList != null) {
+                mPresenter.onRecipeListLoaded(recipeList); // Recipe list is shown.
+                return;
+            }
+        }
+
+        mPresenter.onLoadRecipeList(); // Recipe list is loaded.
     }
 
     private void initRecyclerView() {
@@ -110,13 +125,26 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
         mRecyclerView.setAdapter(adapter);
     }
 
-    @Override
-    public void setPresenter(RecipeListContract.Presenter presenter) {
+    /** VIEW METHODS ___________________________________________________________________________ **/
 
+    @Override
+    public void setPresenter(@NotNull RecipeListContract.Presenter presenter) {
+        this.mPresenter = presenter;
     }
 
     @Override
-    public void showRecipeList() {
+    public void showProgressBar(boolean isDisplay) {
+        if (isDisplay) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            mProgressBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void showRecipeList(List<AlchenomiconRecipe> recipeList) {
+        mRecipeList = recipeList;
         initRecyclerView();
+        mRecyclerView.setVisibility(View.VISIBLE);
     }
 }

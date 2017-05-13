@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import com.huhx0015.dragonalchenomicon.R;
 import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
 import com.huhx0015.dragonalchenomicon.presenters.AlchemyPresenter;
+
+import java.util.HashSet;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -78,7 +81,7 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View {
     }
 
     @Override
-    public void showIngredientDialog() {
+    public void showIngredientDialog(HashSet<String> ingredientList) {
         Log.d(LOG_TAG, "showIngredientDialog(): Ingredient dialog shown.");
     }
 
