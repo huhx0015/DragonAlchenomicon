@@ -2,7 +2,10 @@ package com.huhx0015.dragonalchenomicon.presenters;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.contracts.AlchenomiconContract;
+import com.huhx0015.dragonalchenomicon.data.repositories.AlchenomiconRepository;
+import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
@@ -11,18 +14,31 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class AlchenomiconPresenter implements AlchenomiconContract.Presenter {
 
-    private AlchenomiconContract.View mAlchenomiconView;
+    /** CLASS VARIABLES ________________________________________________________________________ **/
 
+    // LOGGING VARIABLES:
     private static final String LOG_TAG = AlchenomiconPresenter.class.getSimpleName();
+
+    // REPOSITORY VARIABLES:
+    @Inject AlchenomiconRepository mRepository;
 
     // RX VARIABLES:
     @NonNull
     private CompositeDisposable mDisposables;
 
+    // VIEW VARIABLES:
+    private AlchenomiconContract.View mView;
+
+    /** CONSTRUCTOR METHODS ____________________________________________________________________ **/
+
     public AlchenomiconPresenter(AlchenomiconContract.View view) {
-        this.mAlchenomiconView = view;
-        this.mAlchenomiconView.setPresenter(this);
+        this.mView = view;
+        this.mView.setPresenter(this);
+        this.mDisposables = new CompositeDisposable();
+        AlchenomiconApplication.getInstance().getAppComponent().inject(this);
     }
+
+    /** PRESENTER METHODS ______________________________________________________________________ **/
 
     @Override
     public void subscribe() {
@@ -37,22 +53,23 @@ public class AlchenomiconPresenter implements AlchenomiconContract.Presenter {
     }
 
     @Override
-    public void onIngredientButtonClicked(int buttonId) {
-
+    public int getCurrentPage() {
+        return mRepository.getCurrentPage();
     }
 
     @Override
-    public void onAlchemizeButtonClicked() {
-
+    public void onBottomNavigationClicked(int position) {
+        mView.updateViewPager(position);
     }
 
     @Override
-    public void onMusicButtonClicked() {
-
+    public void onInitListeners() {
+        mView.initBottomNavigationView();
+        mView.initViewPager();
     }
 
     @Override
-    public void onClearButtonClicked() {
-
+    public void onPageSelected(int position) {
+        mRepository.updatePage(position);
     }
 }

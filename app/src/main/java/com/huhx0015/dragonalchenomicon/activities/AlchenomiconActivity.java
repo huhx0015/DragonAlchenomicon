@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import com.huhx0015.dragonalchenomicon.adapters.AlchenomiconPagerAdapter;
 import com.huhx0015.dragonalchenomicon.contracts.AlchenomiconContract;
@@ -22,7 +21,10 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
     private static final String LOG_TAG = AlchenomiconActivity.class.getSimpleName();
 
     // PRESENTER VARIABLES:
-    private AlchenomiconPresenter mAlchenomiconPresenter;
+    private AlchenomiconContract.Presenter mPresenter;
+
+    // SAVE INSTANCE VARIABLES:
+    private static final String INSTANCE_CURRENT_PAGE = AlchenomiconActivity.class.getSimpleName() + "_CURRENT_PAGE";
 
     // VIEW INJECTION VARIABLES:
     @BindView(R.id.alchenomicon_navigation) BottomNavigationView mBottomNavigationView;
@@ -35,11 +37,9 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alchenomicon);
         ButterKnife.bind(this);
+        setPresenter(new AlchenomiconPresenter(this)); // Sets the presenter for this activity.
 
-        // Create the presenter.
-        mAlchenomiconPresenter = new AlchenomiconPresenter(this);
-
-        initView();
+        initView(); // Initializes the view.
     }
 
     /** ACTIVITY EXTENSION METHODS _____________________________________________________________ **/
@@ -47,70 +47,55 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putInt(INSTANCE_CURRENT_PAGE, mPresenter.getCurrentPage());
     }
 
     /** LAYOUT METHODS _________________________________________________________________________ **/
 
     private void initView() {
-
-        // VIEWPAGER:
-        AlchenomiconPagerAdapter pagerAdapter = new AlchenomiconPagerAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(pagerAdapter);
-        ViewPager.SimpleOnPageChangeListener pageListener = new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-        };
-        mViewPager.addOnPageChangeListener(pageListener);
-
-        // BOTTOM NAVIGATION VIEW:
-        mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        mPresenter.onInitListeners(); // Initializes the listeners for the activity.
     }
-
-    /** LISTENERS ______________________________________________________________________________ **/
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_alchemy_pot:
-                    mViewPager.setCurrentItem(0);
-                    return true;
-                case R.id.navigation_recipe_list:
-                    mViewPager.setCurrentItem(1);
-                    return true;
-            }
-            return false;
-        }
-    };
 
     /** VIEW METHODS ____________________________________________________________________________ **/
 
     @Override
     public void setPresenter(AlchenomiconContract.Presenter presenter) {
-
+        mPresenter = presenter;
     }
 
     @Override
-    public void showIngredientDialog() {
-        Log.d(LOG_TAG, "showIngredientDialog(): Ingredient dialog shown.");
+    public void initBottomNavigationView() {
+        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_alchemy_pot:
+                        mPresenter.onBottomNavigationClicked(0);
+                        return true;
+                    case R.id.navigation_recipe_list:
+                        mPresenter.onBottomNavigationClicked(1);
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
-    public void showRecipeResults() {
-
+    public void updateViewPager(int position) {
+        mViewPager.setCurrentItem(position);
     }
 
     @Override
-    public void setLoadingIndicator(boolean isActive) {
-
-    }
-
-    @Override
-    public void showNoRecipeResults() {
-
+    public void initViewPager() {
+        AlchenomiconPagerAdapter pagerAdapter = new AlchenomiconPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(pagerAdapter);
+        ViewPager.SimpleOnPageChangeListener pageListener = new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                mPresenter.onPageSelected(position);
+            }
+        };
+        mViewPager.addOnPageChangeListener(pageListener);
     }
 }

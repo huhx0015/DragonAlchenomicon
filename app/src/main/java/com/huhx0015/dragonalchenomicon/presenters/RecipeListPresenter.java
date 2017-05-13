@@ -19,9 +19,6 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
-    // DATABASE VARIABLES:
-    //@Inject AlchenomiconDatabaseHelper mDatabase;
-
     // LOGGING VARIABLES:
     private static final String LOG_TAG = RecipeListPresenter.class.getSimpleName();
 
@@ -32,13 +29,13 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
     @NonNull private CompositeDisposable mDisposables;
 
     // VIEW VARIABLES:
-    private RecipeListContract.View mRecipeListView;
+    private RecipeListContract.View mView;
 
     /** CONSTRUCTOR METHODS ____________________________________________________________________ **/
 
     public RecipeListPresenter(RecipeListContract.View view) {
-        this.mRecipeListView = view;
-        this.mRecipeListView.setPresenter(this);
+        this.mView = view;
+        this.mView.setPresenter(this);
         this.mDisposables = new CompositeDisposable();
         AlchenomiconApplication.getInstance().getAppComponent().inject(this);
     }
@@ -61,7 +58,7 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
     public void onLoadRecipeList() {
         Log.d(LOG_TAG, "onLoadRecipeList(): Loading recipe list.");
 
-        mRecipeListView.showProgressBar(true); // Displays the progress bar.
+        mView.showProgressBar(true); // Displays the progress bar.
 
         // Queries the database to retrieve all available recipes.
         mRepository.getAllRecipes(new AlchenomiconDatabaseListener.RecipeQueryListener() {
@@ -77,7 +74,7 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
     public void onRecipeListLoaded(List<AlchenomiconRecipe> recipeList) {
         Log.d(LOG_TAG, "onRecipeListLoaded(): Recipe list load complete.");
 
-        mRecipeListView.showProgressBar(false); // Hides the progress bar.
-        mRecipeListView.showRecipeList(recipeList); // Signals the view to make the recipe RecyclerView visible.
+        mView.showProgressBar(false); // Hides the progress bar.
+        mView.showRecipeList(recipeList); // Signals the view to make the recipe RecyclerView visible.
     }
 }

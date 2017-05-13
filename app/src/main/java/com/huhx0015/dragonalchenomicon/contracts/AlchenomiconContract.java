@@ -16,43 +16,38 @@ import java.util.List;
 
 public interface AlchenomiconContract {
 
-    // this defines the methods that the concrete View aka Fragment will implement. This way you can
+    // View: Defines the methods that the concrete View aka Fragment will implement. This way you can
     // proceed to create and test the Presenter without worrying about Android-specific components
     // such as Context.
     interface View extends BaseView<Presenter> {
 
-        void showIngredientDialog();
+        void initViewPager();
 
-        void showRecipeResults();
+        void initBottomNavigationView();
 
-        void setLoadingIndicator(boolean isActive);
-
-        void showNoRecipeResults();
+        void updateViewPager(int position);
     }
 
-    // this defines the methods that the concrete Presenter class will implement. Also known as user
-    // actions, this is where the business logic for the app is defined.
+    // Presenter: Defines the methods that the concrete Presenter class will implement. Also known
+    // as user actions, this is where the business logic for the app is defined.
     interface Presenter extends BasePresenter {
 
-        void onIngredientButtonClicked(int buttonId);
+        int getCurrentPage();
 
-        void onAlchemizeButtonClicked();
+        void onBottomNavigationClicked(int position);
 
-        void onMusicButtonClicked();
+        void onInitListeners();
 
-        void onClearButtonClicked();
+        void onPageSelected(int position);
+
     }
 
-    // this defines the methods that the concrete persistence class will implement. This way the
-    // Presenter does not need to be concerned about how data is persisted.
+    // Repository: Defines the methods that the concrete persistence class will implement. This way
+    // the Presenter does not need to be concerned about how data is persisted.
     interface Repository {
 
-        void getIngredientResourceId(int id);
+        int getCurrentPage();
 
-        void updateIngredients(List<String> recipeList);
-
-        void updateRecipe(String recipe);
-
-        void removeRecipe();
+        void updatePage(int posiiton);
     }
 }

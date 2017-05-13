@@ -31,14 +31,18 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
 
     // CONSTANT VARIABLES:
     private static final int RECIPE_LIST_PREFETCH_VALUE = 6;
-    private static final String INSTANCE_RECIPE_LIST = RecipeListFragment.class.getSimpleName() + "_RECIPE_LIST";
-    private static final String LOG_TAG = RecipeListFragment.class.getSimpleName();
 
     // DATA VARIABLES:
     private List<AlchenomiconRecipe> mRecipeList;
 
+    // LOGGING VARIABLES:
+    private static final String LOG_TAG = RecipeListFragment.class.getSimpleName();
+
     // PRESENTER VARIABLES:
     private RecipeListContract.Presenter mPresenter;
+
+    // SAVE INSTANCE VARIABLES:
+    private static final String INSTANCE_RECIPE_LIST = RecipeListFragment.class.getSimpleName() + "_RECIPE_LIST";
 
     // VIEW VARIABLES:
     private Unbinder mUnbinder;

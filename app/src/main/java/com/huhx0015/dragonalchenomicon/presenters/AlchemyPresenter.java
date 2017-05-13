@@ -16,12 +16,12 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
     private static final String LOG_TAG = AlchemyPresenter.class.getSimpleName();
 
     // RX VARIABLES:
-    @NonNull
-    private CompositeDisposable mDisposables;
+    @NonNull private CompositeDisposable mDisposables;
 
     public AlchemyPresenter(AlchemyContract.View view) {
         this.mAlchemyView = view;
         this.mAlchemyView.setPresenter(this);
+        this.mDisposables = new CompositeDisposable();
     }
 
     @Override
