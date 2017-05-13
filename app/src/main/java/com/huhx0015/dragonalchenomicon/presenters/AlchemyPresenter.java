@@ -2,7 +2,12 @@ package com.huhx0015.dragonalchenomicon.presenters;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
+import com.huhx0015.dragonalchenomicon.data.repositories.AlchemyRepository;
+import com.huhx0015.dragonalchenomicon.interfaces.AlchenomiconDatabaseListener;
+import java.util.HashSet;
+import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
@@ -11,18 +16,30 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class AlchemyPresenter implements AlchemyContract.Presenter {
 
-    private AlchemyContract.View mAlchemyView;
+    /** CLASS VARIABLES ________________________________________________________________________ **/
 
+    // LOGGING VARIABLES:
     private static final String LOG_TAG = AlchemyPresenter.class.getSimpleName();
+
+    // REPOSITORY VARIABLES:
+    @Inject AlchemyRepository mRepository;
 
     // RX VARIABLES:
     @NonNull private CompositeDisposable mDisposables;
 
+    // VIEW VARIABLES:
+    private AlchemyContract.View mView;
+
+    /** CONSTRUCTOR METHODS ____________________________________________________________________ **/
+
     public AlchemyPresenter(AlchemyContract.View view) {
-        this.mAlchemyView = view;
-        this.mAlchemyView.setPresenter(this);
+        this.mView = view;
+        this.mView.setPresenter(this);
         this.mDisposables = new CompositeDisposable();
+        AlchenomiconApplication.getInstance().getAppComponent().inject(this);
     }
+
+    /** PRESENTER METHODS ______________________________________________________________________ **/
 
     @Override
     public void subscribe() {
@@ -39,20 +56,13 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
     @Override
     public void onIngredientButtonClicked(int buttonId) {
 
-    }
-
-    @Override
-    public void onAlchemizeButtonClicked() {
-
-    }
-
-    @Override
-    public void onMusicButtonClicked() {
-
-    }
-
-    @Override
-    public void onClearButtonClicked() {
-
+        // Queries the database to retrieve all available ingredients.
+        mRepository.getAllIngredients(new AlchenomiconDatabaseListener.IngredientQueryListener() {
+            @Override
+            public void onQueryFinished(HashSet<String> ingredientList) {
+                Log.d(LOG_TAG, "onQueryFinished(): Query for ingredient list has finished.");
+                mView.showIngredientDialog(ingredientList);
+            }
+        });
     }
 }

@@ -12,7 +12,7 @@
         android:padding="16dp">
 
         <ImageButton
-            android:id="@+id/alchenomicon_item_1"
+            android:id="@+id/alchemy_ingredient_1"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_marginEnd="8dp"
@@ -20,7 +20,7 @@
             android:background="@drawable/dq8_item_332" />
 
         <ImageButton
-            android:id="@+id/alchenomicon_item_2"
+            android:id="@+id/alchemy_ingredient_2"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_marginEnd="8dp"
@@ -28,7 +28,7 @@
             android:background="@drawable/dq8_item_332" />
 
         <ImageButton
-            android:id="@+id/alchenomicon_item_3"
+            android:id="@+id/alchemy_ingredient_3"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:background="@drawable/dq8_item_332" />

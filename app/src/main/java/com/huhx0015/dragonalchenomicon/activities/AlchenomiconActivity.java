@@ -42,6 +42,18 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
         initView(); // Initializes the view.
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.subscribe();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPresenter.unsubscribe();
+    }
+
     /** ACTIVITY EXTENSION METHODS _____________________________________________________________ **/
 
     @Override
@@ -82,11 +94,6 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
     }
 
     @Override
-    public void updateViewPager(int position) {
-        mViewPager.setCurrentItem(position);
-    }
-
-    @Override
     public void initViewPager() {
         AlchenomiconPagerAdapter pagerAdapter = new AlchenomiconPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(pagerAdapter);
@@ -97,5 +104,10 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
             }
         };
         mViewPager.addOnPageChangeListener(pageListener);
+    }
+
+    @Override
+    public void updateViewPager(int position) {
+        mViewPager.setCurrentItem(position);
     }
 }

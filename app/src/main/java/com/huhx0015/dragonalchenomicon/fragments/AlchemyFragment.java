@@ -21,27 +21,44 @@ import butterknife.Unbinder;
 
 public class AlchemyFragment extends Fragment implements AlchemyContract.View {
 
-    // PRESENTER VARIABLES:
-    private AlchemyPresenter mAlchemyPresenter;
+    /** CLASS VARIABLES ________________________________________________________________________ **/
 
+    // LOGGING VARIABLES:
     private static final String LOG_TAG = AlchemyFragment.class.getSimpleName();
 
+    // PRESENTER VARIABLES:
+    private AlchemyContract.Presenter mPresenter;
+
+    // VIEW VARIABLES:
     private Unbinder mUnbinder;
+
+    /** INSTANCE METHODS _______________________________________________________________________ **/
 
     public static AlchemyFragment newInstance() {
         return new AlchemyFragment();
     }
+
+    /** FRAGMENT LIFECYCLE METHODS _____________________________________________________________ **/
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View alchemyView = inflater.inflate(R.layout.fragment_alchemy, container, false);
         mUnbinder = ButterKnife.bind(this, alchemyView);
-
-        initView();
-        mAlchemyPresenter = new AlchemyPresenter(this);
-
+        setPresenter(new AlchemyPresenter(this)); // Sets the presenter for this fragment.
         return alchemyView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.subscribe();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPresenter.unsubscribe();
     }
 
     @Override
@@ -52,49 +69,34 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View {
 
     /** LAYOUT METHODS _________________________________________________________________________ **/
 
-    private void initView() {
-
-    }
-
-    @OnClick(R.id.alchenomicon_item_1)
+    @OnClick(R.id.alchemy_ingredient_1)
     public void firstIngredientButton() {
-        mAlchemyPresenter.onIngredientButtonClicked(1);
+        mPresenter.onIngredientButtonClicked(1);
     }
 
-    @OnClick(R.id.alchenomicon_item_2)
+    @OnClick(R.id.alchemy_ingredient_2)
     public void secondIngredientButton() {
-        mAlchemyPresenter.onIngredientButtonClicked(2);
+        mPresenter.onIngredientButtonClicked(2);
     }
 
-    @OnClick(R.id.alchenomicon_item_3)
+    @OnClick(R.id.alchemy_ingredient_3)
     public void thirdIngredientButton() {
-        mAlchemyPresenter.onIngredientButtonClicked(3);
+        mPresenter.onIngredientButtonClicked(3);
     }
 
     /** VIEW METHODS ___________________________________________________________________________ **/
 
     @Override
     public void setPresenter(AlchemyContract.Presenter presenter) {
-
+        this.mPresenter = presenter;
     }
 
     @Override
     public void showIngredientDialog(HashSet<String> ingredientList) {
         Log.d(LOG_TAG, "showIngredientDialog(): Ingredient dialog shown.");
-    }
 
-    @Override
-    public void showRecipeResults() {
-
-    }
-
-    @Override
-    public void setLoadingIndicator(boolean isActive) {
-
-    }
-
-    @Override
-    public void showNoRecipeResults() {
-
+        for (String ingredient : ingredientList) {
+            Log.d(LOG_TAG, "showIngredientDialog(): Ingredient: " + ingredient);
+        }
     }
 }

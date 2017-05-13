@@ -51,7 +51,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
     @BindView(R.id.recipe_list_progressbar) ProgressBar mProgressBar;
     @BindView(R.id.recipe_list_recyclerview) RecyclerView mRecyclerView;
 
-    /** CONSTRUCTOR METHODS ____________________________________________________________________ **/
+    /** INSTANCE METHODS _______________________________________________________________________ **/
 
     public static RecipeListFragment newInstance() {
         return new RecipeListFragment();
