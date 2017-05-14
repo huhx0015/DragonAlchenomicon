@@ -27,7 +27,13 @@ public class AlchemyRepository implements AlchemyContract.Repository {
     /** REPOSITORY METHODS _____________________________________________________________________ **/
 
     @Override
-    public void getAllIngredients(AlchenomiconDatabaseListener.IngredientQueryListener listener) {
-        mDatabase.getAllIngredients(listener);
+    public void getAllIngredients(final AlchenomiconDatabaseListener.IngredientQueryListener listener) {
+        Thread databaseThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mDatabase.getAllIngredients(listener);
+            }
+        });
+        databaseThread.start();
     }
 }

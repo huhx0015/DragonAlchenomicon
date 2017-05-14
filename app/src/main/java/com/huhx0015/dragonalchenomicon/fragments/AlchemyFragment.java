@@ -98,5 +98,12 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View {
         for (String ingredient : ingredientList) {
             Log.d(LOG_TAG, "showIngredientDialog(): Ingredient: " + ingredient);
         }
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // TODO: Load dialog from here.
+            }
+        });
     }
 }

@@ -16,33 +16,34 @@ import javax.inject.Singleton;
 
 /**
  * Created by Michael Yoon Huh on 4/25/2017.
- *
- * Using supplied MySQL database:
- * https://blog.reigndesign.com/blog/using-your-own-sqlite-database-in-android-applications/
  */
 
 @Singleton
 public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
 
-    private static AlchenomiconDatabaseHelper mDatabase;
+    /** CLASS VARIABLES ________________________________________________________________________ **/
 
-    // Database Info
+    // DATABASE VARIABLES:
     private static final String DATABASE_NAME = "dq8_alchenomicon_table.db";
     private static final int DATABASE_VERSION = 1;
 
-    // Post Table Columns
-    public static final String TABLE_DQ8_RECIPE = "DQ8_ALCHEMY_TABLE";
-    public static final String KEY_ROWID = "KEY_ROWID";
-    public static final String KEY_ITEM = "KEY_ITEM";
-    public static final String KEY_CATEGORY = "KEY_CATEGORY";
-    public static final String KEY_DESC = "KEY_DESC";
-    public static final String KEY_REC1 = "KEY_REC1";
-    public static final String KEY_REC2 = "KEY_REC2";
-    public static final String KEY_REC3 = "KEY_REC3";
-    public static final String KEY_ATT1 = "KEY_ATT1";
-    public static final String KEY_ATT2 = "KEY_ATT2";
-    public static final String KEY_ATT3 = "KEY_ATT3";
+    // LOGGING VARIABLES:
+    private static final String LOG_TAG = AlchenomiconDatabaseHelper.class.getSimpleName();
 
+    // TABLE ATTRIBUTE VARIABLES:
+    private static final String TABLE_DQ8_RECIPE = "DQ8_ALCHEMY_TABLE";
+    private static final String KEY_ROWID = "KEY_ROWID";
+    private static final String KEY_ITEM = "KEY_ITEM";
+    private static final String KEY_CATEGORY = "KEY_CATEGORY";
+    private static final String KEY_DESC = "KEY_DESC";
+    private static final String KEY_REC1 = "KEY_REC1";
+    private static final String KEY_REC2 = "KEY_REC2";
+    private static final String KEY_REC3 = "KEY_REC3";
+    private static final String KEY_ATT1 = "KEY_ATT1";
+    private static final String KEY_ATT2 = "KEY_ATT2";
+    private static final String KEY_ATT3 = "KEY_ATT3";
+
+    // TABLE COLUMN VARIABLES:
     private static final String[] TABLE_COLUMNS = {
             KEY_ROWID,
             KEY_ITEM,
@@ -56,22 +57,12 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
             KEY_ATT3
     };
 
-    private static final String LOG_TAG = AlchenomiconDatabaseHelper.class.getSimpleName();
-
     /** CONSTRUCTOR METHODS ____________________________________________________________________ **/
 
     @Inject
     public AlchenomiconDatabaseHelper(@ApplicationContext Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
-    /** INSTANCE METHODS _______________________________________________________________________ **/
-
-//    public static AlchenomiconDatabaseHelper getInstance() {
-//        if (mDatabase == null) {
-//            mDatabase = new AlchenomiconDatabaseHelper()
-//        }
-//    }
 
     /** DATABASE ACCESS METHODS ________________________________________________________________ **/
 

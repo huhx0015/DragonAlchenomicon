@@ -139,18 +139,29 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
     }
 
     @Override
-    public void showProgressBar(boolean isDisplay) {
-        if (isDisplay) {
-            mProgressBar.setVisibility(View.VISIBLE);
-        } else {
-            mProgressBar.setVisibility(View.GONE);
-        }
+    public void showProgressBar(final boolean isDisplay) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (isDisplay) {
+                    mProgressBar.setVisibility(View.VISIBLE);
+                } else {
+                    mProgressBar.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     @Override
     public void showRecipeList(List<AlchenomiconRecipe> recipeList) {
         mRecipeList = recipeList;
-        initRecyclerView();
-        mRecyclerView.setVisibility(View.VISIBLE);
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                initRecyclerView();
+                mRecyclerView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 }

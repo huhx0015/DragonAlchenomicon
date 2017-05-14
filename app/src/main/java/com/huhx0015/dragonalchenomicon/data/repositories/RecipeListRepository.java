@@ -27,7 +27,13 @@ public class RecipeListRepository implements RecipeListContract.Repository {
     /** REPOSITORY METHODS _____________________________________________________________________ **/
 
     @Override
-    public void getAllRecipes(AlchenomiconDatabaseListener.RecipeQueryListener listener) {
-        mDatabase.getAllRecipes(listener);
+    public void getAllRecipes(final AlchenomiconDatabaseListener.RecipeQueryListener listener) {
+        Thread databaseThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mDatabase.getAllRecipes(listener);
+            }
+        });
+        databaseThread.start();
     }
 }

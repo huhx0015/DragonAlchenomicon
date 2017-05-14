@@ -13,6 +13,10 @@ import com.huhx0015.dragonalchenomicon.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Created by Michael Yoon Huh on 4/25/2017.
+ */
+
 public class AlchenomiconActivity extends AppCompatActivity implements AlchenomiconContract.View {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
