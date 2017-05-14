@@ -3,12 +3,15 @@ package com.huhx0015.dragonalchenomicon.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.huhx0015.dragonalchenomicon.R;
 import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
+import com.huhx0015.dragonalchenomicon.dialog.IngredientPickerDialog;
+import com.huhx0015.dragonalchenomicon.interfaces.IngredientPickerListener;
 import com.huhx0015.dragonalchenomicon.presenters.AlchemyPresenter;
 import java.util.HashSet;
 import butterknife.ButterKnife;
@@ -19,7 +22,7 @@ import butterknife.Unbinder;
  * Created by Michael Yoon Huh on 5/11/2017.
  */
 
-public class AlchemyFragment extends Fragment implements AlchemyContract.View {
+public class AlchemyFragment extends Fragment implements AlchemyContract.View, IngredientPickerListener {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
@@ -84,6 +87,21 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View {
         mPresenter.onIngredientButtonClicked(3);
     }
 
+    /** DIALOG METHODS _________________________________________________________________________ **/
+
+    private void displayIngredientPickerDialog() {
+        FragmentManager fragmentManager = getFragmentManager();
+        IngredientPickerDialog pickerDialog = IngredientPickerDialog.newInstance(this);
+        pickerDialog.show(fragmentManager, IngredientPickerDialog.class.getSimpleName());
+    }
+
+    /** LISTENER METHODS _______________________________________________________________________ **/
+
+    @Override
+    public void onIngredientPickerDismissed(String ingredient) {
+
+    }
+
     /** VIEW METHODS ___________________________________________________________________________ **/
 
     @Override
@@ -93,16 +111,11 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View {
 
     @Override
     public void showIngredientDialog(HashSet<String> ingredientList) {
-        Log.d(LOG_TAG, "showIngredientDialog(): Ingredient dialog shown.");
-
-        for (String ingredient : ingredientList) {
-            Log.d(LOG_TAG, "showIngredientDialog(): Ingredient: " + ingredient);
-        }
-
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                // TODO: Load dialog from here.
+                displayIngredientPickerDialog();
+                Log.d(LOG_TAG, "showIngredientDialog(): Ingredient dialog shown.");
             }
         });
     }

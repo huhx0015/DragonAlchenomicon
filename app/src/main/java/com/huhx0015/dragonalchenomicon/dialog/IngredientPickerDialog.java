@@ -1,12 +1,134 @@
 package com.huhx0015.dragonalchenomicon.dialog;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import com.huhx0015.dragonalchenomicon.R;
+import com.huhx0015.dragonalchenomicon.adapters.RecipeListAdapter;
+import com.huhx0015.dragonalchenomicon.contracts.IngredientPickerContract;
+import com.huhx0015.dragonalchenomicon.interfaces.IngredientPickerListener;
+import com.huhx0015.dragonalchenomicon.presenters.IngredientPickerPresenter;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by Michael Yoon Huh on 5/11/2017.
  */
 
-public class IngredientPickerDialog extends BottomSheetDialogFragment {
+public class IngredientPickerDialog extends BottomSheetDialogFragment implements IngredientPickerContract.View {
 
+    /** CLASS VARIABLES ________________________________________________________________________ **/
 
+    // CONSTANT VARIABLES:
+    private static final int INGREDIENT_PICKER_PREFETCH_VALUE = 6;
+
+    // LISTENER VARIABLES:
+    private IngredientPickerListener mListener;
+
+    // LOGGING VARIABLES:
+    private static final String LOG_TAG = IngredientPickerDialog.class.getSimpleName();
+
+    // PRESENTER VARIABLES:
+    private IngredientPickerContract.Presenter mPresenter;
+
+    // VIEW VARIABLES:
+    private Unbinder mUnbinder;
+
+    // VIEW INJECTION VARIABLES:
+    @BindView(R.id.ingredient_picker_recycler_view) RecyclerView mRecyclerView;
+
+    /** CONSTRUCTOR METHODS ____________________________________________________________________ **/
+
+    public static IngredientPickerDialog newInstance(IngredientPickerListener listener) {
+        IngredientPickerDialog dialog = new IngredientPickerDialog();
+        dialog.setPickerListener(listener);
+        return dialog;
+    }
+
+    /** FRAGMENT LIFECYCLE METHODS _____________________________________________________________ **/
+
+    @Override
+    public void setupDialog(Dialog dialog, int style) {
+        super.setupDialog(dialog, style);
+        View view = View.inflate(getContext(), R.layout.dialog_ingredient_picker, null);
+        dialog.setContentView(view);
+        mUnbinder = ButterKnife.bind(this, view);
+        setPresenter(new IngredientPickerPresenter(this)); // Sets the presenter for this fragment.
+        initView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.subscribe();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPresenter.unsubscribe();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mUnbinder.unbind();
+    }
+
+    /** FRAGMENT EXTENSION METHODS _____________________________________________________________ **/
+
+    @Override
+    public void onDismiss(final DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+    }
+
+    /** LAYOUT METHODS _________________________________________________________________________ **/
+
+    private void initView() {
+        mPresenter.loadIngredientList();
+    }
+
+    private void initRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setItemPrefetchEnabled(true);
+        layoutManager.setInitialPrefetchItemCount(INGREDIENT_PICKER_PREFETCH_VALUE);
+
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setDrawingCacheEnabled(true);
+        mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
+        RecipeListAdapter adapter = new RecipeListAdapter(mRecipeList);
+        adapter.setHasStableIds(true);
+        mRecyclerView.setAdapter(adapter);
+    }
+
+    /** SET METHODS ____________________________________________________________________________ **/
+
+    private void setPickerListener(IngredientPickerListener listener) {
+        this.mListener = listener;
+    }
+
+    /** VIEW METHODS ___________________________________________________________________________ **/
+
+    @Override
+    public void setPresenter(IngredientPickerContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
+    @Override
+    public void showIngredientList() {
+        initRecyclerView();
+    }
+
+    @Override
+    public void dismissPickerDialog(String ingredient) {
+        mListener.onIngredientPickerDismissed(ingredient);
+        dismiss();
+    }
 }
