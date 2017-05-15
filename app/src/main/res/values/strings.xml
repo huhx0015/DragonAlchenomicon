@@ -2,32 +2,7 @@
 <resources>
 
     <string name="app_name">Dragon Alchenomicon</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
 
-    <string name="recipe_1_prompt">Select an Ingredient</string>
-    <string name="recipe_2_prompt">Select an Ingredient</string>
-    <string name="recipe_3_prompt">Select an Ingredient</string>
-
-    <string-array name="recipe_1">
-        <item>Medical Herb</item>
-        <item>Antidote Herb</item>
-        <item>Panacea</item>
-    </string-array>
-
-    <string-array name="recipe_2">
-        <item>Medical Herb</item>
-        <item>Antidote Herb</item>
-        <item>Panacea</item>
-    </string-array>
-
-    <string-array name="recipe_3">
-        <item>Medical Herb</item>
-        <item>Antidote Herb</item>
-        <item>Panacea</item>
-    </string-array>
-
-    <string name="title_activity_alchenomicon">AlchenomiconActivity</string>
     <string name="title_alchemy_pot">Alchemy Pot</string>
     <string name="title_recipes">Recipes</string>
 

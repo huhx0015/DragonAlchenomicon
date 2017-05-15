@@ -16,7 +16,7 @@
 
         <activity
             android:name=".activities.AlchenomiconActivity"
-            android:label="@string/title_activity_alchenomicon"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
