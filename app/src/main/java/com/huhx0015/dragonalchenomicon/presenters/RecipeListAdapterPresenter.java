@@ -2,37 +2,38 @@ package com.huhx0015.dragonalchenomicon.presenters;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import com.huhx0015.dragonalchenomicon.adapters.RecipeListAdapter;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
-import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
-import com.huhx0015.dragonalchenomicon.data.repositories.AlchemyRepository;
-import com.huhx0015.dragonalchenomicon.interfaces.AlchemyPresenterListener;
-import java.util.HashSet;
+import com.huhx0015.dragonalchenomicon.contracts.RecipeListAdapterContract;
+import com.huhx0015.dragonalchenomicon.data.repositories.RecipeListAdapterRepository;
+import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
+import java.util.List;
 import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
- * Created by Michael Yoon Huh on 5/11/2017.
+ * Created by Michael Yoon Huh on 5/14/2017.
  */
 
-public class AlchemyPresenter implements AlchemyContract.Presenter {
+public class RecipeListAdapterPresenter implements RecipeListAdapterContract.Presenter {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
     // LOGGING VARIABLES:
-    private static final String LOG_TAG = AlchemyPresenter.class.getSimpleName();
+    private static final String LOG_TAG = RecipeListAdapterPresenter.class.getSimpleName();
 
     // REPOSITORY VARIABLES:
-    @Inject AlchemyRepository mRepository;
+    @Inject RecipeListAdapterRepository mRepository;
 
     // RX VARIABLES:
     @NonNull private CompositeDisposable mDisposables;
 
     // VIEW VARIABLES:
-    private AlchemyContract.View mView;
+    private RecipeListAdapterContract.View mView;
 
     /** CONSTRUCTOR METHODS ____________________________________________________________________ **/
 
-    public AlchemyPresenter(AlchemyContract.View view) {
+    public RecipeListAdapterPresenter(RecipeListAdapterContract.View view) {
         this.mView = view;
         this.mView.setPresenter(this);
         this.mDisposables = new CompositeDisposable();
@@ -54,28 +55,17 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
     }
 
     @Override
-    public HashSet<String> getIngredientList() {
-        return mRepository.getIngredientList();
+    public int getRecipeCount() {
+        return mRepository.getRecipeCount();
     }
 
     @Override
-    public void setIngredientList(HashSet<String> ingredientList) {
-        mRepository.setIngredientList(ingredientList);
+    public void setRecipeList(List<AlchenomiconRecipe> recipeList) {
+        mRepository.setRecipeList(recipeList);
     }
 
     @Override
-    public void onIngredientButtonClicked(int buttonId) {
-
-        // Queries the database to retrieve all available ingredients.
-        if (mRepository.getIngredientList() == null) {
-            mRepository.getAllIngredients(new AlchemyPresenterListener() {
-                @Override
-                public void onIngredientListLoaded() {
-                    mView.showIngredientDialog();
-                }
-            });
-        } else {
-            mView.showIngredientDialog();
-        }
+    public void setRecipeRow(RecipeListAdapter.RecipeListViewHolder holder, int position) {
+        mView.showRecipeRow(holder, mRepository.getRecipeList().get(position));
     }
 }

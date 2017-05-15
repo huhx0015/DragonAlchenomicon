@@ -22,6 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/title_logo"
+                android:padding="8dp"
                 android:layout_gravity="center"/>
 
         </android.support.v7.widget.Toolbar>
@@ -47,18 +48,6 @@
             android:layout_gravity="bottom"
             android:background="?android:attr/windowBackground"
             app:menu="@menu/navigation" />
-
-        <LinearLayout
-            android:id="@+id/alchenomicon_sub_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-
-
-        </LinearLayout>
-
 
     </LinearLayout>
 

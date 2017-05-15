@@ -5,7 +5,7 @@ import android.util.Log;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.contracts.RecipeListContract;
 import com.huhx0015.dragonalchenomicon.data.repositories.RecipeListRepository;
-import com.huhx0015.dragonalchenomicon.interfaces.AlchenomiconDatabaseListener;
+import com.huhx0015.dragonalchenomicon.interfaces.RecipeListPresenterListener;
 import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
 import java.util.List;
 import javax.inject.Inject;
@@ -55,26 +55,34 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
     }
 
     @Override
-    public void onLoadRecipeList() {
-        Log.d(LOG_TAG, "onLoadRecipeList(): Loading recipe list.");
-
-        mView.showProgressBar(true); // Displays the progress bar.
-
-        // Queries the database to retrieve all available recipes.
-        mRepository.getAllRecipes(new AlchenomiconDatabaseListener.RecipeQueryListener() {
-            @Override
-            public void onQueryFinished(List<AlchenomiconRecipe> recipeList) {
-                Log.d(LOG_TAG, "onQueryFinished(): Query for recipe list has finished.");
-                onRecipeListLoaded(recipeList);
-            }
-        });
+    public List<AlchenomiconRecipe> getRecipeList() {
+        return mRepository.getRecipeList();
     }
 
     @Override
-    public void onRecipeListLoaded(List<AlchenomiconRecipe> recipeList) {
-        Log.d(LOG_TAG, "onRecipeListLoaded(): Recipe list load complete.");
+    public void setRecipeList(List<AlchenomiconRecipe> recipeList) {
+        mRepository.setRecipeList(recipeList);
+    }
 
-        mView.showProgressBar(false); // Hides the progress bar.
-        mView.showRecipeList(recipeList); // Signals the view to make the recipe RecyclerView visible.
+    @Override
+    public void onLoadRecipeList() {
+        Log.d(LOG_TAG, "onLoadRecipeList(): Loading recipe list.");
+
+        // Queries the database to retrieve all available recipes.
+        if (mRepository.getRecipeList() == null) {
+            mView.showProgressBar(true); // Displays the progress bar.
+
+            mRepository.getAllRecipes(new RecipeListPresenterListener() {
+                @Override
+                public void onRecipeListLoaded() {
+                    Log.d(LOG_TAG, "onRecipeListLoaded(): Recipe list load complete.");
+
+                    mView.showProgressBar(false); // Hides the progress bar.
+                    mView.showRecipeList(); // Signals the view to make the recipe RecyclerView visible.
+                }
+            });
+        } else {
+            mView.showRecipeList(); // Signals the view to make the recipe RecyclerView visible.
+        }
     }
 }

@@ -1,8 +1,8 @@
 package com.huhx0015.dragonalchenomicon.contracts;
 
-import com.huhx0015.dragonalchenomicon.interfaces.AlchenomiconDatabaseListener;
 import com.huhx0015.dragonalchenomicon.interfaces.BasePresenter;
 import com.huhx0015.dragonalchenomicon.interfaces.BaseView;
+import com.huhx0015.dragonalchenomicon.interfaces.RecipeListPresenterListener;
 import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
 import java.util.List;
 
@@ -25,16 +25,18 @@ public interface RecipeListContract {
 
         void showProgressBar(boolean isDisplay);
 
-        void showRecipeList(List<AlchenomiconRecipe> recipeList);
+        void showRecipeList();
     }
 
     // Presenter: Defines the methods that the concrete Presenter class will implement. Also known
     // as user actions, this is where the business logic for the app is defined.
     interface Presenter extends BasePresenter {
 
-        void onLoadRecipeList();
+        List<AlchenomiconRecipe> getRecipeList();
 
-        void onRecipeListLoaded(List<AlchenomiconRecipe> recipeList);
+        void setRecipeList(List<AlchenomiconRecipe> recipeList);
+
+        void onLoadRecipeList();
 
     }
 
@@ -42,7 +44,10 @@ public interface RecipeListContract {
     // the Presenter does not need to be concerned about how data is persisted.
     interface Repository {
 
-        void getAllRecipes(AlchenomiconDatabaseListener.RecipeQueryListener listener);
+        void getAllRecipes(RecipeListPresenterListener listener);
 
+        List<AlchenomiconRecipe> getRecipeList();
+
+        void setRecipeList(List<AlchenomiconRecipe> recipeList);
     }
 }

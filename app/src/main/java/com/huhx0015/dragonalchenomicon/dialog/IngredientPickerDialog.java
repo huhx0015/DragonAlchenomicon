@@ -7,10 +7,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.huhx0015.dragonalchenomicon.R;
-import com.huhx0015.dragonalchenomicon.adapters.RecipeListAdapter;
 import com.huhx0015.dragonalchenomicon.contracts.IngredientPickerContract;
 import com.huhx0015.dragonalchenomicon.interfaces.IngredientPickerListener;
 import com.huhx0015.dragonalchenomicon.presenters.IngredientPickerPresenter;
+import java.util.HashSet;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -43,7 +43,8 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
 
     /** CONSTRUCTOR METHODS ____________________________________________________________________ **/
 
-    public static IngredientPickerDialog newInstance(IngredientPickerListener listener) {
+    public static IngredientPickerDialog newInstance(HashSet<String> ingredientList,
+                                                     IngredientPickerListener listener) {
         IngredientPickerDialog dialog = new IngredientPickerDialog();
         dialog.setPickerListener(listener);
         return dialog;
@@ -103,9 +104,9 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
         mRecyclerView.setDrawingCacheEnabled(true);
         mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
-        RecipeListAdapter adapter = new RecipeListAdapter(mRecipeList);
-        adapter.setHasStableIds(true);
-        mRecyclerView.setAdapter(adapter);
+//        RecipeListAdapter adapter = new RecipeListAdapter(mRecipeList);
+//        adapter.setHasStableIds(true);
+//        mRecyclerView.setAdapter(adapter);
     }
 
     /** SET METHODS ____________________________________________________________________________ **/

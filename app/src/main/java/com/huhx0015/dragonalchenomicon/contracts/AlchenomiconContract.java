@@ -15,7 +15,7 @@ import com.huhx0015.dragonalchenomicon.interfaces.BaseView;
 
 public interface AlchenomiconContract {
 
-    // View: Defines the methods that the concrete View aka Fragment will implement. This way you can
+    // View: Defines the methods that the concrete View aka Activity will implement. This way you can
     // proceed to create and test the Presenter without worrying about Android-specific components
     // such as Context.
     interface View extends BaseView<Presenter> {

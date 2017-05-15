@@ -42,7 +42,6 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
         setContentView(R.layout.activity_alchenomicon);
         ButterKnife.bind(this);
         setPresenter(new AlchenomiconPresenter(this)); // Sets the presenter for this activity.
-
         initView(); // Initializes the view.
     }
 

@@ -32,9 +32,6 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
     // CONSTANT VARIABLES:
     private static final int RECIPE_LIST_PREFETCH_VALUE = 6;
 
-    // DATA VARIABLES:
-    private List<AlchenomiconRecipe> mRecipeList;
-
     // LOGGING VARIABLES:
     private static final String LOG_TAG = RecipeListFragment.class.getSimpleName();
 
@@ -96,8 +93,9 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        if (mRecipeList != null) {
-            outState.putParcelableArrayList(INSTANCE_RECIPE_LIST, new ArrayList<>(mRecipeList));
+        List<AlchenomiconRecipe> recipeList = mPresenter.getRecipeList();
+        if (recipeList != null) {
+            outState.putParcelableArrayList(INSTANCE_RECIPE_LIST, new ArrayList<>(recipeList));
         }
     }
 
@@ -108,7 +106,8 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
             List<AlchenomiconRecipe> recipeList = savedInstanceState.getParcelableArrayList(INSTANCE_RECIPE_LIST);
 
             if (recipeList != null) {
-                mPresenter.onRecipeListLoaded(recipeList); // Recipe list is shown.
+                mPresenter.setRecipeList(recipeList);
+                mPresenter.onLoadRecipeList(); // Recipe list is shown.
                 return;
             }
         }
@@ -126,7 +125,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
         mRecyclerView.setDrawingCacheEnabled(true);
         mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
-        RecipeListAdapter adapter = new RecipeListAdapter(mRecipeList);
+        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRecipeList());
         adapter.setHasStableIds(true);
         mRecyclerView.setAdapter(adapter);
     }
@@ -153,9 +152,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
     }
 
     @Override
-    public void showRecipeList(List<AlchenomiconRecipe> recipeList) {
-        mRecipeList = recipeList;
-
+    public void showRecipeList() {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

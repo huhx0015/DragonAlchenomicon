@@ -45,6 +45,11 @@ public class IngredientPickerPresenter implements IngredientPickerContract.Prese
     }
 
     @Override
+    public void loadIngredientList() {
+        mView.showIngredientList();
+    }
+
+    @Override
     public void onIngredientClicked(String ingredient) {
         mView.dismissPickerDialog(ingredient);
     }

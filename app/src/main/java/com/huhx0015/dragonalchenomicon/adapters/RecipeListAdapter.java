@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.huhx0015.dragonalchenomicon.R;
+import com.huhx0015.dragonalchenomicon.contracts.RecipeListAdapterContract;
 import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
+import com.huhx0015.dragonalchenomicon.presenters.RecipeListAdapterPresenter;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,20 +17,22 @@ import butterknife.ButterKnife;
  * Created by Michael Yoon Huh on 5/11/2017.
  */
 
-public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder> {
+public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder>
+        implements RecipeListAdapterContract.View {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
     // CONSTANT VARIABLES:
     private static final String NULL_IDENTIFIER = "NULL";
 
-    // RECIPE LIST VARIABLES:
-    private List<AlchenomiconRecipe> mRecipeList;
+    // PRESENTER VARIABLES:
+    private RecipeListAdapterContract.Presenter mPresenter;
 
     /** CONSTRUCTOR METHODS ____________________________________________________________________ **/
 
     public RecipeListAdapter(List<AlchenomiconRecipe> recipeList) {
-        this.mRecipeList = recipeList;
+        setPresenter(new RecipeListAdapterPresenter(this)); // Sets the presenter for this adapter.
+        mPresenter.setRecipeList(recipeList);
     }
 
     /** ADAPTER METHODS ________________________________________________________________________ **/
@@ -41,7 +45,28 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     @Override
     public void onBindViewHolder(RecipeListViewHolder holder, int position) {
-        AlchenomiconRecipe recipe = mRecipeList.get(position);
+        mPresenter.setRecipeRow(holder, position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemCount() {
+        return mPresenter.getRecipeCount();
+    }
+
+    /** VIEW METHODS ___________________________________________________________________________ **/
+
+    @Override
+    public void setPresenter(RecipeListAdapterContract.Presenter presenter) {
+        this.mPresenter = presenter;
+    }
+
+    @Override
+    public void showRecipeRow(RecipeListViewHolder holder, AlchenomiconRecipe recipe) {
 
         // RECIPE NAME:
         holder.receipeName.setText(recipe.recipeName);
@@ -71,23 +96,9 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         }
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public int getItemCount() {
-        if (mRecipeList != null) {
-            return mRecipeList.size();
-        } else {
-            return 0;
-        }
-    }
-
     /** SUBCLASSES _____________________________________________________________________________ **/
 
-    class RecipeListViewHolder extends RecyclerView.ViewHolder {
+    public class RecipeListViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.adapter_recipe_ingredient_1) TextView firstIngredient;
         @BindView(R.id.adapter_recipe_ingredient_2) TextView secondIngredient;
