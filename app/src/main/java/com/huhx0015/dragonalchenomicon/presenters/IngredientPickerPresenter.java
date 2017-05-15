@@ -2,7 +2,11 @@ package com.huhx0015.dragonalchenomicon.presenters;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.contracts.IngredientPickerContract;
+import com.huhx0015.dragonalchenomicon.data.repositories.IngredientPickerRepository;
+import java.util.HashSet;
+import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
@@ -16,6 +20,9 @@ public class IngredientPickerPresenter implements IngredientPickerContract.Prese
     // LOGGING VARIABLES:
     private static final String LOG_TAG = IngredientPickerPresenter.class.getSimpleName();
 
+    // REPOSITORY VARIABLES:
+    @Inject IngredientPickerRepository mRepository;
+
     // RX VARIABLES:
     @NonNull private CompositeDisposable mDisposables;
 
@@ -28,6 +35,7 @@ public class IngredientPickerPresenter implements IngredientPickerContract.Prese
         this.mView = view;
         this.mView.setPresenter(this);
         this.mDisposables = new CompositeDisposable();
+        AlchenomiconApplication.getInstance().getAppComponent().inject(this);
     }
 
     /** PRESENTER METHODS ______________________________________________________________________ **/
@@ -45,12 +53,22 @@ public class IngredientPickerPresenter implements IngredientPickerContract.Prese
     }
 
     @Override
+    public HashSet<String> getIngredientList() {
+        return mRepository.getIngredientList();
+    }
+
+    @Override
     public void loadIngredientList() {
         mView.showIngredientList();
     }
 
     @Override
-    public void onIngredientClicked(String ingredient) {
+    public void setIngredientList(HashSet<String> ingredientList) {
+        mRepository.setIngredientList(ingredientList);
+    }
+
+    @Override
+    public void onIngredientSelected(String ingredient) {
         mView.dismissPickerDialog(ingredient);
     }
 }

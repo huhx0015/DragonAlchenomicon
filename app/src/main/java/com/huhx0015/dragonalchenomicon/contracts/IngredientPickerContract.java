@@ -2,6 +2,7 @@ package com.huhx0015.dragonalchenomicon.contracts;
 
 import com.huhx0015.dragonalchenomicon.interfaces.BasePresenter;
 import com.huhx0015.dragonalchenomicon.interfaces.BaseView;
+import java.util.HashSet;
 
 /** -----------------------------------------------------------------------------------------------
  *  [IngredientPickerContract] CLASS
@@ -29,9 +30,22 @@ public interface IngredientPickerContract {
     // as user actions, this is where the business logic for the app is defined.
     interface Presenter extends BasePresenter {
 
+        HashSet<String> getIngredientList();
+
         void loadIngredientList();
 
-        void onIngredientClicked(String ingredient);
+        void setIngredientList(HashSet<String> ingredientList);
+
+        void onIngredientSelected(String ingredient);
+    }
+
+    // Repository: Defines the methods that the concrete persistence class will implement. This way
+    // the Presenter does not need to be concerned about how data is persisted.
+    interface Repository {
+
+        HashSet<String> getIngredientList();
+
+        void setIngredientList(HashSet<String> ingredientList);
 
     }
 }
