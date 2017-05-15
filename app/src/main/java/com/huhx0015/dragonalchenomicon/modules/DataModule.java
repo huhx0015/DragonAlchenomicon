@@ -13,11 +13,17 @@ import dagger.Provides;
 @Module
 public class DataModule {
 
+    /** CLASS VARIABLES ________________________________________________________________________ **/
+
     private Context mContext;
+
+    /** CONSTRUCTOR METHOD _____________________________________________________________________ **/
 
     public DataModule(Context context) {
         this.mContext = context.getApplicationContext();
     }
+
+    /** MODULE METHODS _________________________________________________________________________ **/
 
     @Provides
     @Singleton

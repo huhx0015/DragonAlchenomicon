@@ -12,8 +12,19 @@ import com.huhx0015.dragonalchenomicon.modules.PersistenceModule;
 
 public class AlchenomiconApplication extends Application {
 
+    /** CLASS VARIABLES ________________________________________________________________________ **/
+
+    // APPLICATION VARIABLES:
     private static AlchenomiconApplication instance = new AlchenomiconApplication();
     private static AppComponent mAppComponent;
+
+    /** INSTANCE METHODS _______________________________________________________________________ **/
+
+    public static AlchenomiconApplication getInstance() {
+        return instance;
+    }
+
+    /** APPLICATION LIFECYCLE METHODS __________________________________________________________ **/
 
     @Override
     public void onCreate() {
@@ -21,9 +32,7 @@ public class AlchenomiconApplication extends Application {
         getAppComponent();
     }
 
-    public static AlchenomiconApplication getInstance() {
-        return instance;
-    }
+    /** DAGGER METHODS _________________________________________________________________________ **/
 
     public AppComponent getAppComponent() {
         if (mAppComponent == null){

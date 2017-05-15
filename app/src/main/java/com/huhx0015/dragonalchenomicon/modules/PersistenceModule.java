@@ -15,6 +15,8 @@ import dagger.Provides;
 @Module
 public class PersistenceModule {
 
+    /** MODULE METHODS _________________________________________________________________________ **/
+
     @Provides
     @Singleton
     public AlchenomiconContract.Repository provideAlchenomiconRepository() {

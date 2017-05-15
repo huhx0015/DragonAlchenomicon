@@ -74,25 +74,26 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         // RECIPE INGREDIENTS:
         int recipeCount = 0;
         for (String ingredient : recipe.recipeIngredientList) {
-            if (!ingredient.equals(NULL_IDENTIFIER)) {
-                switch (recipeCount) {
-                    case 0:
-                        holder.firstIngredient.setCompoundDrawablesWithIntrinsicBounds(R.drawable.dq8_item_0, 0, 0, 0);
-                        holder.firstIngredient.setText(ingredient);
-                        break;
-                    case 1:
-                        holder.secondIngredient.setCompoundDrawablesWithIntrinsicBounds(R.drawable.dq8_item_1, 0, 0, 0);
-                        holder.secondIngredient.setText(ingredient);
-                        break;
-                    case 2:
-                        holder.thirdIngredient.setCompoundDrawablesWithIntrinsicBounds(R.drawable.dq8_item_2, 0, 0, 0);
-                        holder.thirdIngredient.setText(ingredient);
-                        break;
-                }
-                recipeCount++;
-            } else {
-                break;
+            int ingredientVisibility = !ingredient.equals(NULL_IDENTIFIER) ? View.VISIBLE : View.GONE;
+
+            switch (recipeCount) {
+                case 0:
+                    holder.firstIngredient.setCompoundDrawablesWithIntrinsicBounds(R.drawable.dq8_item_0, 0, 0, 0);
+                    holder.firstIngredient.setText(ingredient);
+                    holder.firstIngredient.setVisibility(ingredientVisibility);
+                    break;
+                case 1:
+                    holder.secondIngredient.setCompoundDrawablesWithIntrinsicBounds(R.drawable.dq8_item_1, 0, 0, 0);
+                    holder.secondIngredient.setText(ingredient);
+                    holder.secondIngredient.setVisibility(ingredientVisibility);
+                    break;
+                case 2:
+                    holder.thirdIngredient.setCompoundDrawablesWithIntrinsicBounds(R.drawable.dq8_item_2, 0, 0, 0);
+                    holder.thirdIngredient.setText(ingredient);
+                    holder.thirdIngredient.setVisibility(ingredientVisibility);
+                    break;
             }
+            recipeCount++;
         }
     }
 
