@@ -8,6 +8,8 @@ import com.huhx0015.dragonalchenomicon.R;
 
 public class AlchenomiconImageUtils {
 
+    /** RESOURCE METHODS _______________________________________________________________________ **/
+
     public static int getItemImage(String itemName) {
 
         switch (itemName) {
@@ -30,9 +32,23 @@ public class AlchenomiconImageUtils {
             case "Cold Cheese":
                 return R.drawable.dq8_item_318;
 
+            case "Dragon Dung":
+                return R.drawable.dq8_item_299;
+
+            case "Special Medicine":
+                return R.drawable.dq8_item_261;
+
+            case "Lesser Panacea":
+                return R.drawable.dq8_item_262;
+
+            case "Greater Panacea":
+                return R.drawable.dq8_item_263;
+
+            case "Fresh Milk":
+                return R.drawable.dq8_item_305;
+
             default:
                 return R.drawable.dq8_item_332;
         }
-
     }
 }

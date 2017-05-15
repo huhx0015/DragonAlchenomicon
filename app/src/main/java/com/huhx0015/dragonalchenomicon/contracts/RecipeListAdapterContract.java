@@ -1,5 +1,8 @@
 package com.huhx0015.dragonalchenomicon.contracts;
 
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.huhx0015.dragonalchenomicon.adapters.RecipeListAdapter;
 import com.huhx0015.dragonalchenomicon.interfaces.BasePresenter;
 import com.huhx0015.dragonalchenomicon.interfaces.BaseView;
@@ -24,6 +27,13 @@ public interface RecipeListAdapterContract {
 
         void showRecipeRow(RecipeListAdapter.RecipeListViewHolder holder, AlchenomiconRecipe recipe);
 
+        void showRecipeName(String recipe, TextView view);
+
+        void showRecipeImage(int resource, ImageView view);
+
+        void showRecipeIngredient(String ingredient, int resource, TextView view);
+
+        void clearRecipeImage(ImageView view);
     }
 
     // Presenter: Defines the methods that the concrete Presenter class will implement. Also known
@@ -35,6 +45,14 @@ public interface RecipeListAdapterContract {
         void setRecipeList(List<AlchenomiconRecipe> recipeList);
 
         void setRecipeRow(RecipeListAdapter.RecipeListViewHolder holder, int position);
+
+        void setRecipeName(String name, TextView view);
+
+        void setRecipeImage(int resource, ImageView view);
+
+        void setRecipeIngredient(String ingredient, TextView view);
+
+        void clearRecipeImage(ImageView view);
 
     }
 

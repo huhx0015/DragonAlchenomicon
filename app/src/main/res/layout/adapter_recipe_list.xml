@@ -15,22 +15,42 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="96dp"
+            android:layout_height="112dp"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="12dp">
 
-            <TextView
-                android:id="@+id/adapter_recipe_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black" />
+            <RelativeLayout
+                android:layout_width="96dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/adapter_recipe_image"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="false"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/adapter_recipe_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/adapter_recipe_image"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textColor="@android:color/black" />
+
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:gravity="end|right"
+                android:gravity="right|center_vertical|end"
                 android:orientation="vertical">
 
                 <TextView

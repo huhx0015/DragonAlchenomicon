@@ -17,7 +17,7 @@
             android:layout_height="96dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:background="@drawable/dq8_item_332" />
+            android:background="@drawable/da_ingredient_frame" />
 
         <ImageButton
             android:id="@+id/alchemy_ingredient_2"
@@ -25,13 +25,13 @@
             android:layout_height="96dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:background="@drawable/dq8_item_332" />
+            android:background="@drawable/da_ingredient_frame"  />
 
         <ImageButton
             android:id="@+id/alchemy_ingredient_3"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:background="@drawable/dq8_item_332" />
+            android:background="@drawable/da_ingredient_frame"  />
 
     </LinearLayout>
 

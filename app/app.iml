@@ -142,7 +142,6 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 25 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="picasso-2.5.2" level="project" />
     <orderEntry type="library" exported="" name="transition-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="design-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="support-core-ui-25.3.1" level="project" />
@@ -150,6 +149,7 @@
     <orderEntry type="library" exported="" name="rxandroid-2.0.1" level="project" />
     <orderEntry type="library" exported="" name="jsr250-api-1.0" level="project" />
     <orderEntry type="library" exported="" name="hxaudio-unspecified" level="project" />
+    <orderEntry type="library" exported="" name="glide-3.7.0" level="project" />
     <orderEntry type="library" exported="" name="support-core-utils-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="support-fragment-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="rxjava-2.1.0" level="project" />
@@ -158,7 +158,6 @@
     <orderEntry type="library" exported="" name="kotlin-stdlib-1.1.1" level="project" />
     <orderEntry type="library" exported="" name="butterknife-annotations-8.5.1" level="project" />
     <orderEntry type="library" exported="" name="kotlin-stdlib-jre7-1.1.1" level="project" />
-    <orderEntry type="library" exported="" name="roundedimageview-2.3.0" level="project" />
     <orderEntry type="library" exported="" name="annotations-13.0" level="project" />
     <orderEntry type="library" exported="" name="javax.inject-1" level="project" />
     <orderEntry type="library" exported="" name="dagger-2.9" level="project" />

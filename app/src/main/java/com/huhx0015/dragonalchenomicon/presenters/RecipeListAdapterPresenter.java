@@ -2,11 +2,14 @@ package com.huhx0015.dragonalchenomicon.presenters;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 import com.huhx0015.dragonalchenomicon.adapters.RecipeListAdapter;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.contracts.RecipeListAdapterContract;
 import com.huhx0015.dragonalchenomicon.data.repositories.RecipeListAdapterRepository;
 import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
+import com.huhx0015.dragonalchenomicon.utils.AlchenomiconImageUtils;
 import java.util.List;
 import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
@@ -67,5 +70,26 @@ public class RecipeListAdapterPresenter implements RecipeListAdapterContract.Pre
     @Override
     public void setRecipeRow(RecipeListAdapter.RecipeListViewHolder holder, int position) {
         mView.showRecipeRow(holder, mRepository.getRecipeList().get(position));
+    }
+
+    @Override
+    public void setRecipeName(String recipeName, TextView view) {
+        mView.showRecipeName(recipeName, view);
+    }
+
+    @Override
+    public void setRecipeImage(int resource, ImageView view) {
+        mView.showRecipeImage(resource, view);
+    }
+
+    @Override
+    public void setRecipeIngredient(String ingredient, TextView view) {
+        int ingredientResource = AlchenomiconImageUtils.getItemImage(ingredient);
+        mView.showRecipeIngredient(ingredient, ingredientResource, view);
+    }
+
+    @Override
+    public void clearRecipeImage(ImageView view) {
+        mView.clearRecipeImage(view);
     }
 }
