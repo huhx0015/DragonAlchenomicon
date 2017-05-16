@@ -22,6 +22,11 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
+    // CONSTANT VARIABLES:
+    private static final int INGREDIENT_BUTTON_1_ID = 0;
+    private static final int INGREDIENT_BUTTON_2_ID = 1;
+    private static final int INGREDIENT_BUTTON_3_ID = 2;
+
     // LOGGING VARIABLES:
     private static final String LOG_TAG = AlchemyPresenter.class.getSimpleName();
 
@@ -88,28 +93,27 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
 
         if (!ingredient.equals(AlchenomiconConstants.NULL_IDENTIFIER)) {
             int ingredientResource = AlchenomiconImageUtils.getItemImage(ingredient);
+
             mView.showSelectedIngredient(ingredientResource, buttonId);
             mView.updateSelectedIngredientText(buttonId);
-        }
+            mView.showNoResults(false);
+            mView.showRecipeList(false);
+            mView.showProgressBar(true);
 
-        mView.showNoResults(false);
-        mView.showRecipeList(false);
-        mView.showProgressBar(true);
+            // Queries the database for all the recipes that contain the selected ingredients.
+            mRepository.loadRecipes(new AlchemyPresenterListener() {
+                @Override
+                public void onAlchemyListLoaded() {
+                    mView.showProgressBar(false);
 
-        // Queries the database for all the recipes that contain the selected ingredients.
-        mRepository.loadRecipes(new AlchemyPresenterListener() {
-            @Override
-            public void onAlchemyListLoaded() {
-                mView.showProgressBar(false);
-
-                if (mRepository.getRecipeResults().size() > 0) {
-                    mView.showRecipeList(true);
-                } else {
-                    mView.showNoResults(true);
+                    if (mRepository.getRecipeResults().size() > 0) {
+                        mView.showRecipeList(true);
+                    } else {
+                        mView.showNoResults(true);
+                    }
                 }
-            }
-        });
-
+            });
+        }
     }
 
     @Override
@@ -144,5 +148,18 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
         } else {
             mView.showIngredientDialog(buttonId);
         }
+    }
+
+    @Override
+    public void onClearButtonClicked() {
+        mRepository.setSelectedIngredientList(null);
+        mRepository.setRecipeResults(null);
+
+        mView.clearSelectedIngredients();
+        mView.updateSelectedIngredientText(INGREDIENT_BUTTON_1_ID);
+        mView.updateSelectedIngredientText(INGREDIENT_BUTTON_2_ID);
+        mView.updateSelectedIngredientText(INGREDIENT_BUTTON_3_ID);
+        mView.showRecipeList(false);
+        mView.showNoResults(false);
     }
 }

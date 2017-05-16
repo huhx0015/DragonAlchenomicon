@@ -140,6 +140,7 @@ public class AlchemyRepository implements AlchemyContract.Repository {
     @Override
     public void setSelectedIngredientList(String[] ingredientList) {
         this.mSelectedIngredientList = ingredientList;
+        initSelectedList();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.huhx0015.dragonalchenomicon.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -82,7 +83,10 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
         View alchemyView = inflater.inflate(R.layout.fragment_alchemy, container, false);
         mUnbinder = ButterKnife.bind(this, alchemyView);
         setPresenter(new AlchemyPresenter(this)); // Sets the presenter for this fragment.
+
         initIngredientList(savedInstanceState);
+        initText();
+
         return alchemyView;
     }
 
@@ -128,21 +132,6 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
 
     /** LAYOUT METHODS _________________________________________________________________________ **/
 
-    private void initRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setItemPrefetchEnabled(true);
-        layoutManager.setInitialPrefetchItemCount(AlchenomiconConstants.PREFETCH_VALUE);
-
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setDrawingCacheEnabled(true);
-        mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-
-        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRecipeResults(), getContext());
-        adapter.setHasStableIds(true);
-        mRecyclerView.setAdapter(adapter);
-    }
-
     @OnClick(R.id.alchemy_ingredient_1_button)
     public void firstIngredientButton() {
         mPresenter.onIngredientButtonClicked(INGREDIENT_BUTTON_1_ID);
@@ -156,6 +145,11 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
     @OnClick(R.id.alchemy_ingredient_3_button)
     public void thirdIngredientButton() {
         mPresenter.onIngredientButtonClicked(INGREDIENT_BUTTON_3_ID);
+    }
+
+    @OnClick(R.id.alchemy_clear_button)
+    public void clearIngredientButton() {
+        mPresenter.onClearButtonClicked();
     }
 
     /** INIT METHODS ___________________________________________________________________________ **/
@@ -186,6 +180,27 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
                 mPresenter.setRecipeResults(recipeResults);
             }
         }
+    }
+
+    private void initRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setItemPrefetchEnabled(true);
+        layoutManager.setInitialPrefetchItemCount(AlchenomiconConstants.PREFETCH_VALUE);
+
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setDrawingCacheEnabled(true);
+        mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
+        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRecipeResults(), getContext());
+        adapter.setHasStableIds(true);
+        mRecyclerView.setAdapter(adapter);
+    }
+
+    private void initText() {
+        mFirstSelectedIngredientText.setShadowLayer(2, 2, 2, Color.BLACK);
+        mSecondSelectedIngredientText.setShadowLayer(2, 2, 2, Color.BLACK);
+        mThirdSelectedIngredientText.setShadowLayer(2, 2, 2, Color.BLACK);
     }
 
     /** DIALOG METHODS _________________________________________________________________________ **/
@@ -288,17 +303,28 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
     }
 
     @Override
+    public void clearSelectedIngredients() {
+        Glide.clear(mFirstSelectedIngredientView);
+        Glide.clear(mSecondSelectedIngredientView);
+        Glide.clear(mThirdSelectedIngredientView);
+    }
+
+    @Override
     public void updateSelectedIngredientText(int position) {
-        String ingredientName = mPresenter.getSelectedIngredientList()[position];
+        String ingredientName = mPresenter.getSelectedIngredientList()[position].toUpperCase();
+
         switch (position) {
             case INGREDIENT_BUTTON_1_ID:
-                mFirstSelectedIngredientText.setText(ingredientName);
+                mFirstSelectedIngredientText.setText(!ingredientName.equals(AlchenomiconConstants.NULL_IDENTIFIER) ?
+                        ingredientName : getString(R.string.alchemy_ingredient_1));
                 break;
             case INGREDIENT_BUTTON_2_ID:
-                mSecondSelectedIngredientText.setText(ingredientName);
+                mSecondSelectedIngredientText.setText(!ingredientName.equals(AlchenomiconConstants.NULL_IDENTIFIER) ?
+                        ingredientName : getString(R.string.alchemy_ingredient_2));
                 break;
             case INGREDIENT_BUTTON_3_ID:
-                mThirdSelectedIngredientText.setText(ingredientName);
+                mThirdSelectedIngredientText.setText(!ingredientName.equals(AlchenomiconConstants.NULL_IDENTIFIER) ?
+                        ingredientName : getString(R.string.alchemy_ingredient_3));
                 break;
         }
     }

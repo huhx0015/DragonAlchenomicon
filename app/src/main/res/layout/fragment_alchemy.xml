@@ -14,18 +14,19 @@
         android:padding="16dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/alchemy_ingredient_1_button"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
+                android:layout_gravity="center"
                 android:background="@drawable/da_ingredient_frame"
-                android:elevation="2dp">
+                android:elevation="2dp"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/alchemy_ingredient_1_icon"
@@ -43,24 +44,25 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="@string/alchemy_ingredient_1"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/alchemy_ingredient_2_button"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
+                android:layout_gravity="center"
                 android:background="@drawable/da_ingredient_frame"
-                android:elevation="2dp">
+                android:elevation="2dp"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/alchemy_ingredient_2_icon"
@@ -78,22 +80,25 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="@string/alchemy_ingredient_2"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:id="@+id/alchemy_ingredient_3_button"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
+                android:layout_gravity="center"
                 android:background="@drawable/da_ingredient_frame"
-                android:elevation="2dp">
+                android:elevation="2dp"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/alchemy_ingredient_3_icon"
@@ -111,12 +116,25 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="@string/alchemy_ingredient_3"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/alchemy_clear_button"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/selector_da_button"
+        android:text="@string/alchemy_button_clear"
+        android:textSize="14sp"
+        android:textColor="@android:color/white"
+        android:elevation="2dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

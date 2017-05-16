@@ -6,12 +6,13 @@
 
     <!--BOTTOM NAVIGATION STRINGS-->
     <string name="title_alchemy_pot">Alchemy Pot</string>
-    <string name="title_recipes">Recipes</string>
+    <string name="title_recipes">All Recipes</string>
 
     <!--ALCHEMY STRINGS-->
     <string name="alchemy_ingredient_1">INGREDIENT 1</string>
     <string name="alchemy_ingredient_2">INGREDIENT 2</string>
     <string name="alchemy_ingredient_3">INGREDIENT 3</string>
     <string name="alchemy_no_recipe_results">No recipes found with the selected ingredients.</string>
+    <string name="alchemy_button_clear">CLEAR</string>
 
 </resources>

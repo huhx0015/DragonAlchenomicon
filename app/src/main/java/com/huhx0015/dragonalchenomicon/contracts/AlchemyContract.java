@@ -4,7 +4,6 @@ import com.huhx0015.dragonalchenomicon.listeners.AlchemyPresenterListener;
 import com.huhx0015.dragonalchenomicon.interfaces.BasePresenter;
 import com.huhx0015.dragonalchenomicon.interfaces.BaseView;
 import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
-
 import java.util.HashSet;
 import java.util.List;
 
@@ -35,6 +34,8 @@ public interface AlchemyContract {
 
         void showProgressBar(boolean isDisplayed);
 
+        void clearSelectedIngredients();
+
         void updateSelectedIngredientText(int position);
     }
 
@@ -59,6 +60,8 @@ public interface AlchemyContract {
         void setRecipeResults(List<AlchenomiconRecipe> recipeResults);
 
         void onIngredientButtonClicked(int buttonId);
+
+        void onClearButtonClicked();
 
     }
 
