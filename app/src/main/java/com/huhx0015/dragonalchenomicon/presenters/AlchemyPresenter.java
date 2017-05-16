@@ -3,9 +3,11 @@ package com.huhx0015.dragonalchenomicon.presenters;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
+import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
 import com.huhx0015.dragonalchenomicon.data.repositories.AlchemyRepository;
 import com.huhx0015.dragonalchenomicon.interfaces.AlchemyPresenterListener;
+import com.huhx0015.dragonalchenomicon.utils.AlchenomiconImageUtils;
 import java.util.HashSet;
 import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
@@ -64,18 +66,44 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
     }
 
     @Override
-    public void onIngredientButtonClicked(int buttonId) {
+    public String getSelectedIngredient(int buttonId) {
+        return mRepository.getSelectedIngredient(buttonId);
+    }
+
+    @Override
+    public String[] getSelectedIngredientList() {
+        return mRepository.getSelectedIngredientList();
+    }
+
+    @Override
+    public void setSelectedIngredient(String ingredient, int buttonId) {
+        mRepository.setSelectedIngredient(ingredient, buttonId);
+
+        if (!ingredient.equals(AlchenomiconConstants.NULL_IDENTIFIER)) {
+            int ingredientResource = AlchenomiconImageUtils.getItemImage(ingredient);
+            mView.showSelectedIngredient(ingredientResource, buttonId);
+            mView.updateSelectedIngredientText(buttonId);
+        }
+    }
+
+    @Override
+    public void setSelectedIngredientList(String[] ingredientList) {
+        mRepository.setSelectedIngredientList(ingredientList);
+    }
+
+    @Override
+    public void onIngredientButtonClicked(final int buttonId) {
 
         // Queries the database to retrieve all available ingredients.
         if (mRepository.getIngredientList() == null) {
             mRepository.getAllIngredients(new AlchemyPresenterListener() {
                 @Override
                 public void onIngredientListLoaded() {
-                    mView.showIngredientDialog();
+                    mView.showIngredientDialog(buttonId);
                 }
             });
         } else {
-            mView.showIngredientDialog();
+            mView.showIngredientDialog(buttonId);
         }
     }
 }

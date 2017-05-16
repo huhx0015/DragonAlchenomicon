@@ -11,27 +11,105 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <ImageButton
-            android:id="@+id/alchemy_ingredient_1"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/da_ingredient_frame" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/alchemy_ingredient_2"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/da_ingredient_frame"  />
+            <RelativeLayout
+                android:id="@+id/alchemy_ingredient_1_button"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:background="@drawable/da_ingredient_frame">
 
-        <ImageButton
-            android:id="@+id/alchemy_ingredient_3"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:background="@drawable/da_ingredient_frame"  />
+                <ImageView
+                    android:id="@+id/alchemy_ingredient_1_icon"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/alchemy_ingredient_1_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="@string/alchemy_ingredient_1"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/alchemy_ingredient_2_button"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:background="@drawable/da_ingredient_frame">
+
+                <ImageView
+                    android:id="@+id/alchemy_ingredient_2_icon"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/alchemy_ingredient_2_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="@string/alchemy_ingredient_2"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/alchemy_ingredient_3_button"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:background="@drawable/da_ingredient_frame">
+
+                <ImageView
+                    android:id="@+id/alchemy_ingredient_3_icon"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/alchemy_ingredient_3_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="@string/alchemy_ingredient_3"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

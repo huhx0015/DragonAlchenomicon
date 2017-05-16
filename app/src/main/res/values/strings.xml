@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--APPLICATION STRINGS-->
     <string name="app_name">Dragon Alchenomicon</string>
 
+    <!--BOTTOM NAVIGATION STRINGS-->
     <string name="title_alchemy_pot">Alchemy Pot</string>
     <string name="title_recipes">Recipes</string>
+
+    <!--ALCHEMY STRINGS-->
+    <string name="alchemy_ingredient_1">INGREDIENT 1</string>
+    <string name="alchemy_ingredient_2">INGREDIENT 2</string>
+    <string name="alchemy_ingredient_3">INGREDIENT 3</string>
 
 </resources>

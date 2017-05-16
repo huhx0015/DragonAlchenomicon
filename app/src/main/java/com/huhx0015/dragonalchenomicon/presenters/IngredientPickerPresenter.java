@@ -53,6 +53,16 @@ public class IngredientPickerPresenter implements IngredientPickerContract.Prese
     }
 
     @Override
+    public int getButtonId() {
+        return mRepository.getButtonId();
+    }
+
+    @Override
+    public void setButtonId(int buttonId) {
+        mRepository.setButtonId(buttonId);
+    }
+
+    @Override
     public HashSet<String> getIngredientList() {
         return mRepository.getIngredientList();
     }

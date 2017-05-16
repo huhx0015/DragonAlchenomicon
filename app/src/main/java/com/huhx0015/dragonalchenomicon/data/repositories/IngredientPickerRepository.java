@@ -12,6 +12,9 @@ public class IngredientPickerRepository implements IngredientPickerContract.Repo
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
+    // BUTTON ID VARIABLES:
+    private int mButtonId;
+
     // INGREDIENT LIST VARIABLES:
     private HashSet<String> mIngredientList;
 
@@ -21,6 +24,16 @@ public class IngredientPickerRepository implements IngredientPickerContract.Repo
     public IngredientPickerRepository() {}
 
     /** REPOSITORY METHODS _____________________________________________________________________ **/
+
+    @Override
+    public int getButtonId() {
+        return mButtonId;
+    }
+
+    @Override
+    public void setButtonId(int buttonId) {
+        this.mButtonId = buttonId;
+    }
 
     @Override
     public HashSet<String> getIngredientList() {

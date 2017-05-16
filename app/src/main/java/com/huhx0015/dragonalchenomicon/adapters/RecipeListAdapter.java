@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.huhx0015.dragonalchenomicon.R;
+import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.contracts.RecipeListAdapterContract;
 import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
 import com.huhx0015.dragonalchenomicon.presenters.RecipeListAdapterPresenter;
@@ -28,9 +29,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     // ADAPTER VARIABLES:
     private Context mContext;
-
-    // CONSTANT VARIABLES:
-    private static final String NULL_IDENTIFIER = "NULL";
 
     // PRESENTER VARIABLES:
     private RecipeListAdapterContract.Presenter mPresenter;
@@ -122,7 +120,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     @Override
     public void showRecipeIngredient(String ingredient, int resource, TextView view) {
-        int ingredientVisibility = !ingredient.equals(NULL_IDENTIFIER) ? View.VISIBLE : View.GONE;
+        int ingredientVisibility = !ingredient.equals(AlchenomiconConstants.NULL_IDENTIFIER) ? View.VISIBLE : View.GONE;
         view.setCompoundDrawablesWithIntrinsicBounds(resource, 0, 0, 0);
         view.setText(ingredient);
         view.setVisibility(ingredientVisibility);

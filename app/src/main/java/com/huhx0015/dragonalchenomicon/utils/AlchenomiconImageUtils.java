@@ -1,5 +1,8 @@
 package com.huhx0015.dragonalchenomicon.utils;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import com.huhx0015.dragonalchenomicon.R;
 
 /**
@@ -50,5 +53,16 @@ public class AlchenomiconImageUtils {
             default:
                 return R.drawable.dq8_item_332;
         }
+    }
+
+    /** CONVERSION METHODS _____________________________________________________________________ **/
+
+    // convertPixelsToDp: This method converts device specific pixels to density independent pixels.
+    // Source: http://stackoverflow.com/questions/4605527/converting-pixels-to-dp
+    public static float convertPixelsToDp(float px, Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float dp = px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return dp;
     }
 }

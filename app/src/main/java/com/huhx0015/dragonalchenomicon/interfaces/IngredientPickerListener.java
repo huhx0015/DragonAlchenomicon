@@ -5,5 +5,5 @@ package com.huhx0015.dragonalchenomicon.interfaces;
  */
 
 public interface IngredientPickerListener {
-    void onIngredientPickerDismissed(String ingredient);
+    void onIngredientPickerDismissed(String ingredient, int buttonId);
 }

@@ -1,7 +1,6 @@
 package com.huhx0015.dragonalchenomicon.dialog;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +27,7 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
     // BUNDLE VARIABLES
+    private static final String BUNDLE_BUTTON_ID = IngredientPickerDialog.class + "_BUTTON_ID";
     private static final String BUNDLE_INGREDIENT_LIST = IngredientPickerDialog.class + "_INGREDIENT_LIST";
 
     // CONSTANT VARIABLES:
@@ -50,11 +50,12 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
 
     /** CONSTRUCTOR METHODS ____________________________________________________________________ **/
 
-    public static IngredientPickerDialog newInstance(HashSet<String> ingredientList,
+    public static IngredientPickerDialog newInstance(HashSet<String> ingredientList, int buttonId,
                                                      IngredientPickerListener listener) {
         IngredientPickerDialog dialog = new IngredientPickerDialog();
         Bundle arguments = new Bundle();
         arguments.putSerializable(BUNDLE_INGREDIENT_LIST, ingredientList);
+        arguments.putInt(BUNDLE_BUTTON_ID, buttonId);
         dialog.setPickerListener(listener);
         dialog.setArguments(arguments);
         return dialog;
@@ -72,7 +73,9 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
 
         Bundle arguments = getArguments();
         if (arguments != null) {
+            int buttonId = arguments.getInt(BUNDLE_BUTTON_ID);
             HashSet<String> ingredientList = (HashSet<String>) arguments.getSerializable(BUNDLE_INGREDIENT_LIST);
+            mPresenter.setButtonId(buttonId);
             mPresenter.setIngredientList(ingredientList);
         }
 
@@ -95,14 +98,6 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
     public void onDestroy() {
         super.onDestroy();
         mUnbinder.unbind();
-    }
-
-    /** FRAGMENT EXTENSION METHODS _____________________________________________________________ **/
-
-    @Override
-    public void onDismiss(final DialogInterface dialog) {
-        super.onDismiss(dialog);
-
     }
 
     /** LAYOUT METHODS _________________________________________________________________________ **/
@@ -153,7 +148,7 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
 
     @Override
     public void dismissPickerDialog(String ingredient) {
-        mListener.onIngredientPickerDismissed(ingredient);
+        mListener.onIngredientPickerDismissed(ingredient, mPresenter.getButtonId());
         dismiss();
     }
 }

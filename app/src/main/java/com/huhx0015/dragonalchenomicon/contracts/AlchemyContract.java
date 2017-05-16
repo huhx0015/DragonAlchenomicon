@@ -22,8 +22,11 @@ public interface AlchemyContract {
     // such as Context.
     interface View extends BaseView<Presenter> {
 
-        void showIngredientDialog();
+        void showIngredientDialog(int buttonId);
 
+        void showSelectedIngredient(int resource, int position);
+
+        void updateSelectedIngredientText(int position);
     }
 
     // Presenter: Defines the methods that the concrete Presenter class will implement. Also known
@@ -33,6 +36,14 @@ public interface AlchemyContract {
         HashSet<String> getIngredientList();
 
         void setIngredientList(HashSet<String> ingredientList);
+
+        String getSelectedIngredient(int buttonId);
+
+        String[] getSelectedIngredientList();
+
+        void setSelectedIngredient(String ingredient, int buttonId);
+
+        void setSelectedIngredientList(String[] ingredientList);
 
         void onIngredientButtonClicked(int buttonId);
 
@@ -46,6 +57,14 @@ public interface AlchemyContract {
 
         HashSet<String> getIngredientList();
 
+        String getSelectedIngredient(int buttonId);
+
+        String[] getSelectedIngredientList();
+
         void setIngredientList(HashSet<String> ingredientList);
+
+        void setSelectedIngredient(String ingredient, int buttonId);
+
+        void setSelectedIngredientList(String[] ingredientList);
     }
 }

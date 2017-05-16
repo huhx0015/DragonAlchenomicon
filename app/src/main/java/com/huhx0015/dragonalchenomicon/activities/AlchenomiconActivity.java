@@ -45,7 +45,7 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
         setPresenter(new AlchenomiconPresenter(this)); // Sets the presenter for this activity.
         initView(); // Initializes the view.
 
-        HXMusic.enable(true); // Enables music.
+        HXMusic.enable(false); // Enables music.
         HXMusic.music()
                 .load(R.raw.dq8_alchemy_pot)
                 .title("Alchemy Pot")

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import com.huhx0015.dragonalchenomicon.annotations.ApplicationContext;
+import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.interfaces.AlchenomiconDatabaseListener;
 import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
@@ -82,7 +83,6 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
         try {
             if (cursor.moveToFirst()) {
                 do {
-
                     if (ingredientList == null) {
                         ingredientList = new HashSet<>();
                     }
@@ -101,6 +101,7 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
             }
 
             if (ingredientList != null) {
+                ingredientList.remove(AlchenomiconConstants.NULL_IDENTIFIER); // Removes any NULL ingredients from list.
                 listener.onQueryFinished(ingredientList);
             } else {
                 Log.e(LOG_TAG, "getAllIngredients(): Failed to retrieve any ingredients from the database.");

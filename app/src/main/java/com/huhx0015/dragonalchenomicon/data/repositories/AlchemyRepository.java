@@ -2,6 +2,7 @@ package com.huhx0015.dragonalchenomicon.data.repositories;
 
 import android.util.Log;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
+import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
 import com.huhx0015.dragonalchenomicon.data.database.AlchenomiconDatabaseHelper;
 import com.huhx0015.dragonalchenomicon.interfaces.AlchemyPresenterListener;
@@ -17,8 +18,12 @@ public class AlchemyRepository implements AlchemyContract.Repository {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
-    // DATA VARIABLES
+    // CONSTANT VARIABLES:
+    private static final int SELECTED_INGREDIENT_SIZE = 3;
+
+    // DATA VARIABLES:
     private HashSet<String> mIngredientList;
+    private String[] mSelectedIngredientList;
 
     // DATABASE VARIABLES:
     @Inject AlchenomiconDatabaseHelper mDatabase;
@@ -31,6 +36,20 @@ public class AlchemyRepository implements AlchemyContract.Repository {
     @Inject
     public AlchemyRepository() {
         AlchenomiconApplication.getInstance().getAppComponent().inject(this);
+    }
+
+    /** INIT METHODS ___________________________________________________________________________ **/
+
+    private void initSelectedList() {
+        if (mSelectedIngredientList == null) {
+            mSelectedIngredientList = new String[SELECTED_INGREDIENT_SIZE];
+
+            // Initializes the selected ingredient list values with "NULL" identifiers.
+            int position = 0;
+            while (position < mSelectedIngredientList.length) {
+                mSelectedIngredientList[position++] = AlchenomiconConstants.NULL_IDENTIFIER;
+            }
+        }
     }
 
     /** REPOSITORY METHODS _____________________________________________________________________ **/
@@ -59,7 +78,30 @@ public class AlchemyRepository implements AlchemyContract.Repository {
     }
 
     @Override
+    public String getSelectedIngredient(int buttonId) {
+        initSelectedList();
+        return mSelectedIngredientList[buttonId];
+    }
+
+    @Override
+    public String[] getSelectedIngredientList() {
+        initSelectedList();
+        return mSelectedIngredientList;
+    }
+
+    @Override
     public void setIngredientList(HashSet<String> ingredientList) {
         this.mIngredientList = ingredientList;
+    }
+
+    @Override
+    public void setSelectedIngredient(String ingredient, int buttonId) {
+        initSelectedList();
+        mSelectedIngredientList[buttonId] = ingredient;
+    }
+
+    @Override
+    public void setSelectedIngredientList(String[] ingredientList) {
+        this.mSelectedIngredientList = ingredientList;
     }
 }
