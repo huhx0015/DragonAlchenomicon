@@ -15,4 +15,7 @@
     <string name="alchemy_no_recipe_results">No recipes found with the selected ingredients.</string>
     <string name="alchemy_button_clear">CLEAR</string>
 
+    <!--BOTTOM SHEET STRINGS-->
+    <string name="ingredient_picker_title">Select an ingredient</string>
+
 </resources>

@@ -2,6 +2,7 @@ package com.huhx0015.dragonalchenomicon.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +31,9 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
     // BUNDLE VARIABLES
     private static final String BUNDLE_BUTTON_ID = IngredientPickerDialog.class + "_BUTTON_ID";
     private static final String BUNDLE_INGREDIENT_LIST = IngredientPickerDialog.class + "_INGREDIENT_LIST";
+
+    // CONSTANT VARIABLES
+    private static final int BOTTOM_SHEET_PEEK_HEIGHT = 512;
 
     // LISTENER VARIABLES:
     private IngredientPickerListener mListener;
@@ -76,6 +80,10 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
             mPresenter.setButtonId(buttonId);
             mPresenter.setIngredientList(ingredientList);
         }
+
+        // Sets the BottomSheetDialogFragment height.
+        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(((View) view.getParent()));
+        bottomSheetBehavior.setPeekHeight(BOTTOM_SHEET_PEEK_HEIGHT);
 
         initView();
     }

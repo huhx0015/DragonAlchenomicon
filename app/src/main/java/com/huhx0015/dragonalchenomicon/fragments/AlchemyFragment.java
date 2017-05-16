@@ -201,6 +201,7 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
         mFirstSelectedIngredientText.setShadowLayer(2, 2, 2, Color.BLACK);
         mSecondSelectedIngredientText.setShadowLayer(2, 2, 2, Color.BLACK);
         mThirdSelectedIngredientText.setShadowLayer(2, 2, 2, Color.BLACK);
+        mNoResultsText.setShadowLayer(2, 2, 2, Color.BLACK);
     }
 
     /** DIALOG METHODS _________________________________________________________________________ **/

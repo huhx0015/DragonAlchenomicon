@@ -8,4 +8,7 @@
     <!--BACKGROUND COLORS-->
     <color name="backgroundColor">#dcb87a</color>
 
+    <!--DIALOG COLORS-->
+    <color name="dialogTitleColor">#D50000</color>
+
 </resources>
