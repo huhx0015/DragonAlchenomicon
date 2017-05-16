@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -59,6 +60,7 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
     private Unbinder mUnbinder;
 
     // VIEW INJECTION VARIABLES:
+    @BindView(R.id.alchemy_clear_button) Button mClearButton;
     @BindView(R.id.alchemy_ingredient_1_icon) ImageView mFirstSelectedIngredientView;
     @BindView(R.id.alchemy_ingredient_2_icon) ImageView mSecondSelectedIngredientView;
     @BindView(R.id.alchemy_ingredient_3_icon) ImageView mThirdSelectedIngredientView;
@@ -201,6 +203,7 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
         mFirstSelectedIngredientText.setShadowLayer(2, 2, 2, Color.BLACK);
         mSecondSelectedIngredientText.setShadowLayer(2, 2, 2, Color.BLACK);
         mThirdSelectedIngredientText.setShadowLayer(2, 2, 2, Color.BLACK);
+        mClearButton.setShadowLayer(2, 2, 2, Color.BLACK);
         mNoResultsText.setShadowLayer(2, 2, 2, Color.BLACK);
     }
 

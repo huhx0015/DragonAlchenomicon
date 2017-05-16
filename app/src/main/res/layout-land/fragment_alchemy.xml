@@ -8,9 +8,10 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,14 +38,16 @@
 
             <TextView
                 android:id="@+id/alchemy_ingredient_1_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/selector_da_button"
                 android:gravity="center"
                 android:text="@string/alchemy_ingredient_1"
                 android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
         </LinearLayout>
 
@@ -73,14 +76,16 @@
 
             <TextView
                 android:id="@+id/alchemy_ingredient_2_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/selector_da_button"
                 android:gravity="center"
                 android:text="@string/alchemy_ingredient_2"
                 android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
         </LinearLayout>
 
@@ -109,33 +114,31 @@
 
             <TextView
                 android:id="@+id/alchemy_ingredient_3_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginTop="2dp"
+                android:background="@drawable/selector_da_button"
                 android:gravity="center"
                 android:text="@string/alchemy_ingredient_3"
                 android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
         </LinearLayout>
 
         <Button
             android:id="@+id/alchemy_clear_button"
             android:layout_width="128dp"
-            android:layout_height="32dp"
+            android:layout_height="24dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
             android:background="@drawable/selector_da_button"
+            android:elevation="2dp"
             android:text="@string/alchemy_button_clear"
-            android:textSize="14sp"
             android:textColor="@android:color/white"
-            android:elevation="2dp"/>
+            android:textSize="12sp" />
 
     </LinearLayout>
-
-
 
     <RelativeLayout
         android:layout_width="match_parent"

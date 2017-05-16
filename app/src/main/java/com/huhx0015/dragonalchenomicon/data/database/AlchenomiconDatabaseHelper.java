@@ -11,6 +11,7 @@ import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -90,7 +91,7 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
                     ingredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC2)));
                     ingredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC3)));
 
-                } while(cursor.moveToNext());
+                } while (cursor.moveToNext());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "loadAllIngredients(): An error occurred while attempting to query the database for ingredients: " + e.getLocalizedMessage());
@@ -155,7 +156,7 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
                     AlchenomiconRecipe recipe = getRecipeRow(cursor);
                     recipeList.add(recipe);
 
-                } while(cursor.moveToNext());
+                } while (cursor.moveToNext());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "getAllRecipes(): An error occurred while trying to get recipes from database: " + e.getLocalizedMessage());
@@ -190,31 +191,21 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
                         recipeList = new ArrayList<>();
                     }
 
-                    String firstIngredient = cursor.getString(cursor.getColumnIndex(KEY_REC1));
-                    String secondIngredient = cursor.getString(cursor.getColumnIndex(KEY_REC2));
-                    String thirdIngredient = cursor.getString(cursor.getColumnIndex(KEY_REC3));
+                    LinkedList<String> recipeIngredientList = new LinkedList<>();
+                    recipeIngredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC1)));
+                    recipeIngredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC2)));
+                    recipeIngredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC3)));
 
-                    // Compares the recipe ingredients to the selected ingredient list to determine
-                    // if the current recipe fits the criteria.
                     int ingredientCount = 0;
-                    for (String ingredient : selectedIngredients) {
+                    while (!recipeIngredientList.isEmpty() && ingredientCount < selectedIngredients.size()) {
+                        String ingredient = recipeIngredientList.getFirst();
+                        String selectedIngredient = selectedIngredients.get(ingredientCount);
 
-                        // FIRST INGREDIENT:
-                        if (firstIngredient.equals(ingredient)) {
-                            ingredientCount++;
-                            continue;
-                        }
-
-                        // SECOND INGREDIENT:
-                        if (secondIngredient.equals(ingredient)) {
-                            ingredientCount++;
-                            continue;
-                        }
-
-                        // THIRD INGREDIENT:
-                        if (thirdIngredient.equals(ingredient)) {
+                        if (ingredient.equals(selectedIngredient)) {
                             ingredientCount++;
                         }
+
+                        recipeIngredientList.removeFirst();
                     }
 
                     // If the recipe contains the selected ingredients, the recipe is added to the
@@ -224,7 +215,7 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
                         recipeList.add(recipe);
                     }
 
-                } while(cursor.moveToNext());
+                } while (cursor.moveToNext());
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "getRecipesContainingIngredients(): An error occurred while trying to get recipes from database: " + e.getLocalizedMessage());
