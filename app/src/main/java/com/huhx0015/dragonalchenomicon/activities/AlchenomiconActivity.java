@@ -10,7 +10,6 @@ import com.huhx0015.dragonalchenomicon.adapters.AlchenomiconPagerAdapter;
 import com.huhx0015.dragonalchenomicon.contracts.AlchenomiconContract;
 import com.huhx0015.dragonalchenomicon.presenters.AlchenomiconPresenter;
 import com.huhx0015.dragonalchenomicon.R;
-import com.huhx0015.hxaudio.audio.HXMusic;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -44,36 +43,18 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
         ButterKnife.bind(this);
         setPresenter(new AlchenomiconPresenter(this)); // Sets the presenter for this activity.
         initView(); // Initializes the view.
-
-        HXMusic.enable(false); // Enables music.
-        HXMusic.music()
-                .load(R.raw.dq8_alchemy_pot)
-                .title("Alchemy Pot")
-                .artist("Koichi Sugiyama")
-                .looped(true)
-                .play(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mPresenter.subscribe();
-        HXMusic.resume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mPresenter.unsubscribe();
-        HXMusic.pause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        // Releases all audio-related instances if the application is terminating.
-        HXMusic.clear();
     }
 
     /** ACTIVITY EXTENSION METHODS _____________________________________________________________ **/

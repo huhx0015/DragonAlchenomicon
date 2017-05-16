@@ -15,7 +15,6 @@ import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.contracts.RecipeListContract;
 import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
 import com.huhx0015.dragonalchenomicon.presenters.RecipeListPresenter;
-import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
@@ -131,7 +130,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
     /** VIEW METHODS ___________________________________________________________________________ **/
 
     @Override
-    public void setPresenter(@NotNull RecipeListContract.Presenter presenter) {
+    public void setPresenter(RecipeListContract.Presenter presenter) {
         this.mPresenter = presenter;
     }
 
