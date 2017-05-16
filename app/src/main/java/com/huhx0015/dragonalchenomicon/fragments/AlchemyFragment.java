@@ -11,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.huhx0015.dragonalchenomicon.R;
+import com.huhx0015.dragonalchenomicon.adapters.RecipeListAdapter;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
 import com.huhx0015.dragonalchenomicon.dialog.IngredientPickerDialog;
@@ -59,10 +61,12 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
     @BindView(R.id.alchemy_ingredient_1_icon) ImageView mFirstSelectedIngredientView;
     @BindView(R.id.alchemy_ingredient_2_icon) ImageView mSecondSelectedIngredientView;
     @BindView(R.id.alchemy_ingredient_3_icon) ImageView mThirdSelectedIngredientView;
+    @BindView(R.id.alchemy_list_progressbar) ProgressBar mProgressBar;
     @BindView(R.id.alchemy_recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.alchemy_ingredient_1_text) TextView mFirstSelectedIngredientText;
     @BindView(R.id.alchemy_ingredient_2_text) TextView mSecondSelectedIngredientText;
     @BindView(R.id.alchemy_ingredient_3_text) TextView mThirdSelectedIngredientText;
+    @BindView(R.id.alchemy_no_results_text) TextView mNoResultsText;
 
     /** INSTANCE METHODS _______________________________________________________________________ **/
 
@@ -134,9 +138,9 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
         mRecyclerView.setDrawingCacheEnabled(true);
         mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
-//        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRecipeList(), getContext());
-//        adapter.setHasStableIds(true);
-//        mRecyclerView.setAdapter(adapter);
+        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRecipeResults(), getContext());
+        adapter.setHasStableIds(true);
+        mRecyclerView.setAdapter(adapter);
     }
 
     @OnClick(R.id.alchemy_ingredient_1_button)
@@ -238,6 +242,49 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
                     .fitCenter()
                     .into(selectedIngredientView);
         }
+    }
+
+    @Override
+    public void showNoResults(final boolean isDisplayed) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (isDisplayed) {
+                    mNoResultsText.setVisibility(View.VISIBLE);
+                } else {
+                    mNoResultsText.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void showRecipeList(final boolean isDisplayed) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (isDisplayed) {
+                    initRecyclerView();
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                } else {
+                    mRecyclerView.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void showProgressBar(final boolean isDisplayed) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (isDisplayed) {
+                    mProgressBar.setVisibility(View.VISIBLE);
+                } else {
+                    mProgressBar.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     @Override

@@ -29,6 +29,12 @@ public interface AlchemyContract {
 
         void showSelectedIngredient(int resource, int position);
 
+        void showNoResults(boolean isDisplayed);
+
+        void showRecipeList(boolean isDisplayed);
+
+        void showProgressBar(boolean isDisplayed);
+
         void updateSelectedIngredientText(int position);
     }
 

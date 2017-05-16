@@ -202,11 +202,13 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
                         // FIRST INGREDIENT:
                         if (firstIngredient.equals(ingredient)) {
                             ingredientCount++;
+                            continue;
                         }
 
                         // SECOND INGREDIENT:
                         if (secondIngredient.equals(ingredient)) {
                             ingredientCount++;
+                            continue;
                         }
 
                         // THIRD INGREDIENT:

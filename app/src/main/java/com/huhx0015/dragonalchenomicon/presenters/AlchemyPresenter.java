@@ -92,13 +92,20 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
             mView.updateSelectedIngredientText(buttonId);
         }
 
-        // TODO: Update recipe results:
-        Log.d(LOG_TAG, "Loading recipes!");
+        mView.showNoResults(false);
+        mView.showRecipeList(false);
+        mView.showProgressBar(true);
+
+        // Queries the database for all the recipes that contain the selected ingredients.
         mRepository.loadRecipes(new AlchemyPresenterListener() {
             @Override
             public void onAlchemyListLoaded() {
-                for (AlchenomiconRecipe recipe : mRepository.getRecipeResults()) {
-                    Log.d(LOG_TAG, "Results: " + recipe.recipeName);
+                mView.showProgressBar(false);
+
+                if (mRepository.getRecipeResults().size() > 0) {
+                    mView.showRecipeList(true);
+                } else {
+                    mView.showNoResults(true);
                 }
             }
         });
@@ -113,6 +120,14 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
     @Override
     public void setRecipeResults(List<AlchenomiconRecipe> recipeResults) {
         mRepository.setRecipeResults(recipeResults);
+
+        if (mRepository.getRecipeResults().size() > 0) {
+            mView.showNoResults(false);
+            mView.showRecipeList(true);
+        } else {
+            mView.showRecipeList(false);
+            mView.showNoResults(true);
+        }
     }
 
     @Override

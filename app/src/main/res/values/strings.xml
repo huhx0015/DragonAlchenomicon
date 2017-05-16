@@ -12,5 +12,6 @@
     <string name="alchemy_ingredient_1">INGREDIENT 1</string>
     <string name="alchemy_ingredient_2">INGREDIENT 2</string>
     <string name="alchemy_ingredient_3">INGREDIENT 3</string>
+    <string name="alchemy_no_recipe_results">No recipes found with the selected ingredients.</string>
 
 </resources>
