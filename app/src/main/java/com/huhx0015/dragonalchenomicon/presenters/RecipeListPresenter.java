@@ -5,7 +5,7 @@ import android.util.Log;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.contracts.RecipeListContract;
 import com.huhx0015.dragonalchenomicon.data.repositories.RecipeListRepository;
-import com.huhx0015.dragonalchenomicon.interfaces.RecipeListPresenterListener;
+import com.huhx0015.dragonalchenomicon.listeners.RecipeListPresenterListener;
 import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
 import java.util.List;
 import javax.inject.Inject;

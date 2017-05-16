@@ -15,12 +15,15 @@ public class AlchenomiconApplication extends Application {
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
     // APPLICATION VARIABLES:
-    private static AlchenomiconApplication instance = new AlchenomiconApplication();
+    private static AlchenomiconApplication instance;
     private static AppComponent mAppComponent;
 
     /** INSTANCE METHODS _______________________________________________________________________ **/
 
     public static AlchenomiconApplication getInstance() {
+        if (instance == null) {
+            instance = new AlchenomiconApplication();
+        }
         return instance;
     }
 

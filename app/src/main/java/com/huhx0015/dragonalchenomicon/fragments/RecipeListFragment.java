@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import com.huhx0015.dragonalchenomicon.R;
 import com.huhx0015.dragonalchenomicon.adapters.RecipeListAdapter;
+import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.contracts.RecipeListContract;
 import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
 import com.huhx0015.dragonalchenomicon.presenters.RecipeListPresenter;
@@ -28,9 +29,6 @@ import butterknife.Unbinder;
 public class RecipeListFragment extends Fragment implements RecipeListContract.View {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
-
-    // CONSTANT VARIABLES:
-    private static final int RECIPE_LIST_PREFETCH_VALUE = 6;
 
     // LOGGING VARIABLES:
     private static final String LOG_TAG = RecipeListFragment.class.getSimpleName();
@@ -118,7 +116,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setItemPrefetchEnabled(true);
-        layoutManager.setInitialPrefetchItemCount(RECIPE_LIST_PREFETCH_VALUE);
+        layoutManager.setInitialPrefetchItemCount(AlchenomiconConstants.PREFETCH_VALUE);
 
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);

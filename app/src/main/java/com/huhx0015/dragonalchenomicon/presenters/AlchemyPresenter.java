@@ -6,9 +6,11 @@ import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
 import com.huhx0015.dragonalchenomicon.data.repositories.AlchemyRepository;
-import com.huhx0015.dragonalchenomicon.interfaces.AlchemyPresenterListener;
+import com.huhx0015.dragonalchenomicon.listeners.AlchemyPresenterListener;
+import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
 import com.huhx0015.dragonalchenomicon.utils.AlchenomiconImageUtils;
 import java.util.HashSet;
+import java.util.List;
 import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -76,6 +78,11 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
     }
 
     @Override
+    public List<AlchenomiconRecipe> getRecipeResults() {
+        return mRepository.getRecipeResults();
+    }
+
+    @Override
     public void setSelectedIngredient(String ingredient, int buttonId) {
         mRepository.setSelectedIngredient(ingredient, buttonId);
 
@@ -84,6 +91,18 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
             mView.showSelectedIngredient(ingredientResource, buttonId);
             mView.updateSelectedIngredientText(buttonId);
         }
+
+        // TODO: Update recipe results:
+        Log.d(LOG_TAG, "Loading recipes!");
+        mRepository.loadRecipes(new AlchemyPresenterListener() {
+            @Override
+            public void onAlchemyListLoaded() {
+                for (AlchenomiconRecipe recipe : mRepository.getRecipeResults()) {
+                    Log.d(LOG_TAG, "Results: " + recipe.recipeName);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -92,13 +111,18 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
     }
 
     @Override
+    public void setRecipeResults(List<AlchenomiconRecipe> recipeResults) {
+        mRepository.setRecipeResults(recipeResults);
+    }
+
+    @Override
     public void onIngredientButtonClicked(final int buttonId) {
 
         // Queries the database to retrieve all available ingredients.
         if (mRepository.getIngredientList() == null) {
-            mRepository.getAllIngredients(new AlchemyPresenterListener() {
+            mRepository.loadAllIngredients(new AlchemyPresenterListener() {
                 @Override
-                public void onIngredientListLoaded() {
+                public void onAlchemyListLoaded() {
                     mView.showIngredientDialog(buttonId);
                 }
             });

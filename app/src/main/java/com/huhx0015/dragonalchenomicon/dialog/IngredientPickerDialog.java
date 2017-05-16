@@ -8,9 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.huhx0015.dragonalchenomicon.R;
 import com.huhx0015.dragonalchenomicon.adapters.IngredientPickerDialogAdapter;
+import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.contracts.IngredientPickerContract;
-import com.huhx0015.dragonalchenomicon.interfaces.IngredientPickerAdapterListener;
-import com.huhx0015.dragonalchenomicon.interfaces.IngredientPickerListener;
+import com.huhx0015.dragonalchenomicon.listeners.IngredientPickerAdapterListener;
+import com.huhx0015.dragonalchenomicon.listeners.IngredientPickerListener;
 import com.huhx0015.dragonalchenomicon.presenters.IngredientPickerPresenter;
 import java.util.HashSet;
 import butterknife.BindView;
@@ -29,9 +30,6 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
     // BUNDLE VARIABLES
     private static final String BUNDLE_BUTTON_ID = IngredientPickerDialog.class + "_BUTTON_ID";
     private static final String BUNDLE_INGREDIENT_LIST = IngredientPickerDialog.class + "_INGREDIENT_LIST";
-
-    // CONSTANT VARIABLES:
-    private static final int INGREDIENT_PICKER_PREFETCH_VALUE = 6;
 
     // LISTENER VARIABLES:
     private IngredientPickerListener mListener;
@@ -109,7 +107,7 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setItemPrefetchEnabled(true);
-        layoutManager.setInitialPrefetchItemCount(INGREDIENT_PICKER_PREFETCH_VALUE);
+        layoutManager.setInitialPrefetchItemCount(AlchenomiconConstants.PREFETCH_VALUE);
 
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);

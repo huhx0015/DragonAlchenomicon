@@ -10,4 +10,7 @@ public class AlchenomiconConstants {
 
     // INGREDIENT CONSTANTS:
     public static final String NULL_IDENTIFIER = "NULL";
+
+    // RECYCLERVIEW CONSTANTS:
+    public static final int PREFETCH_VALUE = 6;
 }

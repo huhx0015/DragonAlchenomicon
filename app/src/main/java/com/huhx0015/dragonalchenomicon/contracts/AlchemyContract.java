@@ -1,9 +1,12 @@
 package com.huhx0015.dragonalchenomicon.contracts;
 
-import com.huhx0015.dragonalchenomicon.interfaces.AlchemyPresenterListener;
+import com.huhx0015.dragonalchenomicon.listeners.AlchemyPresenterListener;
 import com.huhx0015.dragonalchenomicon.interfaces.BasePresenter;
 import com.huhx0015.dragonalchenomicon.interfaces.BaseView;
+import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
+
 import java.util.HashSet;
+import java.util.List;
 
 /** -----------------------------------------------------------------------------------------------
  *  [AlchemyContract] CLASS
@@ -41,9 +44,13 @@ public interface AlchemyContract {
 
         String[] getSelectedIngredientList();
 
+        List<AlchenomiconRecipe> getRecipeResults();
+
         void setSelectedIngredient(String ingredient, int buttonId);
 
         void setSelectedIngredientList(String[] ingredientList);
+
+        void setRecipeResults(List<AlchenomiconRecipe> recipeResults);
 
         void onIngredientButtonClicked(int buttonId);
 
@@ -53,7 +60,9 @@ public interface AlchemyContract {
     // the Presenter does not need to be concerned about how data is persisted.
     interface Repository {
 
-        void getAllIngredients(AlchemyPresenterListener listener);
+        void loadAllIngredients(AlchemyPresenterListener listener);
+
+        void loadRecipes(AlchemyPresenterListener listener);
 
         HashSet<String> getIngredientList();
 
@@ -61,10 +70,14 @@ public interface AlchemyContract {
 
         String[] getSelectedIngredientList();
 
+        List<AlchenomiconRecipe> getRecipeResults();
+
         void setIngredientList(HashSet<String> ingredientList);
 
         void setSelectedIngredient(String ingredient, int buttonId);
 
         void setSelectedIngredientList(String[] ingredientList);
+
+        void setRecipeResults(List<AlchenomiconRecipe> recipeResults);
     }
 }

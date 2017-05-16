@@ -5,9 +5,12 @@ import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
 import com.huhx0015.dragonalchenomicon.data.database.AlchenomiconDatabaseHelper;
-import com.huhx0015.dragonalchenomicon.interfaces.AlchemyPresenterListener;
-import com.huhx0015.dragonalchenomicon.interfaces.AlchenomiconDatabaseListener;
+import com.huhx0015.dragonalchenomicon.listeners.AlchemyPresenterListener;
+import com.huhx0015.dragonalchenomicon.listeners.AlchenomiconDatabaseListener;
+import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -23,6 +26,7 @@ public class AlchemyRepository implements AlchemyContract.Repository {
 
     // DATA VARIABLES:
     private HashSet<String> mIngredientList;
+    private List<AlchenomiconRecipe> mRecipeResultList;
     private String[] mSelectedIngredientList;
 
     // DATABASE VARIABLES:
@@ -55,7 +59,7 @@ public class AlchemyRepository implements AlchemyContract.Repository {
     /** REPOSITORY METHODS _____________________________________________________________________ **/
 
     @Override
-    public void getAllIngredients(final AlchemyPresenterListener listener) {
+    public void loadAllIngredients(final AlchemyPresenterListener listener) {
         Thread databaseThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -64,7 +68,35 @@ public class AlchemyRepository implements AlchemyContract.Repository {
                     public void onQueryFinished(HashSet<String> ingredientList) {
                         Log.d(LOG_TAG, "onQueryFinished(): Query for ingredient list has finished.");
                         mIngredientList = ingredientList;
-                        listener.onIngredientListLoaded();
+                        listener.onAlchemyListLoaded();
+                    }
+                });
+            }
+        });
+        databaseThread.start();
+    }
+
+    @Override
+    public void loadRecipes(final AlchemyPresenterListener listener) {
+        Thread databaseThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                // Removes NULL ingredients from the selected ingredient list before querying the
+                // database for recipes containing the ingredients from the list.
+                List<String> selectedIngredients = new ArrayList<>();
+                for (String ingredient : mSelectedIngredientList) {
+                    if (!ingredient.equals(AlchenomiconConstants.NULL_IDENTIFIER)) {
+                        selectedIngredients.add(ingredient);
+                    }
+                }
+
+                mDatabase.getRecipesContainingIngredients(selectedIngredients, new AlchenomiconDatabaseListener.RecipeQueryListener() {
+                    @Override
+                    public void onQueryFinished(List<AlchenomiconRecipe> recipeList) {
+                        Log.d(LOG_TAG, "onQueryFinished(): Query for recipe list has finished.");
+                        mRecipeResultList = recipeList;
+                        listener.onAlchemyListLoaded();
                     }
                 });
             }
@@ -90,6 +122,11 @@ public class AlchemyRepository implements AlchemyContract.Repository {
     }
 
     @Override
+    public List<AlchenomiconRecipe> getRecipeResults() {
+        return mRecipeResultList;
+    }
+
+    @Override
     public void setIngredientList(HashSet<String> ingredientList) {
         this.mIngredientList = ingredientList;
     }
@@ -103,5 +140,10 @@ public class AlchemyRepository implements AlchemyContract.Repository {
     @Override
     public void setSelectedIngredientList(String[] ingredientList) {
         this.mSelectedIngredientList = ingredientList;
+    }
+
+    @Override
+    public void setRecipeResults(List<AlchenomiconRecipe> recipeResults) {
+        this.mRecipeResultList = recipeResults;
     }
 }

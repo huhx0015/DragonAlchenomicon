@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import com.huhx0015.dragonalchenomicon.annotations.ApplicationContext;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
-import com.huhx0015.dragonalchenomicon.interfaces.AlchenomiconDatabaseListener;
+import com.huhx0015.dragonalchenomicon.listeners.AlchenomiconDatabaseListener;
 import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
     private static final String KEY_ATT3 = "KEY_ATT3";
 
     // TABLE COLUMN VARIABLES:
-    private static final String[] TABLE_COLUMNS = {
+    private static final String[] TABLE_ALL_COLUMNS = {
             KEY_ROWID,
             KEY_ITEM,
             KEY_CATEGORY,
@@ -76,8 +76,7 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
         SQLiteDatabase database = getReadableDatabase();
 
         // Prepares the cursor.
-        Cursor cursor = database.query(TABLE_DQ8_RECIPE, TABLE_COLUMNS,
-                null, null, null, null, null);
+        Cursor cursor = database.query(TABLE_DQ8_RECIPE, TABLE_ALL_COLUMNS, null, null, null, null, null);
 
         // Reads the database for all recipes and adds it to the list of recipes.
         try {
@@ -94,7 +93,7 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
                 } while(cursor.moveToNext());
             }
         } catch (Exception e) {
-            Log.e(LOG_TAG, "getAllIngredients(): An error occurred while attempting to query the database for ingredients: " + e.getLocalizedMessage());
+            Log.e(LOG_TAG, "loadAllIngredients(): An error occurred while attempting to query the database for ingredients: " + e.getLocalizedMessage());
         } finally {
             if (cursor != null && !cursor.isClosed()) {
                 cursor.close();
@@ -104,9 +103,34 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
                 ingredientList.remove(AlchenomiconConstants.NULL_IDENTIFIER); // Removes any NULL ingredients from list.
                 listener.onQueryFinished(ingredientList);
             } else {
-                Log.e(LOG_TAG, "getAllIngredients(): Failed to retrieve any ingredients from the database.");
+                Log.e(LOG_TAG, "loadAllIngredients(): Failed to retrieve any ingredients from the database.");
             }
         }
+    }
+
+    private AlchenomiconRecipe getRecipeRow(Cursor cursor) {
+        AlchenomiconRecipe recipe = new AlchenomiconRecipe();
+
+        recipe.recipeId = cursor.getInt(cursor.getColumnIndex(KEY_ROWID)); // ROW_ID
+        recipe.recipeName = cursor.getString(cursor.getColumnIndex(KEY_ITEM)); // ITEM
+        recipe.recipeCategoryId = cursor.getInt(cursor.getColumnIndex(KEY_CATEGORY)); // CATEGORY
+        recipe.recipeDescription = cursor.getString(cursor.getColumnIndex(KEY_DESC)); // DESCRIPTION
+
+        // RECIPE LIST:
+        List<String> recipeIngredientList = new ArrayList<>();
+        recipeIngredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC1)));
+        recipeIngredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC2)));
+        recipeIngredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC3)));
+        recipe.recipeIngredientList = recipeIngredientList;
+
+        // ATTRIBUTE LIST:
+        List<String> recipeAttributeList = new ArrayList<>();
+        recipeAttributeList.add(cursor.getString(cursor.getColumnIndex(KEY_ATT1)));
+        recipeAttributeList.add(cursor.getString(cursor.getColumnIndex(KEY_ATT2)));
+        recipeAttributeList.add(cursor.getString(cursor.getColumnIndex(KEY_ATT3)));
+        recipe.recipeAttributeList = recipeAttributeList;
+
+        return recipe;
     }
 
     public synchronized void getAllRecipes(AlchenomiconDatabaseListener.RecipeQueryListener listener) {
@@ -118,38 +142,17 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
         SQLiteDatabase database = getReadableDatabase();
 
         // Prepares the cursor.
-        Cursor cursor = database.query(TABLE_DQ8_RECIPE, TABLE_COLUMNS,
-                null, null, null, null, null);
+        Cursor cursor = database.query(TABLE_DQ8_RECIPE, TABLE_ALL_COLUMNS, null, null, null, null, null);
 
         // Reads the database for all recipes and adds it to the list of recipes.
         try {
             if (cursor.moveToFirst()) {
                 do {
-
                     if (recipeList == null) {
                         recipeList = new ArrayList<>();
                     }
 
-                    AlchenomiconRecipe recipe = new AlchenomiconRecipe();
-                    recipe.recipeId = cursor.getInt(cursor.getColumnIndex(KEY_ROWID)); // ROW_ID
-                    recipe.recipeName = cursor.getString(cursor.getColumnIndex(KEY_ITEM)); // ITEM
-                    recipe.recipeCategoryId = cursor.getInt(cursor.getColumnIndex(KEY_CATEGORY)); // CATEGORY
-                    recipe.recipeDescription = cursor.getString(cursor.getColumnIndex(KEY_DESC)); // DESCRIPTION
-
-                    // RECIPE LIST:
-                    List<String> recipeIngredientList = new ArrayList<>();
-                    recipeIngredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC1)));
-                    recipeIngredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC2)));
-                    recipeIngredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC3)));
-                    recipe.recipeIngredientList = recipeIngredientList;
-
-                    // ATTRIBUTE LIST:
-                    List<String> recipeAttributeList = new ArrayList<>();
-                    recipeAttributeList.add(cursor.getString(cursor.getColumnIndex(KEY_ATT1)));
-                    recipeAttributeList.add(cursor.getString(cursor.getColumnIndex(KEY_ATT2)));
-                    recipeAttributeList.add(cursor.getString(cursor.getColumnIndex(KEY_ATT3)));
-                    recipe.recipeAttributeList = recipeAttributeList;
-
+                    AlchenomiconRecipe recipe = getRecipeRow(cursor);
                     recipeList.add(recipe);
 
                 } while(cursor.moveToNext());
@@ -164,6 +167,73 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
                 listener.onQueryFinished(recipeList);
             } else {
                 Log.e(LOG_TAG, "getAllRecipes(): Failed to retrieve any recipes from the database.");
+            }
+        }
+    }
+
+    public synchronized void getRecipesContainingIngredients(List<String> selectedIngredients,
+                                                             AlchenomiconDatabaseListener.RecipeQueryListener listener) {
+        List<AlchenomiconRecipe> recipeList = null;
+
+        // "getReadableDatabase()" and "getWriteableDatabase()" return the same object (except under
+        // low disk space scenarios)
+        SQLiteDatabase database = getReadableDatabase();
+
+        // Prepares the cursor.
+        Cursor cursor = database.query(TABLE_DQ8_RECIPE, TABLE_ALL_COLUMNS, null, null, null, null, null);
+
+        // Reads the database for all recipes and adds it to the list of recipes.
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    if (recipeList == null) {
+                        recipeList = new ArrayList<>();
+                    }
+
+                    String firstIngredient = cursor.getString(cursor.getColumnIndex(KEY_REC1));
+                    String secondIngredient = cursor.getString(cursor.getColumnIndex(KEY_REC2));
+                    String thirdIngredient = cursor.getString(cursor.getColumnIndex(KEY_REC3));
+
+                    // Compares the recipe ingredients to the selected ingredient list to determine
+                    // if the current recipe fits the criteria.
+                    int ingredientCount = 0;
+                    for (String ingredient : selectedIngredients) {
+
+                        // FIRST INGREDIENT:
+                        if (firstIngredient.equals(ingredient)) {
+                            ingredientCount++;
+                        }
+
+                        // SECOND INGREDIENT:
+                        if (secondIngredient.equals(ingredient)) {
+                            ingredientCount++;
+                        }
+
+                        // THIRD INGREDIENT:
+                        if (thirdIngredient.equals(ingredient)) {
+                            ingredientCount++;
+                        }
+                    }
+
+                    // If the recipe contains the selected ingredients, the recipe is added to the
+                    // list.
+                    if (ingredientCount == selectedIngredients.size()) {
+                        AlchenomiconRecipe recipe = getRecipeRow(cursor);
+                        recipeList.add(recipe);
+                    }
+
+                } while(cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "getRecipesContainingIngredients(): An error occurred while trying to get recipes from database: " + e.getLocalizedMessage());
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+            if (recipeList != null) {
+                listener.onQueryFinished(recipeList);
+            } else {
+                Log.e(LOG_TAG, "getRecipesContainingIngredients(): Failed to retrieve any recipes from the database.");
             }
         }
     }

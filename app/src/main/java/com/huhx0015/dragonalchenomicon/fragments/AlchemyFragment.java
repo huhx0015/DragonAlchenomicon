@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +14,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.huhx0015.dragonalchenomicon.R;
+import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
 import com.huhx0015.dragonalchenomicon.dialog.IngredientPickerDialog;
-import com.huhx0015.dragonalchenomicon.interfaces.IngredientPickerListener;
+import com.huhx0015.dragonalchenomicon.listeners.IngredientPickerListener;
+import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
 import com.huhx0015.dragonalchenomicon.presenters.AlchemyPresenter;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -44,17 +50,19 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
     // SAVE INSTANCE VARIABLES:
     private static final String INSTANCE_INGREDIENT_LIST = AlchemyFragment.class.getSimpleName() + "_INGREDIENT_LIST";
     private static final String INSTANCE_SELECTED_INGREDIENT_LIST = AlchemyFragment.class.getSimpleName() + "_SELECTED_INGREDIENT_LIST";
+    private static final String INSTANCE_RECIPE_RESULTS = AlchemyFragment.class.getSimpleName() + "_RECIPE_RESULTS";
 
     // VIEW VARIABLES:
     private Unbinder mUnbinder;
 
     // VIEW INJECTION VARIABLES:
-    @BindView(R.id.alchemy_ingredient_1_icon) ImageView firstSelectedIngredientView;
-    @BindView(R.id.alchemy_ingredient_2_icon) ImageView secondSelectedIngredientView;
-    @BindView(R.id.alchemy_ingredient_3_icon) ImageView thirdSelectedIngredientView;
-    @BindView(R.id.alchemy_ingredient_1_text) TextView firstSelectedIngredientText;
-    @BindView(R.id.alchemy_ingredient_2_text) TextView secondSelectedIngredientText;
-    @BindView(R.id.alchemy_ingredient_3_text) TextView thirdSelectedIngredientText;
+    @BindView(R.id.alchemy_ingredient_1_icon) ImageView mFirstSelectedIngredientView;
+    @BindView(R.id.alchemy_ingredient_2_icon) ImageView mSecondSelectedIngredientView;
+    @BindView(R.id.alchemy_ingredient_3_icon) ImageView mThirdSelectedIngredientView;
+    @BindView(R.id.alchemy_recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.alchemy_ingredient_1_text) TextView mFirstSelectedIngredientText;
+    @BindView(R.id.alchemy_ingredient_2_text) TextView mSecondSelectedIngredientText;
+    @BindView(R.id.alchemy_ingredient_3_text) TextView mThirdSelectedIngredientText;
 
     /** INSTANCE METHODS _______________________________________________________________________ **/
 
@@ -98,14 +106,38 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
+        // SELECTED INGREDIENT LIST:
         outState.putStringArray(INSTANCE_SELECTED_INGREDIENT_LIST, mPresenter.getSelectedIngredientList());
+
+        // INGREDIENT LIST:
         HashSet<String> ingredientList = mPresenter.getIngredientList();
         if (ingredientList != null) {
             outState.putSerializable(INSTANCE_INGREDIENT_LIST, ingredientList);
         }
+
+        // RECIPE RESULTS:
+        List<AlchenomiconRecipe> recipeResults = mPresenter.getRecipeResults();
+        if (recipeResults != null) {
+            outState.putParcelableArrayList(INSTANCE_RECIPE_RESULTS, new ArrayList<>(recipeResults));
+        }
     }
 
     /** LAYOUT METHODS _________________________________________________________________________ **/
+
+    private void initRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setItemPrefetchEnabled(true);
+        layoutManager.setInitialPrefetchItemCount(AlchenomiconConstants.PREFETCH_VALUE);
+
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setDrawingCacheEnabled(true);
+        mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
+//        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRecipeList(), getContext());
+//        adapter.setHasStableIds(true);
+//        mRecyclerView.setAdapter(adapter);
+    }
 
     @OnClick(R.id.alchemy_ingredient_1_button)
     public void firstIngredientButton() {
@@ -126,8 +158,9 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
 
     private void initIngredientList(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            String[] selectedIngredientList = savedInstanceState.getStringArray(INSTANCE_SELECTED_INGREDIENT_LIST);
 
+            // SELECTED INGREDIENT LIST:
+            String[] selectedIngredientList = savedInstanceState.getStringArray(INSTANCE_SELECTED_INGREDIENT_LIST);
             if (selectedIngredientList != null) {
                 mPresenter.setSelectedIngredientList(selectedIngredientList);
 
@@ -137,9 +170,16 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
                 }
             }
 
+            // INGREDIENT LIST:
             HashSet<String> ingredientList = (HashSet<String>) savedInstanceState.getSerializable(INSTANCE_INGREDIENT_LIST);
             if (ingredientList != null) {
                 mPresenter.setIngredientList(ingredientList);
+            }
+
+            // RECEIPE RESULTS:
+            List<AlchenomiconRecipe> recipeResults = savedInstanceState.getParcelableArrayList(INSTANCE_RECIPE_RESULTS);
+            if (recipeResults != null) {
+                mPresenter.setRecipeResults(recipeResults);
             }
         }
     }
@@ -182,13 +222,13 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
         ImageView selectedIngredientView = null;
         switch (position) {
             case INGREDIENT_BUTTON_1_ID:
-                selectedIngredientView = firstSelectedIngredientView;
+                selectedIngredientView = mFirstSelectedIngredientView;
                 break;
             case INGREDIENT_BUTTON_2_ID:
-                selectedIngredientView = secondSelectedIngredientView;
+                selectedIngredientView = mSecondSelectedIngredientView;
                 break;
             case INGREDIENT_BUTTON_3_ID:
-                selectedIngredientView = thirdSelectedIngredientView;
+                selectedIngredientView = mThirdSelectedIngredientView;
                 break;
         }
 
@@ -205,13 +245,13 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
         String ingredientName = mPresenter.getSelectedIngredientList()[position];
         switch (position) {
             case INGREDIENT_BUTTON_1_ID:
-                firstSelectedIngredientText.setText(ingredientName);
+                mFirstSelectedIngredientText.setText(ingredientName);
                 break;
             case INGREDIENT_BUTTON_2_ID:
-                secondSelectedIngredientText.setText(ingredientName);
+                mSecondSelectedIngredientText.setText(ingredientName);
                 break;
             case INGREDIENT_BUTTON_3_ID:
-                thirdSelectedIngredientText.setText(ingredientName);
+                mThirdSelectedIngredientText.setText(ingredientName);
                 break;
         }
     }
