@@ -24,7 +24,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
-                android:background="@drawable/da_ingredient_frame"
+                android:background="@drawable/selector_da_button"
                 android:elevation="2dp"
                 android:gravity="center">
 
@@ -62,7 +62,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
-                android:background="@drawable/da_ingredient_frame"
+                android:background="@drawable/selector_da_button"
                 android:elevation="2dp"
                 android:gravity="center">
 
@@ -100,7 +100,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
-                android:background="@drawable/da_ingredient_frame"
+                android:background="@drawable/selector_da_button"
                 android:elevation="2dp"
                 android:gravity="center">
 

@@ -2,6 +2,7 @@ package com.huhx0015.dragonalchenomicon.view.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,7 +85,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     public void showRecipeRow(RecipeListViewHolder holder, AlchenomiconRecipe recipe) {
 
         // RECIPE NAME:
-        mPresenter.setRecipeName(recipe.recipeName, holder.receipeName);
+        mPresenter.setRecipeName(recipe.recipeName, holder.recipeName);
 
         // RECIPE IMAGE:
         int recipeResource = AlchenomiconImageUtils.getItemImage(recipe.recipeName);
@@ -152,11 +153,19 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         @BindView(R.id.adapter_recipe_ingredient_1) TextView firstIngredient;
         @BindView(R.id.adapter_recipe_ingredient_2) TextView secondIngredient;
         @BindView(R.id.adapter_recipe_ingredient_3) TextView thirdIngredient;
-        @BindView(R.id.adapter_recipe_name) TextView receipeName;
+        @BindView(R.id.adapter_recipe_name) TextView recipeName;
 
         RecipeListViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            initText();
+        }
+
+        private void initText() {
+            firstIngredient.setShadowLayer(2, 2, 2, Color.BLACK);
+            secondIngredient.setShadowLayer(2, 2, 2, Color.BLACK);
+            thirdIngredient.setShadowLayer(2, 2, 2, Color.BLACK);
+            recipeName.setShadowLayer(2, 2, 2, Color.BLACK);
         }
     }
 }
