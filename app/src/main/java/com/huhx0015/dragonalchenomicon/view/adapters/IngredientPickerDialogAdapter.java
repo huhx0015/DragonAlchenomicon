@@ -1,4 +1,4 @@
-package com.huhx0015.dragonalchenomicon.adapters;
+package com.huhx0015.dragonalchenomicon.view.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

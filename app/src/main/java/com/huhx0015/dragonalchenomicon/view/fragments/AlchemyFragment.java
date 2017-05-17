@@ -1,4 +1,4 @@
-package com.huhx0015.dragonalchenomicon.fragments;
+package com.huhx0015.dragonalchenomicon.view.fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,12 +17,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.huhx0015.dragonalchenomicon.R;
-import com.huhx0015.dragonalchenomicon.adapters.RecipeListAdapter;
+import com.huhx0015.dragonalchenomicon.view.adapters.RecipeListAdapter;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
-import com.huhx0015.dragonalchenomicon.dialog.IngredientPickerDialog;
+import com.huhx0015.dragonalchenomicon.view.dialog.IngredientPickerDialog;
 import com.huhx0015.dragonalchenomicon.listeners.IngredientPickerListener;
-import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
+import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import com.huhx0015.dragonalchenomicon.presenters.AlchemyPresenter;
 import java.util.ArrayList;
 import java.util.HashSet;

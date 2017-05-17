@@ -1,4 +1,4 @@
-package com.huhx0015.dragonalchenomicon.adapters;
+package com.huhx0015.dragonalchenomicon.view.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide;
 import com.huhx0015.dragonalchenomicon.R;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.contracts.RecipeListAdapterContract;
-import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
+import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import com.huhx0015.dragonalchenomicon.presenters.RecipeListAdapterPresenter;
 import com.huhx0015.dragonalchenomicon.utils.AlchenomiconImageUtils;
 import java.util.List;

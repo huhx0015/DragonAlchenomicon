@@ -1,10 +1,10 @@
-package com.huhx0015.dragonalchenomicon.adapters;
+package com.huhx0015.dragonalchenomicon.view.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import com.huhx0015.dragonalchenomicon.fragments.AlchemyFragment;
-import com.huhx0015.dragonalchenomicon.fragments.RecipeListFragment;
+import com.huhx0015.dragonalchenomicon.view.fragments.AlchemyFragment;
+import com.huhx0015.dragonalchenomicon.view.fragments.RecipeListFragment;
 
 /**
  * Created by Michael Yoon Huh on 5/11/2017.

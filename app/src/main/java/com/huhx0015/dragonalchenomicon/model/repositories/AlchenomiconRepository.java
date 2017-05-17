@@ -1,4 +1,4 @@
-package com.huhx0015.dragonalchenomicon.data.repositories;
+package com.huhx0015.dragonalchenomicon.model.repositories;
 
 import com.huhx0015.dragonalchenomicon.contracts.AlchenomiconContract;
 import javax.inject.Inject;

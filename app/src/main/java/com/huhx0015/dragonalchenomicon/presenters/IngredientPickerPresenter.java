@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.contracts.IngredientPickerContract;
-import com.huhx0015.dragonalchenomicon.data.repositories.IngredientPickerRepository;
+import com.huhx0015.dragonalchenomicon.model.repositories.IngredientPickerRepository;
 import java.util.HashSet;
 import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;

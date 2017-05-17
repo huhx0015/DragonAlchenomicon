@@ -3,10 +3,10 @@ package com.huhx0015.dragonalchenomicon.contracts;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.huhx0015.dragonalchenomicon.adapters.RecipeListAdapter;
+import com.huhx0015.dragonalchenomicon.view.adapters.RecipeListAdapter;
 import com.huhx0015.dragonalchenomicon.interfaces.BasePresenter;
 import com.huhx0015.dragonalchenomicon.interfaces.BaseView;
-import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
+import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import java.util.List;
 
 /** -----------------------------------------------------------------------------------------------

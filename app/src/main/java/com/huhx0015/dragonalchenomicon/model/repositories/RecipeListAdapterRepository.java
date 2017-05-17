@@ -1,7 +1,7 @@
-package com.huhx0015.dragonalchenomicon.data.repositories;
+package com.huhx0015.dragonalchenomicon.model.repositories;
 
 import com.huhx0015.dragonalchenomicon.contracts.RecipeListAdapterContract;
-import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
+import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import java.util.List;
 import javax.inject.Inject;
 

@@ -1,4 +1,4 @@
-package com.huhx0015.dragonalchenomicon.activities;
+package com.huhx0015.dragonalchenomicon.view.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -6,7 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import com.huhx0015.dragonalchenomicon.adapters.AlchenomiconPagerAdapter;
+import com.huhx0015.dragonalchenomicon.view.adapters.AlchenomiconPagerAdapter;
 import com.huhx0015.dragonalchenomicon.contracts.AlchenomiconContract;
 import com.huhx0015.dragonalchenomicon.presenters.AlchenomiconPresenter;
 import com.huhx0015.dragonalchenomicon.R;

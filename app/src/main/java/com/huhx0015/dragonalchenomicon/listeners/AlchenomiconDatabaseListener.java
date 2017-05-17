@@ -1,6 +1,6 @@
 package com.huhx0015.dragonalchenomicon.listeners;
 
-import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
+import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import java.util.HashSet;
 import java.util.List;
 

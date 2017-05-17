@@ -1,4 +1,4 @@
-package com.huhx0015.dragonalchenomicon.data.database;
+package com.huhx0015.dragonalchenomicon.database;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -7,7 +7,7 @@ import android.util.Log;
 import com.huhx0015.dragonalchenomicon.annotations.ApplicationContext;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.listeners.AlchenomiconDatabaseListener;
-import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
+import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 import java.util.ArrayList;
 import java.util.HashSet;

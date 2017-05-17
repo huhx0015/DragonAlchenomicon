@@ -1,4 +1,4 @@
-package com.huhx0015.dragonalchenomicon.dialog;
+package com.huhx0015.dragonalchenomicon.view.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.huhx0015.dragonalchenomicon.R;
-import com.huhx0015.dragonalchenomicon.adapters.IngredientPickerDialogAdapter;
+import com.huhx0015.dragonalchenomicon.view.adapters.IngredientPickerDialogAdapter;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.contracts.IngredientPickerContract;
 import com.huhx0015.dragonalchenomicon.listeners.IngredientPickerAdapterListener;

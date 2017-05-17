@@ -1,4 +1,4 @@
-package com.huhx0015.dragonalchenomicon.model;
+package com.huhx0015.dragonalchenomicon.model.objects;
 
 import android.os.Parcel;
 import android.os.Parcelable;

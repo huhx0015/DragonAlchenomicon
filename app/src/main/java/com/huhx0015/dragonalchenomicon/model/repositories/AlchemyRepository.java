@@ -1,13 +1,13 @@
-package com.huhx0015.dragonalchenomicon.data.repositories;
+package com.huhx0015.dragonalchenomicon.model.repositories;
 
 import android.util.Log;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.contracts.AlchemyContract;
-import com.huhx0015.dragonalchenomicon.data.database.AlchenomiconDatabaseHelper;
+import com.huhx0015.dragonalchenomicon.database.AlchenomiconDatabaseHelper;
 import com.huhx0015.dragonalchenomicon.listeners.AlchemyPresenterListener;
 import com.huhx0015.dragonalchenomicon.listeners.AlchenomiconDatabaseListener;
-import com.huhx0015.dragonalchenomicon.model.AlchenomiconRecipe;
+import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
