@@ -1,5 +1,6 @@
 package com.huhx0015.dragonalchenomicon.view.fragments;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.huhx0015.dragonalchenomicon.R;
 import com.huhx0015.dragonalchenomicon.view.adapters.RecipeListAdapter;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
@@ -256,10 +259,21 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
         }
 
         if (selectedIngredientView != null) {
+            final ImageView ingredientView = selectedIngredientView;
             Glide.with(getContext())
                     .load(resource)
-                    .fitCenter()
-                    .into(selectedIngredientView);
+                    .asBitmap()
+                    .into(new SimpleTarget<Bitmap>(AlchenomiconConstants.ICON_ORIGINAL_SIZE, AlchenomiconConstants.ICON_ORIGINAL_SIZE) {
+                        @Override
+                        public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
+
+                            // Disables anti-aliasing to maintain pixelation.
+                            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap,
+                                    AlchenomiconConstants.ICON_UPSCALED_SIZE,
+                                    AlchenomiconConstants.ICON_UPSCALED_SIZE, false);
+                            ingredientView.setImageBitmap(scaledBitmap);
+                        }
+                    });
         }
     }
 
@@ -308,9 +322,9 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
 
     @Override
     public void clearSelectedIngredients() {
-        Glide.clear(mFirstSelectedIngredientView);
-        Glide.clear(mSecondSelectedIngredientView);
-        Glide.clear(mThirdSelectedIngredientView);
+        mFirstSelectedIngredientView.setImageBitmap(null);
+        mSecondSelectedIngredientView.setImageBitmap(null);
+        mThirdSelectedIngredientView.setImageBitmap(null);
     }
 
     @Override

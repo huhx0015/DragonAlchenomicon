@@ -8,6 +8,10 @@ public class AlchenomiconConstants {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
+    // IMAGE CONSTANTS:
+    public static final int ICON_ORIGINAL_SIZE = 25;
+    public static final int ICON_UPSCALED_SIZE = 150;
+
     // INGREDIENT CONSTANTS:
     public static final String NULL_IDENTIFIER = "NULL";
 

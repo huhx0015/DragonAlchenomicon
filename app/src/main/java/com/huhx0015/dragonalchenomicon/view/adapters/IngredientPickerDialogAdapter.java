@@ -1,6 +1,7 @@
 package com.huhx0015.dragonalchenomicon.view.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.huhx0015.dragonalchenomicon.R;
+import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.model.contracts.IngredientPickerAdapterContract;
 import com.huhx0015.dragonalchenomicon.view.listeners.IngredientPickerAdapterListener;
 import com.huhx0015.dragonalchenomicon.presenters.IngredientPickerAdapterPresenter;
@@ -104,11 +108,21 @@ public class IngredientPickerDialogAdapter extends RecyclerView.Adapter<Ingredie
     }
 
     @Override
-    public void showIngredientImage(int resource, ImageView view) {
+    public void showIngredientImage(int resource, final ImageView view) {
         Glide.with(mContext)
                 .load(resource)
-                .fitCenter()
-                .into(view);
+                .asBitmap()
+                .into(new SimpleTarget<Bitmap>(AlchenomiconConstants.ICON_ORIGINAL_SIZE, AlchenomiconConstants.ICON_ORIGINAL_SIZE) {
+                    @Override
+                    public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
+
+                        // Disables anti-aliasing to maintain pixelation.
+                        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap,
+                                AlchenomiconConstants.ICON_UPSCALED_SIZE,
+                                AlchenomiconConstants.ICON_UPSCALED_SIZE, false);
+                        view.setImageBitmap(scaledBitmap);
+                    }
+                });
     }
 
     @Override
@@ -118,7 +132,7 @@ public class IngredientPickerDialogAdapter extends RecyclerView.Adapter<Ingredie
 
     @Override
     public void clearIngredientImage(ImageView view) {
-        Glide.clear(view);
+        view.setImageBitmap(null);
     }
 
     /** SUBCLASSES _____________________________________________________________________________ **/
