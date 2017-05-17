@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import com.huhx0015.dragonalchenomicon.view.adapters.AlchenomiconPagerAdapter;
-import com.huhx0015.dragonalchenomicon.contracts.AlchenomiconContract;
+import com.huhx0015.dragonalchenomicon.model.contracts.AlchenomiconContract;
 import com.huhx0015.dragonalchenomicon.presenters.AlchenomiconPresenter;
 import com.huhx0015.dragonalchenomicon.R;
 import butterknife.BindView;

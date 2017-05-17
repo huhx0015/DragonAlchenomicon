@@ -1,8 +1,8 @@
-package com.huhx0015.dragonalchenomicon.contracts;
+package com.huhx0015.dragonalchenomicon.model.contracts;
 
-import com.huhx0015.dragonalchenomicon.listeners.AlchemyPresenterListener;
-import com.huhx0015.dragonalchenomicon.interfaces.BasePresenter;
-import com.huhx0015.dragonalchenomicon.interfaces.BaseView;
+import com.huhx0015.dragonalchenomicon.view.listeners.AlchemyPresenterListener;
+import com.huhx0015.dragonalchenomicon.presenters.BasePresenter;
+import com.huhx0015.dragonalchenomicon.view.base.BaseView;
 import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import java.util.HashSet;
 import java.util.List;

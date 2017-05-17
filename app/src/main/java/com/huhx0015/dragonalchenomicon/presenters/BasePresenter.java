@@ -1,4 +1,4 @@
-package com.huhx0015.dragonalchenomicon.interfaces;
+package com.huhx0015.dragonalchenomicon.presenters;
 
 /**
  * Created by Michael Yoon Huh on 5/7/2017.

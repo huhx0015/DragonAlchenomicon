@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.huhx0015.dragonalchenomicon.view.adapters.RecipeListAdapter;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
-import com.huhx0015.dragonalchenomicon.contracts.RecipeListAdapterContract;
+import com.huhx0015.dragonalchenomicon.model.contracts.RecipeListAdapterContract;
 import com.huhx0015.dragonalchenomicon.model.repositories.RecipeListAdapterRepository;
 import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import com.huhx0015.dragonalchenomicon.utils.AlchenomiconImageUtils;

@@ -1,4 +1,4 @@
-package com.huhx0015.dragonalchenomicon.modules;
+package com.huhx0015.dragonalchenomicon.injections.modules;
 
 import android.content.Context;
 import com.huhx0015.dragonalchenomicon.database.AlchenomiconDatabaseHelper;

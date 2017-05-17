@@ -3,7 +3,7 @@ package com.huhx0015.dragonalchenomicon.presenters;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
-import com.huhx0015.dragonalchenomicon.contracts.AlchenomiconContract;
+import com.huhx0015.dragonalchenomicon.model.contracts.AlchenomiconContract;
 import com.huhx0015.dragonalchenomicon.model.repositories.AlchenomiconRepository;
 import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;

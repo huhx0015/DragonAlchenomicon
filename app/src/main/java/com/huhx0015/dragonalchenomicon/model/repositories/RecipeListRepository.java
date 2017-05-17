@@ -2,10 +2,10 @@ package com.huhx0015.dragonalchenomicon.model.repositories;
 
 import android.util.Log;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
-import com.huhx0015.dragonalchenomicon.contracts.RecipeListContract;
+import com.huhx0015.dragonalchenomicon.model.contracts.RecipeListContract;
 import com.huhx0015.dragonalchenomicon.database.AlchenomiconDatabaseHelper;
-import com.huhx0015.dragonalchenomicon.listeners.AlchenomiconDatabaseListener;
-import com.huhx0015.dragonalchenomicon.listeners.RecipeListPresenterListener;
+import com.huhx0015.dragonalchenomicon.view.listeners.AlchenomiconDatabaseListener;
+import com.huhx0015.dragonalchenomicon.view.listeners.RecipeListPresenterListener;
 import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import java.util.List;
 import javax.inject.Inject;

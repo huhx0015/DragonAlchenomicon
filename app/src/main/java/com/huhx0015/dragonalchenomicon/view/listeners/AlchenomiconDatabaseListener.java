@@ -1,4 +1,4 @@
-package com.huhx0015.dragonalchenomicon.listeners;
+package com.huhx0015.dragonalchenomicon.view.listeners;
 
 import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import java.util.HashSet;

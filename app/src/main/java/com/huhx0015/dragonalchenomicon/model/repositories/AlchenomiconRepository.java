@@ -1,6 +1,6 @@
 package com.huhx0015.dragonalchenomicon.model.repositories;
 
-import com.huhx0015.dragonalchenomicon.contracts.AlchenomiconContract;
+import com.huhx0015.dragonalchenomicon.model.contracts.AlchenomiconContract;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 

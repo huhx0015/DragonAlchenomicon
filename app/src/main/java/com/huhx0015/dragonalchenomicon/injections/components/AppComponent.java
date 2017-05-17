@@ -1,12 +1,12 @@
-package com.huhx0015.dragonalchenomicon.interfaces;
+package com.huhx0015.dragonalchenomicon.injections.components;
 
 import com.huhx0015.dragonalchenomicon.model.repositories.AlchemyRepository;
 import com.huhx0015.dragonalchenomicon.model.repositories.IngredientPickerAdapterRepository;
 import com.huhx0015.dragonalchenomicon.model.repositories.IngredientPickerRepository;
 import com.huhx0015.dragonalchenomicon.model.repositories.RecipeListAdapterRepository;
 import com.huhx0015.dragonalchenomicon.model.repositories.RecipeListRepository;
-import com.huhx0015.dragonalchenomicon.modules.DataModule;
-import com.huhx0015.dragonalchenomicon.modules.PersistenceModule;
+import com.huhx0015.dragonalchenomicon.injections.modules.DataModule;
+import com.huhx0015.dragonalchenomicon.injections.modules.PersistenceModule;
 import com.huhx0015.dragonalchenomicon.presenters.AlchemyPresenter;
 import com.huhx0015.dragonalchenomicon.presenters.AlchenomiconPresenter;
 import com.huhx0015.dragonalchenomicon.presenters.IngredientPickerAdapterPresenter;

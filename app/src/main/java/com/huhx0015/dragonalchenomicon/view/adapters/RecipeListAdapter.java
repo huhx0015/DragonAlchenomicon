@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.huhx0015.dragonalchenomicon.R;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
-import com.huhx0015.dragonalchenomicon.contracts.RecipeListAdapterContract;
+import com.huhx0015.dragonalchenomicon.model.contracts.RecipeListAdapterContract;
 import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import com.huhx0015.dragonalchenomicon.presenters.RecipeListAdapterPresenter;
 import com.huhx0015.dragonalchenomicon.utils.AlchenomiconImageUtils;

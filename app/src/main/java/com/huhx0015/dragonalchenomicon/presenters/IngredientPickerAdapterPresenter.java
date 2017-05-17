@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.huhx0015.dragonalchenomicon.view.adapters.IngredientPickerDialogAdapter;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
-import com.huhx0015.dragonalchenomicon.contracts.IngredientPickerAdapterContract;
+import com.huhx0015.dragonalchenomicon.model.contracts.IngredientPickerAdapterContract;
 import com.huhx0015.dragonalchenomicon.model.repositories.IngredientPickerAdapterRepository;
 import java.util.HashSet;
 import javax.inject.Inject;

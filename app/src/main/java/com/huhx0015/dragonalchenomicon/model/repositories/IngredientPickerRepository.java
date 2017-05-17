@@ -1,6 +1,6 @@
 package com.huhx0015.dragonalchenomicon.model.repositories;
 
-import com.huhx0015.dragonalchenomicon.contracts.IngredientPickerContract;
+import com.huhx0015.dragonalchenomicon.model.contracts.IngredientPickerContract;
 import java.util.HashSet;
 import javax.inject.Inject;
 

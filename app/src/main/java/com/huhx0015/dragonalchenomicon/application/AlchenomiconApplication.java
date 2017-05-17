@@ -1,10 +1,10 @@
 package com.huhx0015.dragonalchenomicon.application;
 
 import android.app.Application;
-import com.huhx0015.dragonalchenomicon.interfaces.AppComponent;
-import com.huhx0015.dragonalchenomicon.interfaces.DaggerAppComponent;
-import com.huhx0015.dragonalchenomicon.modules.DataModule;
-import com.huhx0015.dragonalchenomicon.modules.PersistenceModule;
+import com.huhx0015.dragonalchenomicon.injections.components.AppComponent;
+import com.huhx0015.dragonalchenomicon.injections.components.DaggerAppComponent;
+import com.huhx0015.dragonalchenomicon.injections.modules.DataModule;
+import com.huhx0015.dragonalchenomicon.injections.modules.PersistenceModule;
 
 /**
  * Created by Michael Yoon Huh on 5/11/2017.

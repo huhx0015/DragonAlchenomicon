@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import com.huhx0015.dragonalchenomicon.R;
 import com.huhx0015.dragonalchenomicon.view.adapters.RecipeListAdapter;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
-import com.huhx0015.dragonalchenomicon.contracts.RecipeListContract;
+import com.huhx0015.dragonalchenomicon.model.contracts.RecipeListContract;
 import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import com.huhx0015.dragonalchenomicon.presenters.RecipeListPresenter;
 import java.util.ArrayList;

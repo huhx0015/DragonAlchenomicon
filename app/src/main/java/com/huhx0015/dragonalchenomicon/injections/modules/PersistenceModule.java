@@ -1,7 +1,7 @@
-package com.huhx0015.dragonalchenomicon.modules;
+package com.huhx0015.dragonalchenomicon.injections.modules;
 
-import com.huhx0015.dragonalchenomicon.contracts.AlchenomiconContract;
-import com.huhx0015.dragonalchenomicon.contracts.RecipeListContract;
+import com.huhx0015.dragonalchenomicon.model.contracts.AlchenomiconContract;
+import com.huhx0015.dragonalchenomicon.model.contracts.RecipeListContract;
 import com.huhx0015.dragonalchenomicon.model.repositories.AlchenomiconRepository;
 import com.huhx0015.dragonalchenomicon.model.repositories.RecipeListRepository;
 import javax.inject.Singleton;

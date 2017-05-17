@@ -1,6 +1,6 @@
 package com.huhx0015.dragonalchenomicon.model.repositories;
 
-import com.huhx0015.dragonalchenomicon.contracts.IngredientPickerAdapterContract;
+import com.huhx0015.dragonalchenomicon.model.contracts.IngredientPickerAdapterContract;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

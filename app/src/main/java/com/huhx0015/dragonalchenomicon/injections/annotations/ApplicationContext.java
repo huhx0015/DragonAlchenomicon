@@ -1,4 +1,4 @@
-package com.huhx0015.dragonalchenomicon.annotations;
+package com.huhx0015.dragonalchenomicon.injections.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
