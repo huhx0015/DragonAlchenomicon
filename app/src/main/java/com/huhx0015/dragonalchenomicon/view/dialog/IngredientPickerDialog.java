@@ -99,7 +99,6 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
     private void initBottomSheet(final View view) {
         final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(((View) view.getParent()));
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-
             @Override
             public void onGlobalLayout() {
                 view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
