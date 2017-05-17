@@ -35,11 +35,20 @@ public class AlchenomiconImageUtils {
             case "Bandit Axe":
                 return R.drawable.dq8_item_55;
 
+            case "Bandit Mail":
+                return R.drawable.dq8_item_378;
+
             case "Bandit's Grass Skirt":
                 return R.drawable.dq8_item_104;
 
             case "Blizzard Blade":
                 return R.drawable.dq8_item_12;
+
+            case "Bronze Armor":
+                return R.drawable.dq8_item_128;
+
+            case "Bronze Helment":
+                return R.drawable.dq8_item_197;
 
             case "Bronze Shield":
                 return R.drawable.dq8_item_165;
@@ -107,14 +116,26 @@ public class AlchenomiconImageUtils {
             case "Dragon Dung":
                 return R.drawable.dq8_item_299;
 
+            case "Dragon Scale":
+                return R.drawable.dq8_item_381;
+
             case "Dragon Shield":
                 return R.drawable.dq8_item_172;
 
             case "Elfin Elixir":
                 return R.drawable.dq8_item_276;
 
+            case "Elevating Shoes":
+                return R.drawable.dq8_item_382;
+
+            case "Falcon Blade":
+                return R.drawable.dq8_item_6;
+
             case "Feathered Cap":
                 return R.drawable.dq8_item_190;
+
+            case "Fishnet Stockings":
+                return R.drawable.dq8_item_241;
 
             case "Flame Shield":
                 return R.drawable.dq8_item_379;
@@ -142,6 +163,9 @@ public class AlchenomiconImageUtils {
 
             case "Gold Nugget":
                 return R.drawable.dq8_item_296;
+
+            case "Gold Ring":
+                return R.drawable.dq8_item_225;
 
             case "Golden Axe":
                 return R.drawable.dq8_item_60;
@@ -248,8 +272,14 @@ public class AlchenomiconImageUtils {
             case "Mild Cheese":
                 return R.drawable.dq8_item_325;
 
+            case "Mithril Helm":
+                return R.drawable.dq8_item_207;
+
             case "Mirror Shield":
                 return R.drawable.dq8_item_177;
+
+            case "Moon's Axe":
+                return R.drawable.dq8_item_58;
 
             case "Moon's Mercy":
                 return R.drawable.dq8_item_268;
@@ -302,6 +332,15 @@ public class AlchenomiconImageUtils {
             case "Rennet Powder":
                 return R.drawable.dq8_item_306;
 
+            case "Ring of Clarity":
+                return R.drawable.dq8_item_251;
+
+            case "Ring of Immunity":
+                return R.drawable.dq8_item_253;
+
+            case "Ring of Truth":
+                return R.drawable.dq8_item_252;
+
             case "Robe of Serenity":
                 return R.drawable.dq8_item_151;
 
@@ -344,6 +383,9 @@ public class AlchenomiconImageUtils {
             case "Scorching Cheese":
                 return R.drawable.dq8_item_314;
 
+            case "Shamshir of Light":
+                return R.drawable.dq8_item_27;
+
             case "Silk Bustier":
                 return R.drawable.dq8_item_114;
 
@@ -383,11 +425,20 @@ public class AlchenomiconImageUtils {
             case "Seed of Wisdom":
                 return R.drawable.dq8_item_283;
 
+            case "Silver Shield":
+                return R.drawable.dq8_item_179;
+
+            case "Silver Tiara":
+                return R.drawable.dq8_item_192;
+
             case "Slime Crown":
                 return R.drawable.dq8_item_206;
 
             case "Shimmering Dress":
                 return R.drawable.dq8_item_119;
+
+            case "Skull Ring":
+                return R.drawable.dq8_item_247;
 
             case "Spangled Dress":
                 return R.drawable.dq8_item_116;
@@ -401,11 +452,17 @@ public class AlchenomiconImageUtils {
             case "Spicy Cheese":
                 return R.drawable.dq8_item_312;
 
+            case "Sorcerer's Ring":
+                return R.drawable.dq8_item_246;
+
             case "Steel Shield":
                 return R.drawable.dq8_item_170;
 
             case "Stone Hardhat":
                 return R.drawable.dq8_item_194;
+
+            case "Sun Crown":
+                return R.drawable.dq8_item_219;
 
             case "Super Spicy Cheese":
                 return R.drawable.dq8_item_313;
@@ -443,20 +500,23 @@ public class AlchenomiconImageUtils {
             case "Turban":
                 return R.drawable.dq8_item_191;
 
+            case "Uber Falcon Blade":
+                return R.drawable.dq8_item_7;
+
             case "Waterweed Mould":
                 return R.drawable.dq8_item_308;
-
-            case "Yggdrasil Dew":
-                return R.drawable.dq8_item_271;
-
-            case "Yggdrasil Leaf":
-                return R.drawable.dq8_item_270;
 
             case "Wing of Bat":
                 return R.drawable.dq8_item_303;
 
             case "White Shield":
                 return R.drawable.dq8_item_169;
+
+            case "Yggdrasil Dew":
+                return R.drawable.dq8_item_271;
+
+            case "Yggdrasil Leaf":
+                return R.drawable.dq8_item_270;
 
             default:
                 return R.drawable.dq8_item_332;
