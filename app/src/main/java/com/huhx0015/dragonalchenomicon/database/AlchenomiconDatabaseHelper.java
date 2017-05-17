@@ -153,6 +153,8 @@ public class AlchenomiconDatabaseHelper extends SQLiteAssetHelper {
                     recipeIngredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC2)));
                     recipeIngredientList.add(cursor.getString(cursor.getColumnIndex(KEY_REC3)));
 
+                    // Compares the selected ingredients against the current recipe ingredients to
+                    // see if the current recipe contains the selected ingredients.
                     int ingredientCount = 0;
                     while (!recipeIngredientList.isEmpty() && ingredientCount < selectedIngredients.size()) {
                         String ingredient = recipeIngredientList.getFirst();

@@ -23,6 +23,13 @@
 
         </activity>
 
+        <provider
+            android:name=".database.AlchenomiconContentProvider"
+            android:authorities="com.huhx0015.dragonalchenomicon"
+            android:exported="false"
+            android:protectionLevel="signature"
+            android:syncable="true"/>
+
     </application>
 
 </manifest>
