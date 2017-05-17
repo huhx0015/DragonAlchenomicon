@@ -2,13 +2,11 @@ package com.huhx0015.dragonalchenomicon.model.repositories;
 
 import com.huhx0015.dragonalchenomicon.model.contracts.AlchenomiconContract;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * Created by Michael Yoon Huh on 5/13/2017.
  */
 
-@Singleton
 public class AlchenomiconRepository implements AlchenomiconContract.Repository {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
