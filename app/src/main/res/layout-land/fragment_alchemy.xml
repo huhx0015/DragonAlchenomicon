@@ -152,8 +152,10 @@
             android:layout_centerInParent="true"
             android:textColor="@android:color/white"
             android:textSize="12sp"
+            android:padding="8dp"
             android:text="@string/alchemy_no_recipe_results"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            android:background="@drawable/selector_da_button"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/alchemy_recycler_view"
