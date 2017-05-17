@@ -4,7 +4,7 @@ DragonAlchenomicon
 DEVELOPER: huhx0015
 
 ### DRAGON ALCHENOMICON
-![dragonalchenomicon_preview](https://cloud.githubusercontent.com/assets/1645482/26118558/3ec1b5c6-3a1f-11e7-81b1-d899c63cecc5.gif)
+![dragonalchenomicon_preview](https://cloud.githubusercontent.com/assets/1645482/26144985/a1e3218c-3a9f-11e7-9a73-ea4e4d291765.gif)
 
 ## Description
 
