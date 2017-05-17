@@ -5,6 +5,7 @@ import com.huhx0015.dragonalchenomicon.injections.components.AppComponent;
 import com.huhx0015.dragonalchenomicon.injections.components.DaggerAppComponent;
 import com.huhx0015.dragonalchenomicon.injections.modules.DataModule;
 import com.huhx0015.dragonalchenomicon.injections.modules.PersistenceModule;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by Michael Yoon Huh on 5/11/2017.
@@ -32,6 +33,14 @@ public class AlchenomiconApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // LEAK CANARY:
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
+
+        // DAGGER 2:
         getAppComponent();
     }
 
