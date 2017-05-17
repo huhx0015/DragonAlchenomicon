@@ -22,6 +22,7 @@ Icons Ripped By: quasi_stomach
 * Butter Knife: http://jakewharton.github.io/butterknife/
 * Dagger 2: https://github.com/google/dagger
 * Glide: https://github.com/bumptech/glide
+* LeakCanary: https://github.com/square/leakcanary
 * RxJava 2: https://github.com/ReactiveX/RxJava
 * RxAndroid: https://github.com/ReactiveX/RxAndroid
 
@@ -31,6 +32,6 @@ DRAGON ALCHENOMICON is a fan application and is not associated with or endorsed 
 
 © ARMOR PROJECT/BIRD STUDIO/SQUARE ENIX All Rights Reserved.
 
-© DRAGON QUEST, DRAGON WARRIOR are registered trademarks of Square Enix Co., Ltd.
+© DRAGON QUEST is a registered trademarks of Square Enix Co., Ltd.
 
-All DRAGON WARRIOR, DRAGON QUEST images, logos, names, music, and related media are intellectual properties of SQUARE ENIX unless otherwise noted.
+All DRAGON QUEST images, logos, names, music, and related media are intellectual properties of SQUARE ENIX unless otherwise noted.

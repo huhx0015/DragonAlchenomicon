@@ -45,7 +45,7 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
         setContentView(R.layout.activity_alchenomicon);
         ButterKnife.bind(this);
         setPresenter(new AlchenomiconPresenter(this)); // Sets the presenter for this activity.
-        initView(); // Initializes the view.
+        mPresenter.onInitListeners(); // Initializes the listeners for the activity.
 
         if (savedInstanceState != null) {
             int currentPage = savedInstanceState.getInt(INSTANCE_CURRENT_PAGE);
@@ -72,12 +72,6 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(INSTANCE_CURRENT_PAGE, mPresenter.getCurrentPage());
-    }
-
-    /** LAYOUT METHODS _________________________________________________________________________ **/
-
-    private void initView() {
-        mPresenter.onInitListeners(); // Initializes the listeners for the activity.
     }
 
     /** VIEW METHODS ____________________________________________________________________________ **/

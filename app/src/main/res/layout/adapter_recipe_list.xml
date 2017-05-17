@@ -50,7 +50,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:gravity="right|center_vertical|end"
+                android:gravity="center_vertical|end"
                 android:orientation="vertical">
 
                 <TextView
