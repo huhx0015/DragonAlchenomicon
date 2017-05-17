@@ -7,6 +7,7 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import com.huhx0015.dragonalchenomicon.R;
 import com.huhx0015.dragonalchenomicon.view.adapters.IngredientPickerDialogAdapter;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
@@ -31,9 +32,6 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
     // BUNDLE VARIABLES
     private static final String BUNDLE_BUTTON_ID = IngredientPickerDialog.class + "_BUTTON_ID";
     private static final String BUNDLE_INGREDIENT_LIST = IngredientPickerDialog.class + "_INGREDIENT_LIST";
-
-    // CONSTANT VARIABLES
-    private static final int BOTTOM_SHEET_PEEK_HEIGHT = 512;
 
     // LISTENER VARIABLES:
     private IngredientPickerListener mListener;
@@ -68,24 +66,14 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
     @Override
     public void setupDialog(Dialog dialog, int style) {
         super.setupDialog(dialog, style);
+
         View view = View.inflate(getContext(), R.layout.dialog_ingredient_picker, null);
         dialog.setContentView(view);
         mUnbinder = ButterKnife.bind(this, view);
         setPresenter(new IngredientPickerPresenter(this)); // Sets the presenter for this fragment.
 
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            int buttonId = arguments.getInt(BUNDLE_BUTTON_ID);
-            HashSet<String> ingredientList = (HashSet<String>) arguments.getSerializable(BUNDLE_INGREDIENT_LIST);
-            mPresenter.setButtonId(buttonId);
-            mPresenter.setIngredientList(ingredientList);
-        }
-
-        // Sets the BottomSheetDialogFragment height.
-        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(((View) view.getParent()));
-        bottomSheetBehavior.setPeekHeight(BOTTOM_SHEET_PEEK_HEIGHT);
-
-        initView();
+        initBottomSheet(view);
+        initIngredientList();
     }
 
     @Override
@@ -106,10 +94,30 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
         mUnbinder.unbind();
     }
 
-    /** LAYOUT METHODS _________________________________________________________________________ **/
+    /** INIT METHODS ___________________________________________________________________________ **/
 
-    private void initView() {
-        mPresenter.loadIngredientList();
+    private void initBottomSheet(final View view) {
+        final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(((View) view.getParent()));
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            @Override
+            public void onGlobalLayout() {
+                view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                int height = view.getMeasuredHeight();
+                bottomSheetBehavior.setPeekHeight(height); // Sets the BottomSheetDialogFragment height.
+            }
+        });
+    }
+
+    private void initIngredientList() {
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            int buttonId = arguments.getInt(BUNDLE_BUTTON_ID);
+            HashSet<String> ingredientList = (HashSet<String>) arguments.getSerializable(BUNDLE_INGREDIENT_LIST);
+            mPresenter.setButtonId(buttonId);
+            mPresenter.setIngredientList(ingredientList);
+            mPresenter.loadIngredientList();
+        }
     }
 
     private void initRecyclerView() {
