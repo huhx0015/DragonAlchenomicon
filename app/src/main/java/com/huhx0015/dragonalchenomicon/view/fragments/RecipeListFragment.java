@@ -1,15 +1,18 @@
 package com.huhx0015.dragonalchenomicon.view.fragments;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import com.huhx0015.dragonalchenomicon.R;
+import com.huhx0015.dragonalchenomicon.utils.DisplayUtils;
 import com.huhx0015.dragonalchenomicon.view.adapters.RecipeListAdapter;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.model.contracts.RecipeListContract;
@@ -28,6 +31,9 @@ import butterknife.Unbinder;
 public class RecipeListFragment extends Fragment implements RecipeListContract.View {
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
+
+    // CONTEXT VARIABLES:
+    private Context mContext;
 
     // LOGGING VARIABLES:
     private static final String LOG_TAG = RecipeListFragment.class.getSimpleName();
@@ -52,6 +58,12 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
     }
 
     /** FRAGMENT LIFECYCLE METHODS _____________________________________________________________ **/
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mContext = context;
+    }
 
     @Nullable
     @Override
@@ -113,7 +125,13 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
     }
 
     private void initRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        GridLayoutManager layoutManager;
+        if (DisplayUtils.getOrientation(mContext) == Configuration.ORIENTATION_PORTRAIT) {
+            layoutManager = new GridLayoutManager(mContext, AlchenomiconConstants.COLUMNS_SINGLE);
+        } else {
+            layoutManager = new GridLayoutManager(mContext, AlchenomiconConstants.COLUMNS_DOUBLE);
+        }
+
         layoutManager.setItemPrefetchEnabled(true);
         layoutManager.setInitialPrefetchItemCount(AlchenomiconConstants.PREFETCH_VALUE);
 
@@ -122,7 +140,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
         mRecyclerView.setDrawingCacheEnabled(true);
         mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
-        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRecipeList(), getContext());
+        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRecipeList(), mContext);
         adapter.setHasStableIds(true);
         mRecyclerView.setAdapter(adapter);
     }

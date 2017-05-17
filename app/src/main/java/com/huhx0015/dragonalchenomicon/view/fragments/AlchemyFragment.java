@@ -1,12 +1,14 @@
 package com.huhx0015.dragonalchenomicon.view.fragments;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.huhx0015.dragonalchenomicon.R;
+import com.huhx0015.dragonalchenomicon.utils.DisplayUtils;
 import com.huhx0015.dragonalchenomicon.view.adapters.RecipeListAdapter;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.model.contracts.AlchemyContract;
@@ -47,6 +50,9 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
     private static final int INGREDIENT_BUTTON_1_ID = 0;
     private static final int INGREDIENT_BUTTON_2_ID = 1;
     private static final int INGREDIENT_BUTTON_3_ID = 2;
+
+    // CONTEXT VARIABLES:
+    private Context mContext;
 
     // LOGGING VARIABLES:
     private static final String LOG_TAG = AlchemyFragment.class.getSimpleName();
@@ -81,6 +87,12 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
     }
 
     /** FRAGMENT LIFECYCLE METHODS _____________________________________________________________ **/
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mContext = context;
+    }
 
     @Nullable
     @Override
@@ -188,7 +200,13 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
     }
 
     private void initRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        GridLayoutManager layoutManager;
+        if (DisplayUtils.getOrientation(mContext) == Configuration.ORIENTATION_PORTRAIT) {
+            layoutManager = new GridLayoutManager(mContext, AlchenomiconConstants.COLUMNS_SINGLE);
+        } else {
+            layoutManager = new GridLayoutManager(mContext, AlchenomiconConstants.COLUMNS_DOUBLE);
+        }
+
         layoutManager.setItemPrefetchEnabled(true);
         layoutManager.setInitialPrefetchItemCount(AlchenomiconConstants.PREFETCH_VALUE);
 

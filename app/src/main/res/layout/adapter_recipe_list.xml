@@ -39,10 +39,10 @@
                     android:layout_below="@+id/adapter_recipe_image"
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
+                    android:textSize="14sp"
                     android:textColor="@android:color/black" />
 
             </RelativeLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,20 +58,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="8dp"
-                    android:textColor="@android:color/black" />
+                    android:gravity="end"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/adapter_recipe_ingredient_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="8dp"
-                    android:textColor="@android:color/black" />
+                    android:gravity="end"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/adapter_recipe_ingredient_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="8dp"
+                    android:gravity="end"
+                    android:textSize="12sp"
                     android:textColor="@android:color/black" />
 
             </LinearLayout>

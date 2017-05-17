@@ -1,14 +1,17 @@
 package com.huhx0015.dragonalchenomicon.view.dialog;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import com.huhx0015.dragonalchenomicon.R;
+import com.huhx0015.dragonalchenomicon.utils.DisplayUtils;
 import com.huhx0015.dragonalchenomicon.view.adapters.IngredientPickerDialogAdapter;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.model.contracts.IngredientPickerContract;
@@ -32,6 +35,9 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
     // BUNDLE VARIABLES
     private static final String BUNDLE_BUTTON_ID = IngredientPickerDialog.class + "_BUTTON_ID";
     private static final String BUNDLE_INGREDIENT_LIST = IngredientPickerDialog.class + "_INGREDIENT_LIST";
+
+    // CONTEXT VARIABLES:
+    private Context mContext;
 
     // LISTENER VARIABLES:
     private IngredientPickerListener mListener;
@@ -64,10 +70,16 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
     /** FRAGMENT LIFECYCLE METHODS _____________________________________________________________ **/
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mContext = context;
+    }
+
+    @Override
     public void setupDialog(Dialog dialog, int style) {
         super.setupDialog(dialog, style);
 
-        View view = View.inflate(getContext(), R.layout.dialog_ingredient_picker, null);
+        View view = View.inflate(mContext, R.layout.dialog_ingredient_picker, null);
         dialog.setContentView(view);
         mUnbinder = ButterKnife.bind(this, view);
         setPresenter(new IngredientPickerPresenter(this)); // Sets the presenter for this fragment.
@@ -120,7 +132,13 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
     }
 
     private void initRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        GridLayoutManager layoutManager;
+        if (DisplayUtils.getOrientation(mContext) == Configuration.ORIENTATION_PORTRAIT) {
+            layoutManager = new GridLayoutManager(mContext, AlchenomiconConstants.COLUMNS_DOUBLE);
+        } else {
+            layoutManager = new GridLayoutManager(mContext, AlchenomiconConstants.COLUMNS_DOUBLE);
+        }
+
         layoutManager.setItemPrefetchEnabled(true);
         layoutManager.setInitialPrefetchItemCount(AlchenomiconConstants.PREFETCH_VALUE);
 
@@ -129,7 +147,7 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
         mRecyclerView.setDrawingCacheEnabled(true);
         mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
-        IngredientPickerDialogAdapter adapter = new IngredientPickerDialogAdapter(mPresenter.getIngredientList(), this, getContext());
+        IngredientPickerDialogAdapter adapter = new IngredientPickerDialogAdapter(mPresenter.getIngredientList(), this, mContext);
         adapter.setHasStableIds(true);
         mRecyclerView.setAdapter(adapter);
     }

@@ -17,4 +17,6 @@ public class AlchenomiconConstants {
 
     // RECYCLERVIEW CONSTANTS:
     public static final int PREFETCH_VALUE = 6;
+    public static final int COLUMNS_SINGLE = 1;
+    public static final int COLUMNS_DOUBLE = 2;
 }
