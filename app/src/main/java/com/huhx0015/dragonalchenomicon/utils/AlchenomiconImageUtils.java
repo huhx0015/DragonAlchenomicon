@@ -95,6 +95,9 @@ public class AlchenomiconImageUtils {
             case "Dancer's Costume":
                 return R.drawable.dq8_item_107;
 
+            case "Dark Robe":
+                return R.drawable.dq8_item_120;
+
             case "Devil's Tail":
                 return R.drawable.dq8_item_240;
 
@@ -125,14 +128,23 @@ public class AlchenomiconImageUtils {
             case "Fur Poncho":
                 return R.drawable.dq8_item_111;
 
+            case "Garter":
+                return R.drawable.dq8_item_242;
+
             case "Gigant Armor":
                 return R.drawable.dq8_item_144;
 
             case "Goddess Shield":
                 return R.drawable.dq8_item_183;
 
+            case "Gold Bracer":
+                return R.drawable.dq8_item_232;
+
             case "Gold Nugget":
                 return R.drawable.dq8_item_296;
+
+            case "Golden Axe":
+                return R.drawable.dq8_item_60;
 
             case "Greater Panacea":
                 return R.drawable.dq8_item_263;
@@ -424,6 +436,9 @@ public class AlchenomiconImageUtils {
 
             case "Timbrel of Tension":
                 return R.drawable.dq8_item_293;
+
+            case "Tough Guy Tattoo":
+                return R.drawable.dq8_item_238;
 
             case "Turban":
                 return R.drawable.dq8_item_191;
