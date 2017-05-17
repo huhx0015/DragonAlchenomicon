@@ -122,6 +122,9 @@ public class AlchenomiconImageUtils {
             case "Dragon Shield":
                 return R.drawable.dq8_item_172;
 
+            case "Dragonsbane":
+                return R.drawable.dq8_item_10;
+
             case "Elfin Elixir":
                 return R.drawable.dq8_item_276;
 
@@ -131,6 +134,9 @@ public class AlchenomiconImageUtils {
             case "Falcon Blade":
                 return R.drawable.dq8_item_6;
 
+            case "Farmer's Scythe":
+                return R.drawable.dq8_item_86;
+
             case "Feathered Cap":
                 return R.drawable.dq8_item_190;
 
@@ -139,6 +145,9 @@ public class AlchenomiconImageUtils {
 
             case "Flame Shield":
                 return R.drawable.dq8_item_379;
+
+            case "Flametang Boomerang":
+                return R.drawable.dq8_item_54;
 
             case "Fresh Milk":
                 return R.drawable.dq8_item_305;
@@ -182,6 +191,9 @@ public class AlchenomiconImageUtils {
             case "Golden Tiara":
                 return R.drawable.dq8_item_214;
 
+            case "Hade's Helm":
+                return R.drawable.dq8_item_205;
+
             case "Hades' Helm":
                 return R.drawable.dq8_item_205;
 
@@ -196,6 +208,9 @@ public class AlchenomiconImageUtils {
 
             case "Highly-Strung Cheese":
                 return R.drawable.dq8_item_331;
+
+            case "Holy Talisman":
+                return R.drawable.dq8_item_355;
 
             case "Holy Water":
                 return R.drawable.dq8_item_275;
@@ -250,6 +265,12 @@ public class AlchenomiconImageUtils {
 
             case "Magical Hat":
                 return R.drawable.dq8_item_203;
+
+            case "Magical Skirt":
+                return R.drawable.dq8_item_118;
+
+            case "Magma Staff":
+                return R.drawable.dq8_item_87;
 
             case "Medicinal Herb":
                 return R.drawable.dq8_item_257;
