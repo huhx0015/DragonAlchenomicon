@@ -21,6 +21,9 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
+    // CONSTANT VARIABLES:
+    private static final int BOTTOM_ALL_RECIPES = 1;
+
     // LOGGING VARIABLES:
     private static final String LOG_TAG = AlchenomiconActivity.class.getSimpleName();
 
@@ -43,6 +46,12 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
         ButterKnife.bind(this);
         setPresenter(new AlchenomiconPresenter(this)); // Sets the presenter for this activity.
         initView(); // Initializes the view.
+
+        if (savedInstanceState != null) {
+            int currentPage = savedInstanceState.getInt(INSTANCE_CURRENT_PAGE);
+            mPresenter.onPageSelected(currentPage);
+            mPresenter.setCurrentPage(currentPage);
+        }
     }
 
     @Override
@@ -112,5 +121,20 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
     @Override
     public void updateViewPager(int position) {
         mViewPager.setCurrentItem(position);
+    }
+
+    @Override
+    public void updateBottomNavigationSelected(int position) {
+        int navigationId;
+        switch (position) {
+            case BOTTOM_ALL_RECIPES:
+                navigationId = R.id.navigation_recipe_list;
+                break;
+            default:
+                navigationId = R.id.navigation_alchemy_pot;
+                break;
+        }
+
+        mBottomNavigationView.setSelectedItemId(navigationId);
     }
 }

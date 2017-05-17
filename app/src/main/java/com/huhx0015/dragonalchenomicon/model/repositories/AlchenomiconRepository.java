@@ -26,7 +26,7 @@ public class AlchenomiconRepository implements AlchenomiconContract.Repository {
     }
 
     @Override
-    public void updatePage(int position) {
+    public void setCurrentPage(int position) {
         this.mCurrentPage = position;
     }
 }

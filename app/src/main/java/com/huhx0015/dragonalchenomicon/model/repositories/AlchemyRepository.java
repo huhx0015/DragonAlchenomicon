@@ -67,6 +67,7 @@ public class AlchemyRepository implements AlchemyContract.Repository {
                     @Override
                     public void onQueryFinished(HashSet<String> ingredientList) {
                         Log.d(LOG_TAG, "onQueryFinished(): Query for ingredient list has finished.");
+
                         mIngredientList = ingredientList;
                         listener.onAlchemyListLoaded();
                     }
@@ -95,6 +96,7 @@ public class AlchemyRepository implements AlchemyContract.Repository {
                     @Override
                     public void onQueryFinished(List<AlchenomiconRecipe> recipeList) {
                         Log.d(LOG_TAG, "onQueryFinished(): Query for recipe list has finished.");
+
                         mRecipeResultList = recipeList;
                         listener.onAlchemyListLoaded();
                     }

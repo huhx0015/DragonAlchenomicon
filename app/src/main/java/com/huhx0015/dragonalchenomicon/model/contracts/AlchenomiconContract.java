@@ -25,6 +25,8 @@ public interface AlchenomiconContract {
         void initBottomNavigationView();
 
         void updateViewPager(int position);
+
+        void updateBottomNavigationSelected(int position);
     }
 
     // Presenter: Defines the methods that the concrete Presenter class will implement. Also known
@@ -33,11 +35,13 @@ public interface AlchenomiconContract {
 
         int getCurrentPage();
 
+        void setCurrentPage(int page);
+
         void onBottomNavigationClicked(int position);
 
         void onInitListeners();
 
-        void onPageSelected(int position);
+        void onPageSelected(int page);
 
     }
 
@@ -47,6 +51,6 @@ public interface AlchenomiconContract {
 
         int getCurrentPage();
 
-        void updatePage(int posiiton);
+        void setCurrentPage(int position);
     }
 }

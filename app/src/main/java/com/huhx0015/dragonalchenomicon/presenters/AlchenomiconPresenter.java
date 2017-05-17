@@ -58,6 +58,19 @@ public class AlchenomiconPresenter implements AlchenomiconContract.Presenter {
     }
 
     @Override
+    public void setCurrentPage(int page) {
+        mRepository.setCurrentPage(page);
+        mView.updateViewPager(page);
+        mView.updateBottomNavigationSelected(page);
+    }
+
+    @Override
+    public void onPageSelected(int page) {
+        mRepository.setCurrentPage(page);
+        mView.updateBottomNavigationSelected(page);
+    }
+
+    @Override
     public void onBottomNavigationClicked(int position) {
         mView.updateViewPager(position);
     }
@@ -66,10 +79,5 @@ public class AlchenomiconPresenter implements AlchenomiconContract.Presenter {
     public void onInitListeners() {
         mView.initBottomNavigationView();
         mView.initViewPager();
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        mRepository.updatePage(position);
     }
 }

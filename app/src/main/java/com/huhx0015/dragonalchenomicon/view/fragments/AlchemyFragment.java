@@ -176,7 +176,7 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
                 mPresenter.setIngredientList(ingredientList);
             }
 
-            // RECEIPE RESULTS:
+            // RECIPE RESULTS:
             List<AlchenomiconRecipe> recipeResults = savedInstanceState.getParcelableArrayList(INSTANCE_RECIPE_RESULTS);
             if (recipeResults != null) {
                 mPresenter.setRecipeResults(recipeResults);
