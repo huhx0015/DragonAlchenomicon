@@ -147,7 +147,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     /** SUBCLASSES _____________________________________________________________________________ **/
 
-    public class RecipeListViewHolder extends RecyclerView.ViewHolder {
+    public static class RecipeListViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.adapter_recipe_image) ImageView recipeImage;
         @BindView(R.id.adapter_recipe_ingredient_1) TextView firstIngredient;
