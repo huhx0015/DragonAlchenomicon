@@ -5,12 +5,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'com.android.tools.build:gradle:2.3.2'
     }
-}
-
-repositories {
-    mavenCentral()
 }
 
 android {
@@ -21,6 +17,10 @@ android {
         minSdkVersion 11
         targetSdkVersion 25
         vectorDrawables.useSupportLibrary = true
+
+        jackOptions {
+            enabled true
+        }
     }
 
     buildTypes {
@@ -31,6 +31,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.txt'
             zipAlignEnabled true
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 

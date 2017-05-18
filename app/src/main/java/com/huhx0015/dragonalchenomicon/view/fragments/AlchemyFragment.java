@@ -178,11 +178,6 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
             String[] selectedIngredientList = savedInstanceState.getStringArray(INSTANCE_SELECTED_INGREDIENT_LIST);
             if (selectedIngredientList != null) {
                 mPresenter.setSelectedIngredientList(selectedIngredientList);
-
-                int position = 0;
-                for (String string : selectedIngredientList) {
-                    mPresenter.setSelectedIngredient(string, position++);
-                }
             }
 
             // INGREDIENT LIST:
@@ -252,12 +247,9 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
 
     @Override
     public void showIngredientDialog(final int buttonId) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                displayIngredientPickerDialog(buttonId);
-                Log.d(LOG_TAG, "showIngredientDialog(): Ingredient dialog shown.");
-            }
+        getActivity().runOnUiThread(() -> {
+            displayIngredientPickerDialog(buttonId);
+            Log.d(LOG_TAG, "showIngredientDialog(): Ingredient dialog shown.");
         });
     }
 
@@ -297,29 +289,23 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
 
     @Override
     public void showNoResults(final boolean isDisplayed) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (isDisplayed) {
-                    mNoResultsText.setVisibility(View.VISIBLE);
-                } else {
-                    mNoResultsText.setVisibility(View.GONE);
-                }
+        getActivity().runOnUiThread(() -> {
+            if (isDisplayed) {
+                mNoResultsText.setVisibility(View.VISIBLE);
+            } else {
+                mNoResultsText.setVisibility(View.GONE);
             }
         });
     }
 
     @Override
     public void showRecipeList(final boolean isDisplayed) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (isDisplayed) {
-                    initRecyclerView();
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                } else {
-                    mRecyclerView.setVisibility(View.GONE);
-                }
+        getActivity().runOnUiThread(() -> {
+            if (isDisplayed) {
+                initRecyclerView();
+                mRecyclerView.setVisibility(View.VISIBLE);
+            } else {
+                mRecyclerView.setVisibility(View.GONE);
             }
         });
     }

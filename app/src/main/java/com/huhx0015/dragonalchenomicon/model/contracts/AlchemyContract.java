@@ -1,11 +1,11 @@
 package com.huhx0015.dragonalchenomicon.model.contracts;
 
-import com.huhx0015.dragonalchenomicon.view.listeners.AlchemyPresenterListener;
 import com.huhx0015.dragonalchenomicon.presenters.BasePresenter;
 import com.huhx0015.dragonalchenomicon.view.base.BaseView;
 import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import java.util.HashSet;
 import java.util.List;
+import io.reactivex.Observable;
 
 /** -----------------------------------------------------------------------------------------------
  *  [AlchemyContract] CLASS
@@ -69,9 +69,9 @@ public interface AlchemyContract {
     // the Presenter does not need to be concerned about how data is persisted.
     interface Repository {
 
-        void loadAllIngredients(AlchemyPresenterListener listener);
+        Observable<HashSet<String>> loadAllIngredients();
 
-        void loadRecipes(AlchemyPresenterListener listener);
+        Observable<List<AlchenomiconRecipe>> loadRecipes();
 
         HashSet<String> getIngredientList();
 

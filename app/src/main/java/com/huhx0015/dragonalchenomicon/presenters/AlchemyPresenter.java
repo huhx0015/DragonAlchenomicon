@@ -1,18 +1,24 @@
 package com.huhx0015.dragonalchenomicon.presenters;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.model.contracts.AlchemyContract;
 import com.huhx0015.dragonalchenomicon.model.repositories.AlchemyRepository;
-import com.huhx0015.dragonalchenomicon.view.listeners.AlchemyPresenterListener;
 import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import com.huhx0015.dragonalchenomicon.utils.AlchenomiconImageUtils;
+import com.huhx0015.dragonalchenomicon.view.listeners.IngredientListListener;
+import com.huhx0015.dragonalchenomicon.view.listeners.RecipeResultsListener;
 import java.util.HashSet;
 import java.util.List;
 import javax.inject.Inject;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Michael Yoon Huh on 5/11/2017.
@@ -54,6 +60,11 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
     public void subscribe() {
         Log.d(LOG_TAG, "subscribe(): Presenter subscribed.");
         mDisposables.clear();
+
+        // Loads the ingredient list if it has not been loaded.
+        if (mRepository.getIngredientList() == null) {
+            loadAllIngredients(null);
+        }
     }
 
     @Override
@@ -100,17 +111,13 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
             mView.showRecipeList(false);
             mView.showProgressBar(true);
 
-            // Queries the database for all the recipes that contain the selected ingredients.
-            mRepository.loadRecipes(new AlchemyPresenterListener() {
-                @Override
-                public void onAlchemyListLoaded() {
-                    mView.showProgressBar(false);
+            loadRecipes(() -> {
+                mView.showProgressBar(false);
 
-                    if (mRepository.getRecipeResults().size() > 0) {
-                        mView.showRecipeList(true);
-                    } else {
-                        mView.showNoResults(true);
-                    }
+                if (mRepository.getRecipeResults().size() > 0) {
+                    mView.showRecipeList(true);
+                } else {
+                    mView.showNoResults(true);
                 }
             });
         }
@@ -119,6 +126,16 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
     @Override
     public void setSelectedIngredientList(String[] ingredientList) {
         mRepository.setSelectedIngredientList(ingredientList);
+
+        int buttonId = 0;
+        for (String ingredient : ingredientList) {
+            if (!ingredient.equals(AlchenomiconConstants.NULL_IDENTIFIER)) {
+                int ingredientResource = AlchenomiconImageUtils.getItemImage(ingredient);
+                mView.showSelectedIngredient(ingredientResource, buttonId);
+                mView.updateSelectedIngredientText(buttonId);
+            }
+            buttonId++;
+        }
     }
 
     @Override
@@ -136,15 +153,8 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
 
     @Override
     public void onIngredientButtonClicked(final int buttonId) {
-
-        // Queries the database to retrieve all available ingredients.
         if (mRepository.getIngredientList() == null) {
-            mRepository.loadAllIngredients(new AlchemyPresenterListener() {
-                @Override
-                public void onAlchemyListLoaded() {
-                    mView.showIngredientDialog(buttonId);
-                }
-            });
+            loadAllIngredients(() -> mView.showIngredientDialog(buttonId));
         } else {
             mView.showIngredientDialog(buttonId);
         }
@@ -161,5 +171,63 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
         mView.updateSelectedIngredientText(INGREDIENT_BUTTON_3_ID);
         mView.showRecipeList(false);
         mView.showNoResults(false);
+    }
+
+    /** OBSERVABLE METHODS _____________________________________________________________________ **/
+
+    // loadAllIngredients(): Queries the database to retrieve all available ingredients.
+    private void loadAllIngredients(IngredientListListener listener) {
+        Observable<HashSet<String>> ingredientListObservable = mRepository.loadAllIngredients();
+        ingredientListObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<HashSet<String>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        mDisposables.add(d); // Adds the disposable to the CompositeDisposables.
+                    }
+
+                    @Override
+                    public void onNext(@NonNull HashSet<String> strings) {}
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.e(LOG_TAG, "loadAllIngredients(): An error occurred while loading ingredient list: " + e.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        if (listener != null) {
+                            listener.onIngredientListLoaded();
+                        }
+                    }
+                });
+    }
+
+    // loadRecipes(): Queries the database for all the recipes that contain the selected ingredients.
+    private void loadRecipes(RecipeResultsListener listener) {
+        Observable<List<AlchenomiconRecipe>> recipeResultsObservable = mRepository.loadRecipes();
+        recipeResultsObservable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<AlchenomiconRecipe>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        mDisposables.add(d); // Adds the disposable to the CompositeDisposables.
+                    }
+
+                    @Override
+                    public void onNext(@NonNull List<AlchenomiconRecipe> alchenomiconRecipes) {}
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.e(LOG_TAG, "loadRecipes(): An error occurred while loading the recipe results: " + e.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        if (listener != null) {
+                            listener.onRecipeResultsLoaded();
+                        }
+                    }
+                });
     }
 }

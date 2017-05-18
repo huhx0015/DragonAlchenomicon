@@ -5,13 +5,12 @@ import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.model.contracts.AlchemyContract;
 import com.huhx0015.dragonalchenomicon.database.AlchenomiconDatabaseHelper;
-import com.huhx0015.dragonalchenomicon.view.listeners.AlchemyPresenterListener;
-import com.huhx0015.dragonalchenomicon.view.listeners.AlchenomiconDatabaseListener;
 import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import javax.inject.Inject;
+import io.reactivex.Observable;
 
 /**
  * Created by Michael Yoon Huh on 5/13/2017.
@@ -59,29 +58,28 @@ public class AlchemyRepository implements AlchemyContract.Repository {
     /** REPOSITORY METHODS _____________________________________________________________________ **/
 
     @Override
-    public void loadAllIngredients(final AlchemyPresenterListener listener) {
-        Thread databaseThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mDatabase.getAllIngredients(new AlchenomiconDatabaseListener.IngredientQueryListener() {
-                    @Override
-                    public void onQueryFinished(HashSet<String> ingredientList) {
-                        Log.d(LOG_TAG, "onQueryFinished(): Query for ingredient list has finished.");
+    public Observable<HashSet<String>> loadAllIngredients() {
+        return Observable.create(emitter -> {
+            try {
+                mIngredientList = mDatabase.getAllIngredients();
 
-                        mIngredientList = ingredientList;
-                        listener.onAlchemyListLoaded();
-                    }
-                });
+                // If ingredient list is not null, no issues occurred with retrieving all
+                // ingredients from the database.
+                if (mIngredientList != null) {
+                    Log.d(LOG_TAG, "loadAllIngredients(): Ingredient list has been loaded.");
+                    emitter.onComplete(); // Signals that the operation has completed.
+                }
+            } catch (Exception e) {
+                Log.d(LOG_TAG, "loadAllIngredients(): An error occurred while loading the ingredient list: " + e.getLocalizedMessage());
+                emitter.onError(e);
             }
         });
-        databaseThread.start();
     }
 
     @Override
-    public void loadRecipes(final AlchemyPresenterListener listener) {
-        Thread databaseThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
+    public Observable<List<AlchenomiconRecipe>> loadRecipes() {
+        return Observable.create(emitter -> {
+            try {
 
                 // Removes NULL ingredients from the selected ingredient list before querying the
                 // database for recipes containing the ingredients from the list.
@@ -92,18 +90,20 @@ public class AlchemyRepository implements AlchemyContract.Repository {
                     }
                 }
 
-                mDatabase.getRecipesContainingIngredients(selectedIngredients, new AlchenomiconDatabaseListener.RecipeQueryListener() {
-                    @Override
-                    public void onQueryFinished(List<AlchenomiconRecipe> recipeList) {
-                        Log.d(LOG_TAG, "onQueryFinished(): Query for recipe list has finished.");
+                mRecipeResultList = mDatabase.getRecipesContainingIngredients(selectedIngredients);
 
-                        mRecipeResultList = recipeList;
-                        listener.onAlchemyListLoaded();
-                    }
-                });
+                // If ingredient list is not null, no issues occurred with retrieving all
+                // ingredients from the database.
+                if (mIngredientList != null) {
+                    Log.d(LOG_TAG, "loadRecipes(): Recipe results have been found.");
+                    emitter.onComplete(); // Signals that the operation has completed.
+                }
+
+            } catch (Exception e) {
+                Log.d(LOG_TAG, "loadRecipes(): An error occurred while loading the ingredient list: " + e.getLocalizedMessage());
+                emitter.onError(e);
             }
         });
-        databaseThread.start();
     }
 
     @Override
