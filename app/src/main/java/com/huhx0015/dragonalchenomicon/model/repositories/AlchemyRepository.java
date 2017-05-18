@@ -1,6 +1,5 @@
 package com.huhx0015.dragonalchenomicon.model.repositories;
 
-import android.util.Log;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.model.contracts.AlchemyContract;
@@ -63,14 +62,12 @@ public class AlchemyRepository implements AlchemyContract.Repository {
             try {
                 mIngredientList = mDatabase.getAllIngredients();
 
-                // If ingredient list is not null, no issues occurred with retrieving all
+                // If ingredient list is not null, no issues have occurred with retrieving all
                 // ingredients from the database.
                 if (mIngredientList != null) {
-                    Log.d(LOG_TAG, "loadAllIngredients(): Ingredient list has been loaded.");
                     emitter.onComplete(); // Signals that the operation has completed.
                 }
             } catch (Exception e) {
-                Log.d(LOG_TAG, "loadAllIngredients(): An error occurred while loading the ingredient list: " + e.getLocalizedMessage());
                 emitter.onError(e);
             }
         });
@@ -92,15 +89,13 @@ public class AlchemyRepository implements AlchemyContract.Repository {
 
                 mRecipeResultList = mDatabase.getRecipesContainingIngredients(selectedIngredients);
 
-                // If ingredient list is not null, no issues occurred with retrieving all
-                // ingredients from the database.
-                if (mIngredientList != null) {
-                    Log.d(LOG_TAG, "loadRecipes(): Recipe results have been found.");
+                // If recipe results list is not null, no issues have occurred with retrieving the
+                // recipe results from the database.
+                if (mRecipeResultList != null) {
                     emitter.onComplete(); // Signals that the operation has completed.
                 }
 
             } catch (Exception e) {
-                Log.d(LOG_TAG, "loadRecipes(): An error occurred while loading the ingredient list: " + e.getLocalizedMessage());
                 emitter.onError(e);
             }
         });

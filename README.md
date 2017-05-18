@@ -8,7 +8,7 @@ DEVELOPER: huhx0015
 
 ## Description
 
-Dragon Alchenomicon: An Android application used for looking up alchemy recipes for Square Enix's RPG game, Dragon Quest VIII. Dragon Alchenomicon was developed utilizing MVP architecture, in conjunction with Dagger 2.
+Dragon Alchenomicon: An Android application used for looking up alchemy recipes for Square Enix's RPG game, Dragon Quest VIII. Dragon Alchenomicon was developed utilizing MVP architecture, in conjunction with Dagger 2 and RxJava 2.
 
 ## Resources
 

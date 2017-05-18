@@ -1,14 +1,12 @@
 package com.huhx0015.dragonalchenomicon.model.repositories;
 
-import android.util.Log;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.model.contracts.RecipeListContract;
 import com.huhx0015.dragonalchenomicon.database.AlchenomiconDatabaseHelper;
-import com.huhx0015.dragonalchenomicon.view.listeners.AlchenomiconDatabaseListener;
-import com.huhx0015.dragonalchenomicon.view.listeners.RecipeListPresenterListener;
 import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import java.util.List;
 import javax.inject.Inject;
+import io.reactivex.Observable;
 
 /**
  * Created by Michael Yoon Huh on 5/13/2017.
@@ -37,21 +35,20 @@ public class RecipeListRepository implements RecipeListContract.Repository {
     /** REPOSITORY METHODS _____________________________________________________________________ **/
 
     @Override
-    public void getAllRecipes(final RecipeListPresenterListener listener) {
-        Thread databaseThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mDatabase.getAllRecipes(new AlchenomiconDatabaseListener.RecipeQueryListener() {
-                    @Override
-                    public void onQueryFinished(List<AlchenomiconRecipe> recipeList) {
-                        Log.d(LOG_TAG, "onQueryFinished(): Query for recipe list has finished.");
-                        mRecipeList = recipeList;
-                        listener.onRecipeListLoaded();
-                    }
-                });
+    public Observable<List<AlchenomiconRecipe>> loadAllRecipes() {
+        return Observable.create(emitter -> {
+            try {
+                mRecipeList = mDatabase.getAllRecipes();
+
+                // If the recipe list is not null, no issues have occurred with retrieving all the
+                // recipes from the database.
+                if (mRecipeList != null) {
+                    emitter.onComplete(); // Signals that the operation has completed.
+                }
+            } catch (Exception e) {
+                emitter.onError(e);
             }
         });
-        databaseThread.start();
     }
 
     @Override

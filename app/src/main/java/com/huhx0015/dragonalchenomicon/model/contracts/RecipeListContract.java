@@ -2,9 +2,9 @@ package com.huhx0015.dragonalchenomicon.model.contracts;
 
 import com.huhx0015.dragonalchenomicon.presenters.BasePresenter;
 import com.huhx0015.dragonalchenomicon.view.base.BaseView;
-import com.huhx0015.dragonalchenomicon.view.listeners.RecipeListPresenterListener;
 import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import java.util.List;
+import io.reactivex.Observable;
 
 /** -----------------------------------------------------------------------------------------------
  *  [RecipeListContract] CLASS
@@ -44,7 +44,7 @@ public interface RecipeListContract {
     // the Presenter does not need to be concerned about how data is persisted.
     interface Repository {
 
-        void getAllRecipes(RecipeListPresenterListener listener);
+        Observable<List<AlchenomiconRecipe>> loadAllRecipes();
 
         List<AlchenomiconRecipe> getRecipeList();
 

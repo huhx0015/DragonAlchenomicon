@@ -7,8 +7,7 @@ import com.huhx0015.dragonalchenomicon.model.contracts.AlchemyContract;
 import com.huhx0015.dragonalchenomicon.model.repositories.AlchemyRepository;
 import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import com.huhx0015.dragonalchenomicon.utils.AlchenomiconImageUtils;
-import com.huhx0015.dragonalchenomicon.view.listeners.IngredientListListener;
-import com.huhx0015.dragonalchenomicon.view.listeners.RecipeResultsListener;
+import com.huhx0015.dragonalchenomicon.view.listeners.ObserverCompletedListener;
 import java.util.HashSet;
 import java.util.List;
 import javax.inject.Inject;
@@ -154,7 +153,9 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
     @Override
     public void onIngredientButtonClicked(final int buttonId) {
         if (mRepository.getIngredientList() == null) {
-            loadAllIngredients(() -> mView.showIngredientDialog(buttonId));
+            loadAllIngredients(() -> {
+                mView.showIngredientDialog(buttonId);
+            });
         } else {
             mView.showIngredientDialog(buttonId);
         }
@@ -176,7 +177,7 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
     /** OBSERVABLE METHODS _____________________________________________________________________ **/
 
     // loadAllIngredients(): Queries the database to retrieve all available ingredients.
-    private void loadAllIngredients(IngredientListListener listener) {
+    private void loadAllIngredients(ObserverCompletedListener listener) {
         Observable<HashSet<String>> ingredientListObservable = mRepository.loadAllIngredients();
         ingredientListObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -197,14 +198,14 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
                     @Override
                     public void onComplete() {
                         if (listener != null) {
-                            listener.onIngredientListLoaded();
+                            listener.onObserverCompleted();
                         }
                     }
                 });
     }
 
     // loadRecipes(): Queries the database for all the recipes that contain the selected ingredients.
-    private void loadRecipes(RecipeResultsListener listener) {
+    private void loadRecipes(ObserverCompletedListener listener) {
         Observable<List<AlchenomiconRecipe>> recipeResultsObservable = mRepository.loadRecipes();
         recipeResultsObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -225,7 +226,7 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
                     @Override
                     public void onComplete() {
                         if (listener != null) {
-                            listener.onRecipeResultsLoaded();
+                            listener.onObserverCompleted();
                         }
                     }
                 });

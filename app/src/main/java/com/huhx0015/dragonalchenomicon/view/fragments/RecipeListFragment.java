@@ -99,6 +99,15 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
     /** FRAGMENT EXTENSION METHODS _____________________________________________________________ **/
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (isVisibleToUser && mPresenter != null) {
+            mPresenter.onLoadRecipeList(); // Recipe list is loaded.
+        }
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
@@ -116,12 +125,8 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
 
             if (recipeList != null) {
                 mPresenter.setRecipeList(recipeList);
-                mPresenter.onLoadRecipeList(); // Recipe list is shown.
-                return;
             }
         }
-
-        mPresenter.onLoadRecipeList(); // Recipe list is loaded.
     }
 
     private void initRecyclerView() {
@@ -154,26 +159,20 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
 
     @Override
     public void showProgressBar(final boolean isDisplay) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (isDisplay) {
-                    mProgressBar.setVisibility(View.VISIBLE);
-                } else {
-                    mProgressBar.setVisibility(View.GONE);
-                }
+        getActivity().runOnUiThread(() -> {
+            if (isDisplay) {
+                mProgressBar.setVisibility(View.VISIBLE);
+            } else {
+                mProgressBar.setVisibility(View.GONE);
             }
         });
     }
 
     @Override
     public void showRecipeList() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                initRecyclerView();
-                mRecyclerView.setVisibility(View.VISIBLE);
-            }
+        getActivity().runOnUiThread(() -> {
+            initRecyclerView();
+            mRecyclerView.setVisibility(View.VISIBLE);
         });
     }
 }
