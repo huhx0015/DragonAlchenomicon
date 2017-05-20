@@ -31,16 +31,12 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
-    // ADAPTER VARIABLES:
-    private Context mContext;
-
     // PRESENTER VARIABLES:
     private RecipeListAdapterContract.Presenter mPresenter;
 
     /** CONSTRUCTOR METHODS ____________________________________________________________________ **/
 
-    public RecipeListAdapter(List<AlchenomiconRecipe> recipeList, Context context) {
-        this.mContext = context;
+    public RecipeListAdapter(List<AlchenomiconRecipe> recipeList) {
         setPresenter(new RecipeListAdapterPresenter(this)); // Sets the presenter for this adapter.
         mPresenter.setRecipeList(recipeList);
     }
@@ -116,7 +112,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     @Override
     public void showRecipeImage(int resource, final ImageView view) {
-        Glide.with(mContext)
+        Glide.with(view.getContext())
                 .load(resource)
                 .asBitmap()
                 .into(new SimpleTarget<Bitmap>(AlchenomiconConstants.ICON_ORIGINAL_SIZE, AlchenomiconConstants.ICON_ORIGINAL_SIZE) {

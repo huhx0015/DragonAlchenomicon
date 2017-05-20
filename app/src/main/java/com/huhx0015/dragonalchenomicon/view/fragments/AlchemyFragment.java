@@ -210,7 +210,7 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
         mRecyclerView.setDrawingCacheEnabled(true);
         mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
-        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRecipeResults(), getContext());
+        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRecipeResults());
         adapter.setHasStableIds(true);
         mRecyclerView.setAdapter(adapter);
     }

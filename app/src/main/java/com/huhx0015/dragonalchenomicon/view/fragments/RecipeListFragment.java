@@ -145,7 +145,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
         mRecyclerView.setDrawingCacheEnabled(true);
         mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
-        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRecipeList(), mContext);
+        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRecipeList());
         adapter.setHasStableIds(true);
         mRecyclerView.setAdapter(adapter);
     }

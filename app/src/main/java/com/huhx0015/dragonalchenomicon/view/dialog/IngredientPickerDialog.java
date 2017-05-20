@@ -147,7 +147,7 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
         mRecyclerView.setDrawingCacheEnabled(true);
         mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
-        IngredientPickerDialogAdapter adapter = new IngredientPickerDialogAdapter(mPresenter.getIngredientList(), this, mContext);
+        IngredientPickerDialogAdapter adapter = new IngredientPickerDialogAdapter(mPresenter.getIngredientList(), this);
         adapter.setHasStableIds(true);
         mRecyclerView.setAdapter(adapter);
     }

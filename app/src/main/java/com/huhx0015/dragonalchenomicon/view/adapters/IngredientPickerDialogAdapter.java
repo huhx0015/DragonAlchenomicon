@@ -31,9 +31,6 @@ public class IngredientPickerDialogAdapter extends RecyclerView.Adapter<Ingredie
 
     /** CLASS VARIABLES ________________________________________________________________________ **/
 
-    // ADAPTER VARIABLES:
-    private Context mContext;
-
     // LISTENER VARIABLES:
     private IngredientPickerAdapterListener mListener;
 
@@ -43,9 +40,8 @@ public class IngredientPickerDialogAdapter extends RecyclerView.Adapter<Ingredie
     /** CONSTRUCTOR METHODS ____________________________________________________________________ **/
 
     public IngredientPickerDialogAdapter(HashSet<String> ingredientList,
-                                         IngredientPickerAdapterListener listener, Context context) {
+                                         IngredientPickerAdapterListener listener) {
         this.mListener = listener;
-        this.mContext = context;
         setPresenter(new IngredientPickerAdapterPresenter(this)); // Sets the presenter for this adapter.
         mPresenter.setIngredientList(ingredientList);
     }
@@ -109,7 +105,7 @@ public class IngredientPickerDialogAdapter extends RecyclerView.Adapter<Ingredie
 
     @Override
     public void showIngredientImage(int resource, final ImageView view) {
-        Glide.with(mContext)
+        Glide.with(view.getContext())
                 .load(resource)
                 .asBitmap()
                 .into(new SimpleTarget<Bitmap>(AlchenomiconConstants.ICON_ORIGINAL_SIZE, AlchenomiconConstants.ICON_ORIGINAL_SIZE) {
