@@ -102,7 +102,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser && mPresenter != null) {
+        if (isVisibleToUser && mPresenter != null && mRecyclerView.getVisibility() != View.VISIBLE) {
             mPresenter.onLoadRecipeList(); // Recipe list is loaded.
         }
     }
