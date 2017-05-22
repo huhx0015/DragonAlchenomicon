@@ -1,5 +1,6 @@
 package com.huhx0015.dragonalchenomicon.model.contracts;
 
+import com.huhx0015.dragonalchenomicon.model.repositories.IngredientPickerRepository;
 import com.huhx0015.dragonalchenomicon.presenters.BasePresenter;
 import com.huhx0015.dragonalchenomicon.view.base.BaseView;
 import java.util.HashSet;
@@ -30,15 +31,9 @@ public interface IngredientPickerContract {
     // as user actions, this is where the business logic for the app is defined.
     interface Presenter extends BasePresenter {
 
-        int getButtonId();
-
-        void setButtonId(int buttonId);
-
-        HashSet<String> getIngredientList();
+        IngredientPickerRepository getRepository();
 
         void loadIngredientList();
-
-        void setIngredientList(HashSet<String> ingredientList);
 
         void onIngredientSelected(String ingredient);
     }

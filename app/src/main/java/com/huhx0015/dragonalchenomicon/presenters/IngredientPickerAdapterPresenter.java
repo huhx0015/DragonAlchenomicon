@@ -8,7 +8,6 @@ import com.huhx0015.dragonalchenomicon.view.adapters.IngredientPickerDialogAdapt
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.model.contracts.IngredientPickerAdapterContract;
 import com.huhx0015.dragonalchenomicon.model.repositories.IngredientPickerAdapterRepository;
-import java.util.HashSet;
 import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -56,19 +55,14 @@ public class IngredientPickerAdapterPresenter implements IngredientPickerAdapter
     }
 
     @Override
+    public IngredientPickerAdapterRepository getRepository() {
+        return mRepository;
+    }
+
+    @Override
     public void onIngredientClicked(int position) {
         String ingredient = mRepository.getIngredientList().get(position);
         mView.dismissIngredientPicker(ingredient);
-    }
-
-    @Override
-    public int getIngredientCount() {
-        return mRepository.getIngredientCount();
-    }
-
-    @Override
-    public void setIngredientList(HashSet<String> ingredientList) {
-        mRepository.setIngredientList(ingredientList);
     }
 
     @Override

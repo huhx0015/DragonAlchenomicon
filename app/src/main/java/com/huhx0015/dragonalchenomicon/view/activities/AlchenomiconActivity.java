@@ -1,11 +1,9 @@
 package com.huhx0015.dragonalchenomicon.view.activities;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import com.huhx0015.dragonalchenomicon.view.adapters.AlchenomiconPagerAdapter;
 import com.huhx0015.dragonalchenomicon.model.contracts.AlchenomiconContract;
 import com.huhx0015.dragonalchenomicon.presenters.AlchenomiconPresenter;
@@ -50,7 +48,6 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
         if (savedInstanceState != null) {
             int currentPage = savedInstanceState.getInt(INSTANCE_CURRENT_PAGE);
             mPresenter.onPageSelected(currentPage);
-            mPresenter.setCurrentPage(currentPage);
         }
     }
 
@@ -71,7 +68,7 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(INSTANCE_CURRENT_PAGE, mPresenter.getCurrentPage());
+        outState.putInt(INSTANCE_CURRENT_PAGE, mPresenter.getRepository().getCurrentPage());
     }
 
     /** VIEW METHODS ____________________________________________________________________________ **/
@@ -83,19 +80,16 @@ public class AlchenomiconActivity extends AppCompatActivity implements Alchenomi
 
     @Override
     public void initBottomNavigationView() {
-        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_alchemy_pot:
-                        mPresenter.onBottomNavigationClicked(0);
-                        return true;
-                    case R.id.navigation_recipe_list:
-                        mPresenter.onBottomNavigationClicked(1);
-                        return true;
-                }
-                return false;
+        mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.navigation_alchemy_pot:
+                    mPresenter.onBottomNavigationClicked(0);
+                    return true;
+                case R.id.navigation_recipe_list:
+                    mPresenter.onBottomNavigationClicked(1);
+                    return true;
             }
+            return false;
         });
     }
 

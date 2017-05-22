@@ -73,28 +73,8 @@ public class AlchemyPresenter implements AlchemyContract.Presenter {
     }
 
     @Override
-    public HashSet<String> getIngredientList() {
-        return mRepository.getIngredientList();
-    }
-
-    @Override
-    public void setIngredientList(HashSet<String> ingredientList) {
-        mRepository.setIngredientList(ingredientList);
-    }
-
-    @Override
-    public String getSelectedIngredient(int buttonId) {
-        return mRepository.getSelectedIngredient(buttonId);
-    }
-
-    @Override
-    public String[] getSelectedIngredientList() {
-        return mRepository.getSelectedIngredientList();
-    }
-
-    @Override
-    public List<AlchenomiconRecipe> getRecipeResults() {
-        return mRepository.getRecipeResults();
+    public AlchemyRepository getRepository() {
+        return mRepository;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.huhx0015.dragonalchenomicon.model.contracts;
 
+import com.huhx0015.dragonalchenomicon.model.repositories.AlchenomiconRepository;
 import com.huhx0015.dragonalchenomicon.presenters.BasePresenter;
 import com.huhx0015.dragonalchenomicon.view.base.BaseView;
 
@@ -33,9 +34,7 @@ public interface AlchenomiconContract {
     // as user actions, this is where the business logic for the app is defined.
     interface Presenter extends BasePresenter {
 
-        int getCurrentPage();
-
-        void setCurrentPage(int page);
+        AlchenomiconRepository getRepository();
 
         void onBottomNavigationClicked(int position);
 

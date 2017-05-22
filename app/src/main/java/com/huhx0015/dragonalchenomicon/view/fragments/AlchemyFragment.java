@@ -101,7 +101,7 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
         mUnbinder = ButterKnife.bind(this, alchemyView);
         setPresenter(new AlchemyPresenter(this)); // Sets the presenter for this fragment.
 
-        initIngredientList(savedInstanceState);
+        initSavedInstance(savedInstanceState);
         initText();
 
         return alchemyView;
@@ -132,16 +132,16 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
         super.onSaveInstanceState(outState);
 
         // SELECTED INGREDIENT LIST:
-        outState.putStringArray(INSTANCE_SELECTED_INGREDIENT_LIST, mPresenter.getSelectedIngredientList());
+        outState.putStringArray(INSTANCE_SELECTED_INGREDIENT_LIST, mPresenter.getRepository().getSelectedIngredientList());
 
         // INGREDIENT LIST:
-        HashSet<String> ingredientList = mPresenter.getIngredientList();
+        HashSet<String> ingredientList = mPresenter.getRepository().getIngredientList();
         if (ingredientList != null) {
             outState.putSerializable(INSTANCE_INGREDIENT_LIST, ingredientList);
         }
 
         // RECIPE RESULTS:
-        List<AlchenomiconRecipe> recipeResults = mPresenter.getRecipeResults();
+        List<AlchenomiconRecipe> recipeResults = mPresenter.getRepository().getRecipeResults();
         if (recipeResults != null) {
             outState.putParcelableArrayList(INSTANCE_RECIPE_RESULTS, new ArrayList<>(recipeResults));
         }
@@ -171,7 +171,7 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
 
     /** INIT METHODS ___________________________________________________________________________ **/
 
-    private void initIngredientList(Bundle savedInstanceState) {
+    private void initSavedInstance(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
 
             // SELECTED INGREDIENT LIST:
@@ -183,13 +183,21 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
             // INGREDIENT LIST:
             HashSet<String> ingredientList = (HashSet<String>) savedInstanceState.getSerializable(INSTANCE_INGREDIENT_LIST);
             if (ingredientList != null) {
-                mPresenter.setIngredientList(ingredientList);
+                mPresenter.getRepository().setIngredientList(ingredientList);
             }
 
             // RECIPE RESULTS:
             List<AlchenomiconRecipe> recipeResults = savedInstanceState.getParcelableArrayList(INSTANCE_RECIPE_RESULTS);
             if (recipeResults != null) {
                 mPresenter.setRecipeResults(recipeResults);
+            }
+
+            // DIALOG FRAGMENT: Restores the listener for the ingredient picker dialog, if it was
+            // shown before the screen configuration change.
+            IngredientPickerDialog pickerDialog = (IngredientPickerDialog) getFragmentManager()
+                    .findFragmentByTag(IngredientPickerDialog.class.getSimpleName());
+            if (pickerDialog != null) {
+                pickerDialog.setPickerListener(this);
             }
         }
     }
@@ -210,7 +218,7 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
         mRecyclerView.setDrawingCacheEnabled(true);
         mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
-        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRecipeResults());
+        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRepository().getRecipeResults());
         adapter.setHasStableIds(true);
         mRecyclerView.setAdapter(adapter);
     }
@@ -227,7 +235,7 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
 
     private void displayIngredientPickerDialog(int buttonId) {
         FragmentManager fragmentManager = getFragmentManager();
-        IngredientPickerDialog pickerDialog = IngredientPickerDialog.newInstance(mPresenter.getIngredientList(), buttonId, this);
+        IngredientPickerDialog pickerDialog = IngredientPickerDialog.newInstance(mPresenter.getRepository().getIngredientList(), buttonId, this);
         pickerDialog.show(fragmentManager, IngredientPickerDialog.class.getSimpleName());
     }
 
@@ -312,14 +320,11 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
 
     @Override
     public void showProgressBar(final boolean isDisplayed) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (isDisplayed) {
-                    mProgressBar.setVisibility(View.VISIBLE);
-                } else {
-                    mProgressBar.setVisibility(View.GONE);
-                }
+        getActivity().runOnUiThread(() -> {
+            if (isDisplayed) {
+                mProgressBar.setVisibility(View.VISIBLE);
+            } else {
+                mProgressBar.setVisibility(View.GONE);
             }
         });
     }
@@ -333,7 +338,7 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
 
     @Override
     public void updateSelectedIngredientText(int position) {
-        String ingredientName = mPresenter.getSelectedIngredientList()[position].toUpperCase();
+        String ingredientName = mPresenter.getRepository().getSelectedIngredientList()[position].toUpperCase();
 
         switch (position) {
             case INGREDIENT_BUTTON_1_ID:

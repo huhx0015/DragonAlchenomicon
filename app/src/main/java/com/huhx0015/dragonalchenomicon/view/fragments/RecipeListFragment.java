@@ -111,7 +111,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        List<AlchenomiconRecipe> recipeList = mPresenter.getRecipeList();
+        List<AlchenomiconRecipe> recipeList = mPresenter.getRepository().getRecipeList();
         if (recipeList != null) {
             outState.putParcelableArrayList(INSTANCE_RECIPE_LIST, new ArrayList<>(recipeList));
         }
@@ -124,7 +124,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
             List<AlchenomiconRecipe> recipeList = savedInstanceState.getParcelableArrayList(INSTANCE_RECIPE_LIST);
 
             if (recipeList != null) {
-                mPresenter.setRecipeList(recipeList);
+                mPresenter.getRepository().setRecipeList(recipeList);
             }
         }
     }
@@ -145,7 +145,7 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
         mRecyclerView.setDrawingCacheEnabled(true);
         mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
-        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRecipeList());
+        RecipeListAdapter adapter = new RecipeListAdapter(mPresenter.getRepository().getRecipeList());
         adapter.setHasStableIds(true);
         mRecyclerView.setAdapter(adapter);
     }

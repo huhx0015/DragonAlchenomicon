@@ -53,20 +53,14 @@ public class AlchenomiconPresenter implements AlchenomiconContract.Presenter {
     }
 
     @Override
-    public int getCurrentPage() {
-        return mRepository.getCurrentPage();
-    }
-
-    @Override
-    public void setCurrentPage(int page) {
-        mRepository.setCurrentPage(page);
-        mView.updateViewPager(page);
-        mView.updateBottomNavigationSelected(page);
+    public AlchenomiconRepository getRepository() {
+        return mRepository;
     }
 
     @Override
     public void onPageSelected(int page) {
         mRepository.setCurrentPage(page);
+        mView.updateViewPager(page);
         mView.updateBottomNavigationSelected(page);
     }
 

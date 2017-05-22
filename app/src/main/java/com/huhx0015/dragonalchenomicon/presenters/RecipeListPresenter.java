@@ -63,13 +63,8 @@ public class RecipeListPresenter implements RecipeListContract.Presenter {
     }
 
     @Override
-    public List<AlchenomiconRecipe> getRecipeList() {
-        return mRepository.getRecipeList();
-    }
-
-    @Override
-    public void setRecipeList(List<AlchenomiconRecipe> recipeList) {
-        mRepository.setRecipeList(recipeList);
+    public RecipeListRepository getRepository() {
+        return mRepository;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.huhx0015.dragonalchenomicon.model.contracts;
 
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.huhx0015.dragonalchenomicon.model.repositories.IngredientPickerAdapterRepository;
 import com.huhx0015.dragonalchenomicon.view.adapters.IngredientPickerDialogAdapter;
 import com.huhx0015.dragonalchenomicon.presenters.BasePresenter;
 import com.huhx0015.dragonalchenomicon.view.base.BaseView;
@@ -40,11 +41,9 @@ public interface IngredientPickerAdapterContract {
     // as user actions, this is where the business logic for the app is defined.
     interface Presenter extends BasePresenter {
 
+        IngredientPickerAdapterRepository getRepository();
+
         void onIngredientClicked(int position);
-
-        int getIngredientCount();
-
-        void setIngredientList(HashSet<String> ingredientList);
 
         void setIngredientRow(IngredientPickerDialogAdapter.IngredientPickerViewHolder holder, int position);
 

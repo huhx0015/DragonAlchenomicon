@@ -1,5 +1,6 @@
 package com.huhx0015.dragonalchenomicon.model.contracts;
 
+import com.huhx0015.dragonalchenomicon.model.repositories.RecipeListRepository;
 import com.huhx0015.dragonalchenomicon.presenters.BasePresenter;
 import com.huhx0015.dragonalchenomicon.view.base.BaseView;
 import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
@@ -32,9 +33,7 @@ public interface RecipeListContract {
     // as user actions, this is where the business logic for the app is defined.
     interface Presenter extends BasePresenter {
 
-        List<AlchenomiconRecipe> getRecipeList();
-
-        void setRecipeList(List<AlchenomiconRecipe> recipeList);
+        RecipeListRepository getRepository();
 
         void onLoadRecipeList();
 

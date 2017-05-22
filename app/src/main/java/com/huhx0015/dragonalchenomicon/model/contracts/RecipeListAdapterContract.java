@@ -2,7 +2,7 @@ package com.huhx0015.dragonalchenomicon.model.contracts;
 
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.huhx0015.dragonalchenomicon.model.repositories.RecipeListAdapterRepository;
 import com.huhx0015.dragonalchenomicon.view.adapters.RecipeListAdapter;
 import com.huhx0015.dragonalchenomicon.presenters.BasePresenter;
 import com.huhx0015.dragonalchenomicon.view.base.BaseView;
@@ -40,9 +40,7 @@ public interface RecipeListAdapterContract {
     // as user actions, this is where the business logic for the app is defined.
     interface Presenter extends BasePresenter {
 
-        int getRecipeCount();
-
-        void setRecipeList(List<AlchenomiconRecipe> recipeList);
+        RecipeListAdapterRepository getRepository();
 
         void setRecipeRow(RecipeListAdapter.RecipeListViewHolder holder, int position);
 

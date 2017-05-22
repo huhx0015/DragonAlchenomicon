@@ -5,7 +5,6 @@ import android.util.Log;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.model.contracts.IngredientPickerContract;
 import com.huhx0015.dragonalchenomicon.model.repositories.IngredientPickerRepository;
-import java.util.HashSet;
 import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -53,28 +52,13 @@ public class IngredientPickerPresenter implements IngredientPickerContract.Prese
     }
 
     @Override
-    public int getButtonId() {
-        return mRepository.getButtonId();
-    }
-
-    @Override
-    public void setButtonId(int buttonId) {
-        mRepository.setButtonId(buttonId);
-    }
-
-    @Override
-    public HashSet<String> getIngredientList() {
-        return mRepository.getIngredientList();
+    public IngredientPickerRepository getRepository() {
+        return mRepository;
     }
 
     @Override
     public void loadIngredientList() {
         mView.showIngredientList();
-    }
-
-    @Override
-    public void setIngredientList(HashSet<String> ingredientList) {
-        mRepository.setIngredientList(ingredientList);
     }
 
     @Override

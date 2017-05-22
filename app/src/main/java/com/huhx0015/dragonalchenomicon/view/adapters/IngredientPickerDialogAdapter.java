@@ -1,6 +1,5 @@
 package com.huhx0015.dragonalchenomicon.view.adapters;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -43,7 +42,7 @@ public class IngredientPickerDialogAdapter extends RecyclerView.Adapter<Ingredie
                                          IngredientPickerAdapterListener listener) {
         this.mListener = listener;
         setPresenter(new IngredientPickerAdapterPresenter(this)); // Sets the presenter for this adapter.
-        mPresenter.setIngredientList(ingredientList);
+        mPresenter.getRepository().setIngredientList(ingredientList);
     }
 
     /** ADAPTER METHODS ________________________________________________________________________ **/
@@ -51,12 +50,7 @@ public class IngredientPickerDialogAdapter extends RecyclerView.Adapter<Ingredie
     @Override
     public IngredientPickerDialogAdapter.IngredientPickerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_ingredient_list, parent, false);
-        return new IngredientPickerDialogAdapter.IngredientPickerViewHolder(view, new IngredientPickerViewHolder.IngredientPickerClickListener() {
-            @Override
-            public void onIngredientClicked(View view, int position) {
-                mPresenter.onIngredientClicked(position);
-            }
-        });
+        return new IngredientPickerDialogAdapter.IngredientPickerViewHolder(view, (view1, position) -> mPresenter.onIngredientClicked(position));
     }
 
     @Override
@@ -71,7 +65,7 @@ public class IngredientPickerDialogAdapter extends RecyclerView.Adapter<Ingredie
 
     @Override
     public int getItemCount() {
-        return mPresenter.getIngredientCount();
+        return mPresenter.getRepository().getIngredientCount();
     }
 
     @Override

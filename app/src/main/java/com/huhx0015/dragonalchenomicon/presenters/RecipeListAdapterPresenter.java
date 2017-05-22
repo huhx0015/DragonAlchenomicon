@@ -8,9 +8,7 @@ import com.huhx0015.dragonalchenomicon.view.adapters.RecipeListAdapter;
 import com.huhx0015.dragonalchenomicon.application.AlchenomiconApplication;
 import com.huhx0015.dragonalchenomicon.model.contracts.RecipeListAdapterContract;
 import com.huhx0015.dragonalchenomicon.model.repositories.RecipeListAdapterRepository;
-import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
 import com.huhx0015.dragonalchenomicon.utils.AlchenomiconImageUtils;
-import java.util.List;
 import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -58,13 +56,8 @@ public class RecipeListAdapterPresenter implements RecipeListAdapterContract.Pre
     }
 
     @Override
-    public int getRecipeCount() {
-        return mRepository.getRecipeCount();
-    }
-
-    @Override
-    public void setRecipeList(List<AlchenomiconRecipe> recipeList) {
-        mRepository.setRecipeList(recipeList);
+    public RecipeListAdapterRepository getRepository() {
+        return mRepository;
     }
 
     @Override

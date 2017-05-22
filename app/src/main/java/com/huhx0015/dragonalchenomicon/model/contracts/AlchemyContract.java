@@ -1,5 +1,6 @@
 package com.huhx0015.dragonalchenomicon.model.contracts;
 
+import com.huhx0015.dragonalchenomicon.model.repositories.AlchemyRepository;
 import com.huhx0015.dragonalchenomicon.presenters.BasePresenter;
 import com.huhx0015.dragonalchenomicon.view.base.BaseView;
 import com.huhx0015.dragonalchenomicon.model.objects.AlchenomiconRecipe;
@@ -43,25 +44,17 @@ public interface AlchemyContract {
     // as user actions, this is where the business logic for the app is defined.
     interface Presenter extends BasePresenter {
 
-        HashSet<String> getIngredientList();
+        AlchemyRepository getRepository();
 
-        void setIngredientList(HashSet<String> ingredientList);
+        void onIngredientButtonClicked(int buttonId);
 
-        String getSelectedIngredient(int buttonId);
-
-        String[] getSelectedIngredientList();
-
-        List<AlchenomiconRecipe> getRecipeResults();
+        void onClearButtonClicked();
 
         void setSelectedIngredient(String ingredient, int buttonId);
 
         void setSelectedIngredientList(String[] ingredientList);
 
         void setRecipeResults(List<AlchenomiconRecipe> recipeResults);
-
-        void onIngredientButtonClicked(int buttonId);
-
-        void onClearButtonClicked();
 
     }
 

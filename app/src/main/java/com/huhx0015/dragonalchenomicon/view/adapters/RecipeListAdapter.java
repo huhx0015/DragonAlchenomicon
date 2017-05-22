@@ -1,6 +1,5 @@
 package com.huhx0015.dragonalchenomicon.view.adapters;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -38,7 +37,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     public RecipeListAdapter(List<AlchenomiconRecipe> recipeList) {
         setPresenter(new RecipeListAdapterPresenter(this)); // Sets the presenter for this adapter.
-        mPresenter.setRecipeList(recipeList);
+        mPresenter.getRepository().setRecipeList(recipeList);
     }
 
     /** ADAPTER METHODS ________________________________________________________________________ **/
@@ -61,7 +60,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     @Override
     public int getItemCount() {
-        return mPresenter.getRecipeCount();
+        return mPresenter.getRepository().getRecipeCount();
     }
 
     @Override
