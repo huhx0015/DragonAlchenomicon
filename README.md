@@ -19,7 +19,7 @@ Icons Ripped By: quasi_stomach
 ### Libraries
 
 * Android SQLiteAssetHelper: https://github.com/jgilfelt/android-sqlite-asset-helper
-* Butter Knife: http://jakewharton.github.io/butterknife/
+* ButterKnife: http://jakewharton.github.io/butterknife/
 * Dagger 2: https://github.com/google/dagger
 * Glide: https://github.com/bumptech/glide
 * LeakCanary: https://github.com/square/leakcanary
