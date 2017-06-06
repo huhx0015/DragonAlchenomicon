@@ -111,6 +111,7 @@ public class IngredientPickerDialog extends BottomSheetDialogFragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mRecyclerView.setAdapter(null);
         mUnbinder.unbind();
     }
 

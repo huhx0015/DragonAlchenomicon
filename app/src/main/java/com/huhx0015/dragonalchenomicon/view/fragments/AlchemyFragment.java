@@ -122,6 +122,7 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mRecyclerView.setAdapter(null);
         mUnbinder.unbind();
     }
 
