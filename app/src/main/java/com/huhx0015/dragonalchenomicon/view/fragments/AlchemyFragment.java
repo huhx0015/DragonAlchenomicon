@@ -120,8 +120,8 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         mRecyclerView.setAdapter(null);
         mUnbinder.unbind();
     }

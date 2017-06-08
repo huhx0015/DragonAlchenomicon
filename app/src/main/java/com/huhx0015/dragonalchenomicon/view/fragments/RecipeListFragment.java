@@ -91,8 +91,8 @@ public class RecipeListFragment extends Fragment implements RecipeListContract.V
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         mRecyclerView.setAdapter(null);
         mUnbinder.unbind();
     }
