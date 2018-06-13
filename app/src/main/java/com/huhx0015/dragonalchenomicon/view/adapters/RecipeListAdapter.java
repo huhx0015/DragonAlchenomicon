@@ -2,6 +2,8 @@ package com.huhx0015.dragonalchenomicon.view.adapters;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.huhx0015.dragonalchenomicon.R;
 import com.huhx0015.dragonalchenomicon.constants.AlchenomiconConstants;
 import com.huhx0015.dragonalchenomicon.model.contracts.RecipeListAdapterContract;
@@ -112,14 +114,14 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     @Override
     public void showRecipeImage(int resource, final ImageView view) {
         Glide.with(view.getContext())
-                .load(resource)
                 .asBitmap()
+                .load(resource)
                 .into(new SimpleTarget<Bitmap>(AlchenomiconConstants.ICON_ORIGINAL_SIZE, AlchenomiconConstants.ICON_ORIGINAL_SIZE) {
                     @Override
-                    public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
 
                         // Disables anti-aliasing to maintain pixelation.
-                        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap,
+                        Bitmap scaledBitmap = Bitmap.createScaledBitmap(resource,
                                 AlchenomiconConstants.ICON_UPSCALED_SIZE,
                                 AlchenomiconConstants.ICON_UPSCALED_SIZE, false);
                         view.setImageBitmap(scaledBitmap);

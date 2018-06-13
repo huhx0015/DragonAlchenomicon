@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,8 +20,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.huhx0015.dragonalchenomicon.R;
 import com.huhx0015.dragonalchenomicon.utils.DisplayUtils;
 import com.huhx0015.dragonalchenomicon.view.adapters.RecipeListAdapter;
@@ -280,14 +281,14 @@ public class AlchemyFragment extends Fragment implements AlchemyContract.View, I
         if (selectedIngredientView != null) {
             final ImageView ingredientView = selectedIngredientView;
             Glide.with(getContext())
-                    .load(resource)
                     .asBitmap()
+                    .load(resource)
                     .into(new SimpleTarget<Bitmap>(AlchenomiconConstants.ICON_ORIGINAL_SIZE, AlchenomiconConstants.ICON_ORIGINAL_SIZE) {
                         @Override
-                        public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
 
                             // Disables anti-aliasing to maintain pixelation.
-                            Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap,
+                            Bitmap scaledBitmap = Bitmap.createScaledBitmap(resource,
                                     AlchenomiconConstants.ICON_UPSCALED_SIZE,
                                     AlchenomiconConstants.ICON_UPSCALED_SIZE, false);
                             ingredientView.setImageBitmap(scaledBitmap);
